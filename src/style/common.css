@@ -1,0 +1,16 @@
+body,html{
+	
+	width: 100%;
+	height: 100%;
+}
+li{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+}
+body,html,ul,li,a{
+	margin:0;
+	padding:0;
+	border:0;
+}

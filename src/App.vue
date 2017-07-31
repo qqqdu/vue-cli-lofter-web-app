@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-  <bar></bar>
     <router-view></router-view>
+
   </div>
 </template>
 
 <script>
-import bar from './components/bar.vue';
+
 export default {
   name: 'app',
   components: {
-    bar:bar
+
   }
 }
 </script>
