@@ -1,81 +1,63 @@
 <template>
-  <div class="footer">
-    <ul :page='initPage()'>
+  <div class="header">
+    <ul>
       <li v-for='(item, key, index) in arr' v-on:click='gotoPage'>
-          <div v-if="isThree(key)">
-            <img :src="item.imgSrc" />
-            <p>{{item.content}}</p>
-          </div>
-          <div v-else>
-            <span class="publish"></span>
-          </div>
+            <span class="publish">{{item.content}}</span>
       </li>
-        
     </ul>
   </div>
 </template>
 
 <script>
-  import {mapState,mapMutations} from 'vuex';
 export default {
-  name: 'el-footer',
+  name: 'el-header',
   data () {
     return {
       __root:'../../assets',
+      chooseIndex : 0,
+      barType : [
+          '旅行',
+          '摄影',
+          '音乐',
+          '设计',
+          '女神',
+          '运动',
+          '电影',
+          '娱乐',
+          '穿搭'     
+      ],
       arr : [{
         content : "首页",
-        src : 'home',
-        imgSrc : require('../../assets/home.png'),
-        unChoose : require('../../assets/home.png'),
-        chooseSrc : require('../../assets/home0.png')
+        src : 'home'
       },{ 
         content : "发现",  
-        src : 'discovery',
-        imgSrc : require('../../assets/scan2.png'),
-        unChoose : require('../../assets/scan2.png'),
-        chooseSrc : require('../../assets/scan0.png')
+        src : 'discovery'
       },{
         content : "发表",
         src : 'publish',
         imgSrc : ''
       },{
         content : "消息",
-        src : 'news',
-        imgSrc :  require('../../assets/notification.png'),
-        unChoose : require('../../assets/notification.png'),
-        chooseSrc : require('../../assets/notification0.png')
+        src : 'news'
       },{
         content : "我的",
-        src : 'mine',
-        imgSrc :  require('../../assets/person2.png'),
-        unChoose : require('../../assets/person2.png'),
-        chooseSrc : require('../../assets/person0.png')
+        src : 'mine'
       }]
     }
   },
-  computed : {
-    ...mapState(['nowPage'])
-  },
   methods : {
-    ...mapMutations(['GOTOPAGE']),
     gotoPage (ev){
-      let aLi = document.querySelectorAll('.footer li');
+      let aLi = document.querySelectorAll('li');
       let index = [].indexOf.call(aLi,ev.currentTarget);
       this.$router.push(this.arr[index].src);
-      if(this.nowPage===index) //如果下标未改变
+      if(this.chooseIndex===index) //如果下标未改变
         return;
       this.arr[index].imgSrc = this.arr[index].chooseSrc;  //改变按钮状态
-      this.arr[this.nowPage].imgSrc = this.arr[this.nowPage].unChoose;
-      this.GOTOPAGE(index);
-
+      this.arr[this.chooseIndex].imgSrc = this.arr[this.chooseIndex].unChoose;
+      this.chooseIndex = index;
     },
     isThree (index){
       return index!==2
-    },
-    initPage (){
-      
-      this.arr[this.nowPage].imgSrc = this.arr[this.nowPage].chooseSrc
-      return;
     }
   }
 }
@@ -99,7 +81,7 @@ ul{
   text-align: center;
   background:#fefefe;
   position: fixed;
-  bottom: 0;
+  top: 0;
   left: 0;
 }
 ul li {
@@ -109,7 +91,6 @@ ul li {
   float: left;
   position: relative;
   font-size: .7rem;
-  background:white;
 } 
 img{
   width: 32px;

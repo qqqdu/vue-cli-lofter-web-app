@@ -7,13 +7,24 @@ import common from '../style/common.css'
 
 
 //组件
-import home from '@/components/home'  
+ 
 import album from '@/components/album'  
 import pptList from '@/components/pptList'
 import writing from '@/components/writing'
 import article from '@/components/article'
 import text from '@/components/text'
+
 import footer from '@/components/footer/footer'
+
+
+//主页分页  home discovery publish news mine
+import home from '@/components/home/home'
+
+import discovery from '@/components/discovery/discovery'
+import publish from '@/components/publish/publish' 
+import news from '@/components/news/news'  
+import mine from '@/components/mine/mine'  
+
 Vue.use(VueRouter)
 
 /* eslint-disable no-new */
@@ -24,6 +35,10 @@ const router = new VueRouter({
     routes: [
         { path: '/', name: '/', component: home },
         { path: '/home', name: '/home', component: home },
+        { path: '/discovery', name: '/discovery', component: discovery },
+        { path: '/publish', name: '/publish', component: publish },
+        { path: '/news', name: '/news', component: news },
+        { path: '/mine', name: '/mine', component: mine },
         { path: '/album', name: 'album', component: album },
         { path: '/pptList', name: 'pptList', component: pptList },
         { path: '/writing', name: 'writing', component: writing },

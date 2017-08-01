@@ -1,35 +1,19 @@
 <template>
   <div class="home">
-      <ul>
-          <li v-for='item in listObj'>
-              <a :href="item.src"><h2>{{item.title}}<span>类型:{{item.type}}</span></h2></a>
-              <p> 
-                <span>{{item.author}}</span>
-                <a href="javascript:;">赞:({{item.agree}})</a>
-                <a href="javascript:;">不赞({{item.reject}})</a>
-                <time>{{item.publish}}</time>
-              </p>
-          </li>
-      </ul>
+      <el-footer></el-footer>
   </div>
 </template>
 
 <script>
-
+import elfooter from '../footer/footer'
 export default {
   name : 'home',
+  components : {
+    "el-footer" : elfooter
+  },
   data () {
     return {
-      listObj : [{
-        title : '这是标题1',
-        publish : '2017/07/24',
-        author : 'Davide',
-        agree : 12,
-        reject : 23,
-        look : 233,
-        src : '/article',
-        type : '文章'
-      }]
+      
     }
   }
 }

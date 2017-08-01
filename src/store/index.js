@@ -14,13 +14,10 @@ const state = {
 */
 export default new Vuex.Store({
 	state : {
-		count : [{
-			name : 'xiaoqiang',
-			done : true
-		},{
-			name : 'xiaohong',
-			done : false
-		}]
+		nowPage : 0,
+		discovery : {
+			nowPage : 0
+		}
 	},
 	getters,
 	mutations,

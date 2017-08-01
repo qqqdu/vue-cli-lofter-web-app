@@ -1,7 +1,7 @@
 <template>
   <div class="pptList">
      <a href="javascript:;" v-on:click='ckFn'>点击</a>
-    <p v-bind='count'>{{doneObj}}</p>
+    <p v-bind='count'></p>
   </div>
 </template>
 <script>
