@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
 import App from '../App'
 //css
 import common from '../style/common.css'
@@ -19,14 +18,19 @@ import footer from '@/components/footer/footer'
 
 //主页分页  home discovery publish news mine
 import home from '@/components/home/home'
-
 import discovery from '@/components/discovery/discovery'
 import publish from '@/components/publish/publish' 
 import news from '@/components/news/news'  
 import mine from '@/components/mine/mine'  
 
-Vue.use(VueRouter)
 
+import AlloyFinger from 'alloyfinger/alloy_finger' // 手势库
+
+import AlloyFingerVue from 'alloyfinger/vue/alloy_finger.vue'
+Vue.use(AlloyFingerVue, {
+  AlloyFinger
+})
+Vue.use(VueRouter)
 /* eslint-disable no-new */
 console.log(footer)
 const router = new VueRouter({
