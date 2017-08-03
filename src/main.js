@@ -1,9 +1,10 @@
 import Vue from 'vue'
+import rem from './rem/rem'
 import App from './App'
 import store from './store'
 import Vuex from 'vuex'
 import router from './router'
-import rem from './rem/rem'
+
 
 
 new Vue({

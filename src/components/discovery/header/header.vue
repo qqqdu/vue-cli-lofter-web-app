@@ -8,9 +8,10 @@
            v-finger:touch-start="touchStart"
            v-finger:touch-move="touchMove"
            v-finger:touch-end="touchEnd"
-
            >
         <a href="javascript:;" v-for='(item, key, index) in barType' v-finger:touch-end='gotoPage'>{{item}}</a>
+        <span class="after"></span>
+        <span class="before"></span>
       </div>
     </div>
     <div class="dropDown">
@@ -34,6 +35,12 @@ export default {
       list : {
         el : null,
         width : null
+      },
+      shade : {
+        el : null,
+        el2 : null,
+        width : 0,
+        width2 : 0 
       },
       scroll_x : 0,
       lockRoll : true,
@@ -78,7 +85,6 @@ export default {
 
     },
     touchStart : function(ev){
-      this.time = new Date();
       if(!this.scroll.el){
         this.scroll.el = document.querySelectorAll('.scroll')[0];
         this.scroll.width = this.scroll.el.clientWidth;
@@ -87,56 +93,87 @@ export default {
         this.list.el = document.querySelectorAll('.list')[0];
         this.list.width = this.list.el.clientWidth;
       }
-
+      if(!this.shade.el){
+        this.shade.el = document.querySelectorAll('.scroll .after')[0];
+        this.shade.width = 0;
+      }
+      if(!this.shade.el2){
+        this.shade.el2 = document.querySelectorAll('.scroll .before')[0];
+        this.shade.width2 = 0;
+      }
+      removeClass(this.scroll.el,'transition');
+      removeClass(this.shade.el,'transition');
     },
     touchMove: function(ev) {
-      this.directly = ev.deltaX; //记录方向
+      this.directly = ev.deltaX; //记录距离方向
       if(this.lockRoll) 
         this.lockRoll = false;
-      this.scroll_x+=ev.deltaX;
-      if(this.checkHit())
+      this.scroll_x+=this.directly;
+      if(this.checkHit()){
+        if(this.directly>0){
+            this.shade.width += this.directly;  //到头之后阴影部分椭圆
+            if(this.shade.width>=15){
+              this.shade.width = 15;
+            }
+            this.shade.el.style.width = this.shade.width+'px';
+          }
+        else{
+            this.shade.width2 += -this.directly;  //到头之后阴影部分椭圆
+            if(this.shade.width2>=15){
+              this.shade.width2 = 15;
+            }
+            this.shade.el2.style.width = this.shade.width2+'px';
+        } // if end...
         return;
+      }
       this.scroll.el.style.left = this.scroll_x+'px';
     },
     touchEnd : function(ev){
+      var dis,
+          symbol;
       this.lockRoll = true;
-      this.time = this.time-new Date();
-      console.log(this.time,this.scroll_x,this.directly)
-      if(Math.abs(this.time)<=300){  //300 ms之内
-          if(Math.abs(this.scroll_x)>=300)  // px >300
-          {
-             if(this.directly>0){
-                this.scroll.el.style.left = '0px';  
-                this.scroll_x = 0;
-             }else{
-                this.scroll.el.style.left = -(this.scroll.width-this.list.width)+'px';
-                this.scroll_x = -(this.scroll.width-this.list.width);
-             }
-          }
-          return;
+      addClass(this.scroll.el,'transition');
+      //初始化阴影
+      addClass(this.shade.el,'transition');
+      this.shade.el.style.width = 0;
+      this.shade.width = 0;
+
+      symbol = (this.directly>0)?1:-1;
+      console.log(this.directly)
+      
+      if(Math.abs(this.directly)>40){
+        if(this.directly>0){
+            this.scroll.el.style.left = '0px';  
+            this.scroll_x = 0;
+         }else{
+            this.scroll.el.style.left = -(this.scroll.width-this.list.width)+'px';
+            this.scroll_x = -(this.scroll.width-this.list.width);
+         }
+        return;
       }
       
-      if(Math.abs(this.time)<=500){  //500 ms之内
-          if(Math.abs(this.scroll_x)>=100)  // px >300
-          {
-             var dis= (this.scroll.width-this.list.width)*0.3;
-             if(this.directly>0){
-                  
-                this.scroll_x += dis;
-             }else{
-               
-                this.scroll_x -= dis;
-             }
-             if(this.checkHit())
-                  return
-             console.log('hit');
-             this.scroll.el.style.left =this.scroll_x+'px';
-          }
+      if(Math.abs(this.directly)>20){
+        this.scroll_x += symbol*(this.scroll.width-this.list.width)*0.3;
+        if(this.checkHit())
+          return;
+        this.scroll.el.style.left =this.scroll_x+'px';
+        return;
+      }
+      if(Math.abs(this.directly)>10){
+        linerFun(0.1,this);
+        return;
+      }
+      if(Math.abs(this.directly)>5){
+          linerFun(0.05,this);
+          return;
+      } 
+      function linerFun(timers,that){
+          that.scroll_x += symbol*(that.scroll.width-that.list.width)*timers;
+          if(that.checkHit())
+            return;
+          that.scroll.el.style.left =that.scroll_x+'px';
           return;
       }
-      
-
-
     },
     getStyle : function(obj,look){
       return window.getComputedStyle(obj, null).style[look];
@@ -155,6 +192,26 @@ export default {
     }
   }
 }
+function addClass(ele, cls) {
+  if (!hasClass(ele, cls)) {
+    ele.className = ele.className == '' ? cls : ele.className + ' ' + cls;
+  }
+}
+ 
+function removeClass(ele, cls) {
+  if (hasClass(ele, cls)) {
+    var newClass = ' ' + ele.className.replace(/[\t\r\n]/g, '') + ' ';
+    while (newClass.indexOf(' ' + cls + ' ') >= 0) {
+      newClass = newClass.replace(' ' + cls + ' ', ' ');
+    }
+    ele.className = newClass.replace(/^\s+|\s+$/g, '');
+  }
+}
+function hasClass(ele, cls) {
+  cls = cls || '';
+  if (cls.replace(/\s/g, '').length == 0) return false; //当cls没有参数时，返回false
+  return new RegExp(' ' + cls + ' ').test(' ' + ele.className + ' ');
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -164,6 +221,10 @@ export default {
 @height : 3rem;
 @width: 16rem;
 @lnHeight : 48px;
+.transition{
+  transition:1.5s;
+}
+
 .psCenter{
    position: absolute;
    top: 50%;
@@ -180,6 +241,8 @@ export default {
   word-wrap: normal;
   float: left;
   overflow: hidden;
+  left: .5rem;
+  position: relative;
 }
 .scroll{
 
@@ -189,7 +252,33 @@ export default {
   position: relative;
   white-space:nowrap;
   overflow-x: hidden;
-  transition:1s;
+  
+}
+ .child{
+   display: block;
+   width: 0;
+   height: 3rem;
+   background: rgb(179, 179, 179);
+   position: absolute;
+   top: 50%;
+   margin-top: -1.5rem;
+   border-radius: 50%;
+}
+.scroll .after{
+   .child;
+   left: -.5rem;
+   border-bottom-right-radius: 50%;
+   border-top-right-radius: 50%;
+   
+}
+.scroll .before{
+  .child;
+  right:-.5rem;
+  border-bottom-left-radius: 50%;
+  border-top-left-radius: 50%;
+}
+.scroll:before{
+
 }
 .list a {
   display: inline-block;
@@ -213,7 +302,6 @@ export default {
   top: 0;
   background: -webkit-linear-gradient(left,rgba(255,255,255,0) 0%,rgba(255,255,255,1) 40%);
   line-height: @lnHeight;
-
 }
 .icon(){
   width: 32px;
@@ -235,8 +323,6 @@ export default {
 .gradient(@gradient:linear-gradient(left,rgba(255,255,255,0) 0%,rgba(255,255,255,1) 40%)){
   background:-webkit-;
 }
-
-
 p{
   display: inline;
 }
