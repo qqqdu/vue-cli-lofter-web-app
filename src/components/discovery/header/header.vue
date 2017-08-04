@@ -103,6 +103,7 @@ export default {
       }
       removeClass(this.scroll.el,'transition');
       removeClass(this.shade.el,'transition');
+      removeClass(this.shade.el2,'transition');
     },
     touchMove: function(ev) {
       this.directly = ev.deltaX; //记录距离方向
@@ -135,9 +136,11 @@ export default {
       addClass(this.scroll.el,'transition');
       //初始化阴影
       addClass(this.shade.el,'transition');
+      addClass(this.shade.el2,'transition');
       this.shade.el.style.width = 0;
       this.shade.width = 0;
-
+      this.shade.el2.style.width = 0;
+      this.shade.width2 = 0;
       symbol = (this.directly>0)?1:-1;
       console.log(this.directly)
       
@@ -184,9 +187,9 @@ export default {
         this.scroll_x = 0;
         return true;
       }
-      if(Math.abs(this.scroll_x)>(this.scroll.width-this.list.width)){
-        this.scroll.el.style.left = -(this.scroll.width-this.list.width)+'px';
-        this.scroll_x = -(this.scroll.width-this.list.width);
+      if(Math.abs(this.scroll_x)>(this.scroll.width-this.list.width)+30){
+        this.scroll.el.style.left = -(this.scroll.width-this.list.width+30)+'px';
+        this.scroll_x = -(this.scroll.width-this.list.width+30);
         return true;
       }
     }
