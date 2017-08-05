@@ -8,5 +8,12 @@ export default {
 	},
 	GOTODISCOVER : (state,page)=>{
 		state.discovery.nowPage = page;
+	},
+	GETBODYHEIGHT : state=>{
+//		let footer = document.querySelector('.footer').offsetHeight;
+//		let header = document.querySelector('.header').offsetHeight;
+		console.log(document.querySelector('.header'))
+		state.page.bodyHeight = document.body.offsetHeight - footer -header; 
+		console.log(state.page.bodyHeight)
 	}
 }

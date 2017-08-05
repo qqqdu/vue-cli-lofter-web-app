@@ -15,7 +15,6 @@ body,html,ul,li,a{
 	border:0;
 }
 html body{
-	padding:3rem 0 3rem;
 	box-sizing: border-box;
 	overflow-y:auto;
 	overflow-x:hidden;
@@ -38,6 +37,8 @@ a{
 	top: 0;
 	left: 0;
 	background: white;
+	border-bottom: 1px solid rgb(220, 220, 220);
+	box-sizing: border-box;
 }
 .footer{
 	background:white;

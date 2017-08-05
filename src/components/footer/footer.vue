@@ -112,8 +112,8 @@ ul li {
   background:white;
 } 
 img{
-  width: 32px;
-  height: 32px;
+  width: 1.5rem;
+  height: 1.5rem;
   display: block;
   margin: 0 auto;
 

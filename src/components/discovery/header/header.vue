@@ -224,6 +224,7 @@ function hasClass(ele, cls) {
 @height : 3rem;
 @width: 16rem;
 @lnHeight : 48px;
+
 .transition{
   transition:1.5s;
 }
@@ -299,7 +300,7 @@ function hasClass(ele, cls) {
 .dropDown{
   width: 4rem;
   float: left;
-  height: @height;
+  height: 2.9rem;
   position: absolute;
   right: 0px;
   top: 0;

@@ -15,6 +15,9 @@ const state = {
 export default new Vuex.Store({
 	state : {
 		nowPage : 0,
+		page : {
+			bodyHeight: null
+		},
 		discovery : {
 			nowPage : 0
 		}
