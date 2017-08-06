@@ -1,9 +1,9 @@
 <template>
-  <div class="recommend" v-finger:touch-start="touchStart">
+  <div class="recommend" v-on:touchstart="touchStart">
     <ul>
       <li v-for='(item,key,index) in userImg'>
           <div class="imgMax">
-              <img src="../../../assets/user/IMG_20160716_131527.jpg" class="icon">
+              <img src="../../../assets/user/IMG_20160710_201616.jpg" class="icon">
           </div>
           <div class="moveTitle">
               <span class="line">作者：杜浩</span>
@@ -21,14 +21,26 @@ export default {
   data () {
     return {
       __root:'../../assets',
+      initLock : true,
       chooseIndex : 0,
-      contain : {
+      list : {
+        el : null,
         h : null   //height
       },
-      list : {
+      moveTitle : {
+        el : null,
+        maxMove : 0,
+        h : null,
+        moveObj : []
+      },
+      body : {
+        el : null,
         h : null
       },
+      maxElNm : 0,  //最大可展示的图片节点
+      scrollLast : 0,
       directly : 0,
+      moveArr : [],
       num : 0,
       barType : [
           '推荐',
@@ -83,21 +95,83 @@ export default {
 
     },
     touchStart : function(ev){
-      this.$emit("rollMything",this.rollMove);
+      if(!this.initLock)  //had init
+        return false;
+      this.initLock = false;
+      //init
+      this.list.el = document.querySelectorAll('.recommend ul li')[0] 
+      this.list.h = this.list.el.offsetHeight
+      this.moveTitle.el = document.querySelectorAll('.recommend .moveTitle')[0]
+      this.moveTitle.h = this.moveTitle.el.offsetHeight
+      this.body.el = document.querySelectorAll('.body')[0]
+      this.body.h = this.body.el.offsetHeight
+      this.maxElNm = Math.floor(this.body.h/this.list.h)
+      /*初始化加载现有节点动画*/
+      for(let i =0;i<this.maxElNm;i++){
+        addClass(document.querySelectorAll('.recommend .moveTitle')[i],'moveTitles');
+      }
+      /*触发父元素事件*/
+      this.$emit("rollMything",this.rollMove)
     },
     rollMove: function(ev) {
-     let directly = ev.deltaY; //记录距离方向
-     let recommend = document.querySelectorAll('.body')[0].scrollTop;
-     if(this.directly>0)
-        this.num-= 1;
-      else if(this.directly<0)
-        this.num+= 1;
-      else{
+      let nowLast = document.querySelectorAll('.body')[0].scrollTop
+      let listTop = this.list.h - this.moveTitle.h // 列表的上半部分高度
+      let allBody = nowLast + this.body.h; //屏幕的宽度+滚动宽度
+      let alreadyNum = Math.floor(allBody/this.list.h)
+      let firstElIndex = alreadyNum-this.maxElNm;
+      let add = nowLast-this.scrollLast
+      console.log(add)
+      if(add>0){
 
+          if(this.moveArr.length!=0&&(firstElIndex!=this.moveArr[0])){  //最老的节点删除动画
+                let el = document.querySelectorAll('.recommend .moveTitle')[firstElIndex-1]
+                removeClass(el,'moveTitles');
+          }
+          
+          if(allBody-alreadyNum*this.list.h>=(this.list.h-this.moveTitle.h))  //下拉时，开始移动 
+          {
+                let el = document.querySelectorAll('.recommend .moveTitle')[alreadyNum]
+                addClass(el,'moveTitles');
+
+          }
+          this.num=-.5;
       }
-     document.querySelectorAll('.moveTitle')[1].style.bottom = this.num + 'px';
-     //let top = recommend.documentElement.scrollTop;
-     // console.log(recommend.scrollTop)
+      else{
+          if(nowLast<=(alreadyNum-1)*this.list.h)  //上拉时，开始移动
+          {
+            if(firstElIndex-1>=0){
+              let el = document.querySelectorAll('.recommend .moveTitle')[firstElIndex-1]
+              addClass(el,'moveTitles');
+            }
+         
+          }
+          this.num=.5;
+      }
+      this.scrollLast = nowLast 
+      this.moveTitles();
+      for(let i =0;i<this.maxElNm;i++){
+          this.moveArr[i] = alreadyNum-this.maxElNm+i;
+      }
+    },
+    moveTitles : function(){
+        let els = document.querySelectorAll('.recommend .moveTitles');
+        let that = this;
+        Array.prototype.map.call(els,function(el){
+          let stateY = el.style.transform;
+          
+          if(stateY){
+            stateY = stateY.split('(')[1].split(',')[1];
+            stateY = stateY.substr(0,stateY.length-2);
+            stateY = parseFloat(stateY)
+          }
+          stateY+=that.num
+          if(-stateY>that.moveTitle.h){
+              stateY = -that.moveTitle.h
+          }
+          if(-stateY<0)
+            stateY = 0
+          el.style.transform = 'translate3d(0px ,'+stateY+'px,0px)'
+        })
     },
     touchEnd : function(ev){
 
@@ -107,7 +181,26 @@ export default {
     }
   }
 }
-
+function addClass(ele, cls) {
+  if (!hasClass(ele, cls)) {
+    ele.className = ele.className == '' ? cls : ele.className + ' ' + cls;
+  }
+}
+ 
+function removeClass(ele, cls) {
+  if (hasClass(ele, cls)) {
+    var newClass = ' ' + ele.className.replace(/[\t\r\n]/g, '') + ' ';
+    while (newClass.indexOf(' ' + cls + ' ') >= 0) {
+      newClass = newClass.replace(' ' + cls + ' ', ' ');
+    }
+    ele.className = newClass.replace(/^\s+|\s+$/g, '');
+  }
+}
+function hasClass(ele, cls) {
+  cls = cls || '';
+  if (cls.replace(/\s/g, '').length == 0) return false; //当cls没有参数时，返回false
+  return new RegExp(' ' + cls + ' ').test(' ' + ele.className + ' ');
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -136,22 +229,22 @@ li{
 }
 .imgMax{
   width: 100%;
-  height: 11.5rem;
+  height: 13.5rem;
   overflow: hidden;
   position: relative;
-  top: -32px;
+  top: -4rem;
 }
 img{
   width: 100%;
   display: block;
   margin:0 auto;
   vertical-align: middle;
-  /*
+
   transform:translate(-50%,-50%);
   position: absolute;
   left: 50%;
   top: 50%;
-  */
+  
 }
 .moveTitle{
   position: absolute;
