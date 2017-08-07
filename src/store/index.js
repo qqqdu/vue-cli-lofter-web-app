@@ -14,16 +14,44 @@ const state = {
 */
 export default new Vuex.Store({
 	state : {
-		nowPage : 0,
+		nowPage : 1,
 		page : {
 			bodyHeight: null
 		},
 		discovery : {
 			nowPage : 0
-		}
+		},
+		arr : [{
+		    content : "首页",
+		    src : 'home',
+		    imgSrc : require('../assets/home.png'),
+		    unChoose : require('../assets/home.png'),
+		    chooseSrc : require('../assets/home0.png')
+		  },{ 
+		    content : "发现",  
+		    src : 'discovery',
+		    imgSrc : require('../assets/scan2.png'),
+		    unChoose : require('../assets/scan2.png'),
+		    chooseSrc : require('../assets/scan0.png')
+		  },{
+		    content : "发表",
+		    src : 'publish',
+		    imgSrc : ''
+		  },{
+		    content : "消息",
+		    src : 'news',
+		    imgSrc :  require('../assets/notification.png'),
+		    unChoose : require('../assets/notification.png'),
+		    chooseSrc : require('../assets/notification0.png')
+		  },{
+		    content : "我的",
+		    src : 'mine',
+		    imgSrc :  require('../assets/person2.png'),
+		    unChoose : require('../assets/person2.png'),
+		    chooseSrc : require('../assets/person0.png')
+		  }]
 	},
 	getters,
 	mutations,
 	actions 
 })
-1233 

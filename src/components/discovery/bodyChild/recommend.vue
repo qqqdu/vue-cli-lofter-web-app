@@ -120,32 +120,48 @@ export default {
       let alreadyNum = Math.floor(allBody/this.list.h)
       let firstElIndex = alreadyNum-this.maxElNm;
       let add = nowLast-this.scrollLast
-      console.log(add)
+
       if(add>0){
 
           if(this.moveArr.length!=0&&(firstElIndex!=this.moveArr[0])){  //最老的节点删除动画
                 let el = document.querySelectorAll('.recommend .moveTitle')[firstElIndex-1]
-                removeClass(el,'moveTitles');
-          }
-          
-          if(allBody-alreadyNum*this.list.h>=(this.list.h-this.moveTitle.h))  //下拉时，开始移动 
-          {
-                let el = document.querySelectorAll('.recommend .moveTitle')[alreadyNum]
-                addClass(el,'moveTitles');
+              //  removeClass(el,'moveTitles');
 
           }
-          this.num=-.5;
+          
+          if(allBody-alreadyNum*this.list.h>=(this.list.h-this.moveTitle.h))  //下滑时，开始移动 
+          {
+                let el = document.querySelectorAll('.recommend .moveTitle')[alreadyNum]
+                el.style.transform = 'translate3d(0px ,0.5px,0px)'
+                addClass(el,'moveTitles');
+                
+          }
+          this.num=-.3;
       }
       else{
-          if(nowLast<=(alreadyNum-1)*this.list.h)  //上拉时，开始移动
+          if(nowLast<=(alreadyNum-1)*this.list.h)  //上滑时，开始移动
           {
-            if(firstElIndex-1>=0){
-              let el = document.querySelectorAll('.recommend .moveTitle')[firstElIndex-1]
+
+            if(firstElIndex>=0){
+              let el = document.querySelectorAll('.recommend .moveTitle')[firstElIndex]
+              el.style.transform = 'translate3d(0px ,-0.5px,0px)'
               addClass(el,'moveTitles');
+           
             }
-         
+           // console.log(alreadyNum)
+
+            // if(allBody-alreadyNum*this.list.h-this.list.h-this.moveTitle.h>10){
+            //   let el = document.querySelectorAll('.recommend .moveTitle')[this.moveArr[this.moveArr.length-1]+1]
+            //   removeClass(el,'moveTitles');
+            //   console.log(this.moveArr[this.moveArr.length-1]+1)
+            // }
+
+            // let lastEl = document.querySelectorAll('.recommend .moveTitle')[alreadyNum]
+            // if(this.getTranslate(lastEl.style.transform)==0)
+            //   removeClass(lastEl,'moveTitles');
+            
           }
-          this.num=.5;
+          this.num=.3;
       }
       this.scrollLast = nowLast 
       this.moveTitles();
@@ -158,23 +174,30 @@ export default {
         let that = this;
         Array.prototype.map.call(els,function(el){
           let stateY = el.style.transform;
-          
+          console.log(stateY)
           if(stateY){
-            stateY = stateY.split('(')[1].split(',')[1];
-            stateY = stateY.substr(0,stateY.length-2);
-            stateY = parseFloat(stateY)
+           stateY = that.getTranslate(stateY)
           }
           stateY+=that.num
           if(-stateY>that.moveTitle.h){
               stateY = -that.moveTitle.h
+              removeClass(el,'moveTitles')
           }
-          if(-stateY<0)
+          if(-stateY<0){
             stateY = 0
+            removeClass(el,'moveTitles')
+          }
           el.style.transform = 'translate3d(0px ,'+stateY+'px,0px)'
         })
     },
     touchEnd : function(ev){
 
+    },
+    getTranslate : function(stateY){
+        stateY = stateY.split('(')[1].split(',')[1];
+        stateY = stateY.substr(0,stateY.length-2);
+        stateY = parseFloat(stateY)
+        return stateY
     },
     getStyle : function(obj,look){
       return window.getComputedStyle(obj, null).style[look];

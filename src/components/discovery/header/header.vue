@@ -9,7 +9,12 @@
            v-finger:touch-move="touchMove"
            v-finger:touch-end="touchEnd"
            >
-        <a href="javascript:;" v-for='(item, key, index) in barType' v-finger:touch-end='gotoPage'>{{item}}</a>
+        <a href="javascript:;" 
+           v-for='(item, key, index) in barType' 
+           v-finger:touch-end='gotoPage'
+           >
+           {{item}}
+        </a>
         <span class="after"></span>
         <span class="before"></span>
       </div>
@@ -24,6 +29,10 @@
 import {mapState, mapMutations} from 'vuex'
 export default {
   name: 'el-header',
+  mounted (){
+    let el = document.querySelectorAll('.header .list .scroll a')[this.discovery.nowPage]; //初始化加粗
+    addClass(el,'blodA')
+  },
   data () {
     return {
       __root:'../../assets',
@@ -73,11 +82,12 @@ export default {
     gotoPage (ev){
       let aLi = document.querySelectorAll('.header .list .scroll a');
       let index = [].indexOf.call(aLi,ev.currentTarget);
-
       if(!this.lockRoll)
         return;
       if(this.discovery.nowPage===index) //如果下标未改变
         return;
+      removeClass(aLi[this.discovery.nowPage],'blodA')
+      addClass(aLi[index],'blodA')
       this.GOTODISCOVER(index);
       return;
     },
@@ -132,6 +142,8 @@ export default {
     touchEnd : function(ev){
       var dis,
           symbol;
+
+
       this.lockRoll = true;
       addClass(this.scroll.el,'transition');
       //初始化阴影
@@ -142,7 +154,7 @@ export default {
       this.shade.el2.style.width = 0;
       this.shade.width2 = 0;
       symbol = (this.directly>0)?1:-1;
-      console.log(this.directly)
+    //  console.log(this.directly)
       
       if(Math.abs(this.directly)>40){
         if(this.directly>0){
@@ -224,7 +236,10 @@ function hasClass(ele, cls) {
 @height : 3rem;
 @width: 16rem;
 @lnHeight : 48px;
-
+.blodA{
+  font-weight: bold;
+  border-bottom: 2px solid black;
+}
 .transition{
   transition:1.5s;
 }
@@ -258,6 +273,7 @@ function hasClass(ele, cls) {
   overflow-x: hidden;
   
 }
+
  .child{
    display: block;
    width: 0;
@@ -268,6 +284,7 @@ function hasClass(ele, cls) {
    margin-top: -1.5rem;
    border-radius: 50%;
 }
+
 .scroll .after{
    .child;
    left: -.5rem;
@@ -288,7 +305,9 @@ function hasClass(ele, cls) {
   display: inline-block;
   position: relative;
   width: 4rem;
+  height: 100%;
   font-size: 1rem;
+  box-sizing: border-box;
 }
 .search{
   width: 2rem;

@@ -6,8 +6,14 @@
 
 <script>
 import elfooter from '../footer/footer'
+import {mapState,mapMutations} from 'vuex';
 export default {
   name : 'home',
+  created (){
+      console.log(this.nowPage)
+      this.nowPage = 0;
+      console.log(this.nowPage)
+  },
   components : {
     "el-footer" : elfooter
   },
@@ -15,6 +21,9 @@ export default {
     return {
       
     }
+  },
+  computed : {
+     ...mapState(['nowPage'])
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <ul :page='initPage()'>
+    <ul>
       <li v-for='(item, key, index) in arr' v-on:click='gotoPage'>
           <div v-if="isThree(key)">
             <img :src="item.imgSrc" />
@@ -19,42 +19,16 @@
   import {mapState,mapMutations} from 'vuex';
 export default {
   name: 'el-footer',
+  mounted (){
+    this.arr[this.nowPage].imgSrc = this.arr[this.nowPage].chooseSrc
+  },
   data () {
     return {
-      __root:'../../assets',
-      arr : [{
-        content : "首页",
-        src : 'home',
-        imgSrc : require('../../assets/home.png'),
-        unChoose : require('../../assets/home.png'),
-        chooseSrc : require('../../assets/home0.png')
-      },{ 
-        content : "发现",  
-        src : 'discovery',
-        imgSrc : require('../../assets/scan2.png'),
-        unChoose : require('../../assets/scan2.png'),
-        chooseSrc : require('../../assets/scan0.png')
-      },{
-        content : "发表",
-        src : 'publish',
-        imgSrc : ''
-      },{
-        content : "消息",
-        src : 'news',
-        imgSrc :  require('../../assets/notification.png'),
-        unChoose : require('../../assets/notification.png'),
-        chooseSrc : require('../../assets/notification0.png')
-      },{
-        content : "我的",
-        src : 'mine',
-        imgSrc :  require('../../assets/person2.png'),
-        unChoose : require('../../assets/person2.png'),
-        chooseSrc : require('../../assets/person0.png')
-      }]
+      __root:'../../assets'
     }
   },
   computed : {
-    ...mapState(['nowPage'])
+    ...mapState(['nowPage','arr'])
   },
   methods : {
     ...mapMutations(['GOTOPAGE']),
@@ -71,11 +45,6 @@ export default {
     },
     isThree (index){
       return index!==2
-    },
-    initPage (){
-      
-      this.arr[this.nowPage].imgSrc = this.arr[this.nowPage].chooseSrc
-      return;
     }
   }
 }

@@ -10,8 +10,12 @@
 import elHeader from './header/header'
 import elfooter from '../footer/footer'
 import elBody from './body/body'
+import {mapState,mapMutations} from 'vuex';
 export default {
   name : 'discovery',
+  mounted (){
+    this.nowPage = 1;
+  },
   components : {
     "el-footer" : elfooter,
     "el-header" : elHeader,
@@ -21,6 +25,9 @@ export default {
     return {
       
     }
+  },
+  computed : {
+    ...mapState(['nowPage'])
   }
 }
 </script>
