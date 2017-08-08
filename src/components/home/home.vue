@@ -1,21 +1,19 @@
 <template>
   <div class="home">
+      <el-header></el-header>
       <el-footer></el-footer>
   </div>
 </template>
 
 <script>
+import elHeader from './header/header'
 import elfooter from '../footer/footer'
 import {mapState,mapMutations} from 'vuex';
 export default {
   name : 'home',
-  created (){
-      console.log(this.nowPage)
-      this.nowPage = 0;
-      console.log(this.nowPage)
-  },
   components : {
-    "el-footer" : elfooter
+    "el-footer" : elfooter,
+    "el-header" : elHeader
   },
   data () {
     return {
@@ -23,7 +21,7 @@ export default {
     }
   },
   computed : {
-     ...mapState(['nowPage'])
+     ...mapMutations(['GOTOPAGE'])
   }
 }
 </script>

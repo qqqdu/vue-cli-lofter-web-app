@@ -30,7 +30,7 @@ import {mapState, mapMutations} from 'vuex'
 export default {
   name: 'el-header',
   mounted (){
-    let el = document.querySelectorAll('.header .list .scroll a')[this.discovery.nowPage]; //初始化加粗
+    let el = document.querySelectorAll('.discovery .header .list .scroll a')[this.discovery.nowPage]; //初始化加粗
     addClass(el,'blodA')
   },
   data () {
@@ -80,7 +80,7 @@ export default {
   methods : {
     ...mapMutations(['GOTODISCOVER']),
     gotoPage (ev){
-      let aLi = document.querySelectorAll('.header .list .scroll a');
+      let aLi = document.querySelectorAll('.discovery .header .list .scroll a');
       let index = [].indexOf.call(aLi,ev.currentTarget);
       if(!this.lockRoll)
         return;
@@ -96,19 +96,19 @@ export default {
     },
     touchStart : function(ev){
       if(!this.scroll.el){
-        this.scroll.el = document.querySelectorAll('.scroll')[0];
+        this.scroll.el = document.querySelectorAll('.discovery .scroll')[0];
         this.scroll.width = this.scroll.el.clientWidth;
       }
       if(!this.list.el){
-        this.list.el = document.querySelectorAll('.list')[0];
+        this.list.el = document.querySelectorAll('.discovery .list')[0];
         this.list.width = this.list.el.clientWidth;
       }
       if(!this.shade.el){
-        this.shade.el = document.querySelectorAll('.scroll .after')[0];
+        this.shade.el = document.querySelectorAll('.discovery .scroll .after')[0];
         this.shade.width = 0;
       }
       if(!this.shade.el2){
-        this.shade.el2 = document.querySelectorAll('.scroll .before')[0];
+        this.shade.el2 = document.querySelectorAll('.discovery .scroll .before')[0];
         this.shade.width2 = 0;
       }
       removeClass(this.scroll.el,'transition');
@@ -207,26 +207,7 @@ export default {
     }
   }
 }
-function addClass(ele, cls) {
-  if (!hasClass(ele, cls)) {
-    ele.className = ele.className == '' ? cls : ele.className + ' ' + cls;
-  }
-}
- 
-function removeClass(ele, cls) {
-  if (hasClass(ele, cls)) {
-    var newClass = ' ' + ele.className.replace(/[\t\r\n]/g, '') + ' ';
-    while (newClass.indexOf(' ' + cls + ' ') >= 0) {
-      newClass = newClass.replace(' ' + cls + ' ', ' ');
-    }
-    ele.className = newClass.replace(/^\s+|\s+$/g, '');
-  }
-}
-function hasClass(ele, cls) {
-  cls = cls || '';
-  if (cls.replace(/\s/g, '').length == 0) return false; //当cls没有参数时，返回false
-  return new RegExp(' ' + cls + ' ').test(' ' + ele.className + ' ');
-}
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

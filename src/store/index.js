@@ -21,6 +21,12 @@ export default new Vuex.Store({
 		discovery : {
 			nowPage : 0
 		},
+		home : {
+			nowPage : 0
+		},
+		news : {
+			nowPage : 0
+		},
 		arr : [{
 		    content : "首页",
 		    src : 'home',

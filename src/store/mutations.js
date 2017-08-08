@@ -9,6 +9,12 @@ export default {
 	GOTODISCOVER : (state,page)=>{
 		state.discovery.nowPage = page;
 	},
+	GOTOHOME : (state,page)=>{
+		state.home.nowPage = page;
+	},
+	GOTONEWS : (state,page)=>{
+		state.news.nowPage = page;
+	},
 	GETBODYHEIGHT : state=>{
 //		let footer = document.querySelector('.footer').offsetHeight;
 //		let header = document.querySelector('.header').offsetHeight;

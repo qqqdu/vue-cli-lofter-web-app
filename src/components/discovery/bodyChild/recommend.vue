@@ -120,19 +120,19 @@ export default {
       let alreadyNum = Math.floor(allBody/this.list.h)
       let firstElIndex = alreadyNum-this.maxElNm;
       let add = nowLast-this.scrollLast
-
       if(add>0){
 
           if(this.moveArr.length!=0&&(firstElIndex!=this.moveArr[0])){  //最老的节点删除动画
-                let el = document.querySelectorAll('.recommend .moveTitle')[firstElIndex-1]
-              //  removeClass(el,'moveTitles');
-
+                if(firstElIndex>this.maxElNm){
+                  let el = document.querySelectorAll('.recommend .moveTitle')[firstElIndex-1]
+                  removeClass(el,'moveTitles');
+                }
           }
           
           if(allBody-alreadyNum*this.list.h>=(this.list.h-this.moveTitle.h))  //下滑时，开始移动 
           {
                 let el = document.querySelectorAll('.recommend .moveTitle')[alreadyNum]
-                el.style.transform = 'translate3d(0px ,0.5px,0px)'
+           
                 addClass(el,'moveTitles');
                 
           }
@@ -144,7 +144,7 @@ export default {
 
             if(firstElIndex>=0){
               let el = document.querySelectorAll('.recommend .moveTitle')[firstElIndex]
-              el.style.transform = 'translate3d(0px ,-0.5px,0px)'
+             
               addClass(el,'moveTitles');
            
             }
@@ -172,21 +172,21 @@ export default {
     moveTitles : function(){
         let els = document.querySelectorAll('.recommend .moveTitles');
         let that = this;
-        Array.prototype.map.call(els,function(el){
+        Array.prototype.forEach.call(els,function(el,index){
           let stateY = el.style.transform;
-          console.log(stateY)
+
           if(stateY){
            stateY = that.getTranslate(stateY)
           }
           stateY+=that.num
+          /*
           if(-stateY>that.moveTitle.h){
-              stateY = -that.moveTitle.h
-              removeClass(el,'moveTitles')
+            stateY = -that.moveTitle.h
           }
           if(-stateY<0){
-            stateY = 0
-            removeClass(el,'moveTitles')
+              stateY = 0
           }
+          */
           el.style.transform = 'translate3d(0px ,'+stateY+'px,0px)'
         })
     },
@@ -204,26 +204,7 @@ export default {
     }
   }
 }
-function addClass(ele, cls) {
-  if (!hasClass(ele, cls)) {
-    ele.className = ele.className == '' ? cls : ele.className + ' ' + cls;
-  }
-}
- 
-function removeClass(ele, cls) {
-  if (hasClass(ele, cls)) {
-    var newClass = ' ' + ele.className.replace(/[\t\r\n]/g, '') + ' ';
-    while (newClass.indexOf(' ' + cls + ' ') >= 0) {
-      newClass = newClass.replace(' ' + cls + ' ', ' ');
-    }
-    ele.className = newClass.replace(/^\s+|\s+$/g, '');
-  }
-}
-function hasClass(ele, cls) {
-  cls = cls || '';
-  if (cls.replace(/\s/g, '').length == 0) return false; //当cls没有参数时，返回false
-  return new RegExp(' ' + cls + ' ').test(' ' + ele.className + ' ');
-}
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -249,6 +230,7 @@ li{
   text-align: center;
   vertical-align: middle;
   position: relative;
+  background:white;
 }
 .imgMax{
   width: 100%;

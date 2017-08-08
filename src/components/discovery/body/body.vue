@@ -1,7 +1,6 @@
 <template>
   <div class="body"
        v-on:scroll='scroll'
-       v-on:touchend='touchend'
        >
       <el-recommend v-bind:message="message" v-on:rollMything='rollMythings'></el-recommend>
   </div>
@@ -19,30 +18,31 @@ export default {
     return {
       message : null,
       sonBack : null,
-      lockScroll : true,
       scrollLast : 0,
+      throttleTime : null
      }
   },
   computed : {
     ...mapState(['discovery'])
   },
   methods : {
-    ...mapMutations(['GOTODISCOVER','GETBODYHEIGHT']),
+    ...mapMutations([]),
     scroll : function(ev){
       let that = this;
-      
-      if(!this.lockScroll)
-        return;
-      this.lockScroll = false;
-      //setTimeout(function(){
-        that.message= ev;  //滚动参数传递给子组件
-        that.sonBack&&that.sonBack({deltaY:ev});
-        that.lockScroll = true;
-      //},60)
-      
-    },
-    touchend : function(){
-      
+
+          if(that.throttleTime){
+            clearTimeout(that.throttleTime)
+            return;
+            console.log(that.throttleTime)
+          }
+          that.throttleTime = setTimeout(function(){
+                    that.message = ev;  //滚动参数传递给子组件
+                    //that.sonBack&&that.sonBack({deltaY:ev});
+                    console.log(11);
+                    that.throttleTime = null;
+          },120)
+     
+
     },
     rollMythings : function(callback){
       this.sonBack = callback;
