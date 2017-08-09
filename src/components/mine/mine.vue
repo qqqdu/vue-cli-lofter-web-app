@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="mine main">
       <el-footer></el-footer>
   </div>
 </template>

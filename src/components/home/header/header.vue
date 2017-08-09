@@ -1,8 +1,8 @@
 <template>
   <div class="header">
     <div class="list" >
-        <a href="javascript:;" v-finger:touch-start="gotoPage">关注</a>
-        <a href="javascript:;" v-finger:touch-start="gotoPage">订阅</a>
+        <a href="javascript:;" v-on:touchstart="gotoPage">关注</a>
+        <a href="javascript:;" v-on:touchstart="gotoPage">订阅</a>
     </div>
     <div class="addFri">
         <img :src="imgArr['addFri']" class="icon">
@@ -51,7 +51,7 @@ export default {
      gotoPage (ev){
         let aLi = document.querySelectorAll('.home .header .list  a');
         let index = [].indexOf.call(aLi,ev.currentTarget);
-
+        console.log(index,this.home.nowPage);
         if(this.home.nowPage===index) //如果下标未改变
           return;
         removeClass(aLi[this.home.nowPage],'blodA')
@@ -120,11 +120,11 @@ export default {
 }
 
 .icon(){
-  width: 32px;
-  height: 32px;
+  width: 1.5rem;
+  height: 1.5rem;
   display: inline-block;
-  margin-top: -16px;
-  margin-left: -10px;
+  margin-top: -0.75rem;
+  margin-left: -0.75rem;
 }
 .search img{
   .icon;

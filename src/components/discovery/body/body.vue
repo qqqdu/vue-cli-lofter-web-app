@@ -29,7 +29,11 @@ export default {
     ...mapMutations([]),
     scroll : function(ev){
       let that = this;
-
+      that.message = ev;  //滚动参数传递给子组件
+      that.sonBack&&that.sonBack({deltaY:ev});
+      return;
+      that.throttleTime = null;
+                    
           if(that.throttleTime){
             clearTimeout(that.throttleTime)
             return;

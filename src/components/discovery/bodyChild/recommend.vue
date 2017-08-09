@@ -121,72 +121,27 @@ export default {
       let firstElIndex = alreadyNum-this.maxElNm;
       let add = nowLast-this.scrollLast
       if(add>0){
-
-          if(this.moveArr.length!=0&&(firstElIndex!=this.moveArr[0])){  //最老的节点删除动画
-                if(firstElIndex>this.maxElNm){
-                  let el = document.querySelectorAll('.recommend .moveTitle')[firstElIndex-1]
-                  removeClass(el,'moveTitles');
-                }
-          }
-          
           if(allBody-alreadyNum*this.list.h>=(this.list.h-this.moveTitle.h))  //下滑时，开始移动 
           {
                 let el = document.querySelectorAll('.recommend .moveTitle')[alreadyNum]
-           
                 addClass(el,'moveTitles');
-                
           }
-          this.num=-.3;
-      }
-      else{
-          if(nowLast<=(alreadyNum-1)*this.list.h)  //上滑时，开始移动
-          {
-
-            if(firstElIndex>=0){
-              let el = document.querySelectorAll('.recommend .moveTitle')[firstElIndex]
-             
-              addClass(el,'moveTitles');
-           
-            }
-           // console.log(alreadyNum)
-
-            // if(allBody-alreadyNum*this.list.h-this.list.h-this.moveTitle.h>10){
-            //   let el = document.querySelectorAll('.recommend .moveTitle')[this.moveArr[this.moveArr.length-1]+1]
-            //   removeClass(el,'moveTitles');
-            //   console.log(this.moveArr[this.moveArr.length-1]+1)
-            // }
-
-            // let lastEl = document.querySelectorAll('.recommend .moveTitle')[alreadyNum]
-            // if(this.getTranslate(lastEl.style.transform)==0)
-            //   removeClass(lastEl,'moveTitles');
-            
-          }
-          this.num=.3;
       }
       this.scrollLast = nowLast 
-      this.moveTitles();
+      this.moveTitles(add);
       for(let i =0;i<this.maxElNm;i++){
           this.moveArr[i] = alreadyNum-this.maxElNm+i;
       }
     },
-    moveTitles : function(){
+    moveTitles : function(add){
         let els = document.querySelectorAll('.recommend .moveTitles');
         let that = this;
         Array.prototype.forEach.call(els,function(el,index){
           let stateY = el.style.transform;
-
           if(stateY){
            stateY = that.getTranslate(stateY)
           }
-          stateY+=that.num
-          /*
-          if(-stateY>that.moveTitle.h){
-            stateY = -that.moveTitle.h
-          }
-          if(-stateY<0){
-              stateY = 0
-          }
-          */
+          stateY+=-add/10
           el.style.transform = 'translate3d(0px ,'+stateY+'px,0px)'
         })
     },

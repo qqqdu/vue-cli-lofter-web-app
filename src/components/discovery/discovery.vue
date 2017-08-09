@@ -1,5 +1,5 @@
 <template>
-  <div class="discovery">
+  <div class="discovery main">
       <el-header></el-header>
       <el-body></el-body>
       <el-footer></el-footer>
@@ -37,13 +37,7 @@ export default {
 h1, h2 {
   font-weight: normal;
 }
-.discovery{
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  box-sizing: border-box;
-  padding:3rem 0 3rem;
-}
+
 ul {
   list-style-type: none;
   padding: 0;

@@ -52,7 +52,8 @@ export default {
         width2 : 0 
       },
       scroll_x : 0,
-      lockRoll : true,
+      lockRoll : true,  //单击锁
+      lockEnd : true,
       directly : 0,
       time : null,
       barType : [
@@ -88,13 +89,15 @@ export default {
         return;
       removeClass(aLi[this.discovery.nowPage],'blodA')
       addClass(aLi[index],'blodA')
-      this.GOTODISCOVER(index);
+      this.GOTODISCOVER(index)
+      this.lockEnd = false
       return;
     },
     swipe (ev){
 
     },
     touchStart : function(ev){
+      this.lockEnd = true
       if(!this.scroll.el){
         this.scroll.el = document.querySelectorAll('.discovery .scroll')[0];
         this.scroll.width = this.scroll.el.clientWidth;
@@ -142,8 +145,8 @@ export default {
     touchEnd : function(ev){
       var dis,
           symbol;
-
-
+      if(!this.lockEnd)  //如果刚是子节点点击完成
+        return
       this.lockRoll = true;
       addClass(this.scroll.el,'transition');
       //初始化阴影
@@ -219,7 +222,7 @@ export default {
 @lnHeight : 48px;
 .blodA{
   font-weight: bold;
-  border-bottom: 2px solid black;
+  border-bottom: 1px solid black;
 }
 .transition{
   transition:1.5s;
@@ -298,7 +301,7 @@ export default {
   position: relative;
 } 
 .dropDown{
-  width: 4rem;
+  width: 3.5rem;
   float: left;
   height: 2.9rem;
   position: absolute;
@@ -308,11 +311,11 @@ export default {
   line-height: @lnHeight;
 }
 .icon(){
-  width: 32px;
-  height: 32px;
+  width: 1.5rem;
+  height: 1.5rem;
   display: inline-block;
-  margin-top: -16px;
-  margin-left: -10px;
+  margin-top: -0.75rem;
+  margin-left: -0rem;
 }
 .search img{
   .icon;

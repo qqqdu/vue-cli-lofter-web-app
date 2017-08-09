@@ -1,19 +1,22 @@
 <template>
-  <div class="home">
+  <div class="home main">
       <el-header></el-header>
+      <el-bodyer></el-bodyer>
       <el-footer></el-footer>
   </div>
 </template>
 
 <script>
 import elHeader from './header/header'
+import elBody from './body/body'
 import elfooter from '../footer/footer'
 import {mapState,mapMutations} from 'vuex';
 export default {
   name : 'home',
   components : {
     "el-footer" : elfooter,
-    "el-header" : elHeader
+    "el-header" : elHeader,
+    'el-bodyer' : elBody
   },
   data () {
     return {
