@@ -4,7 +4,9 @@
         <el-subscribe v-show='this.home.nowPage===0'></el-subscribe>
       </transition>
       <transition name='slide-follow' >
-        <el-follow v-show='this.home.nowPage===1'></el-follow>
+        <keep-alive>
+            <el-follow v-show='this.home.nowPage===1'></el-follow>
+        </keep-alive>
       </transition>
   </div>
 </template>

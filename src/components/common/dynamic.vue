@@ -61,7 +61,7 @@ export default {
         headImg : require('../../assets/user/head.png'),
         time : new Date(),
         img : require('../../assets/user/head.png'),
-        follow :true,
+        follow :false,
         word : '离开株洲那片净土，已经有一个月又一天零十小时了。毕业之后，开始工作，学会成长，面对形形色色的人。我把头发挽起来，自以为很淡定的，面带笑容的看着周围的一切。上班，下班，吃饭，喝水，这就是我的生活，我毕业之后全部的生活。',
         location : '浙江 杭州',
         tag : ['旅行','旅游','摄影'],
