@@ -1,16 +1,16 @@
 <template>
   <div id="app">
     <router-view></router-view>
-
+    <el-less></el-less>
   </div>
 </template>
 
 <script>
-
+import less from './components/less'
 export default {
   name: 'app',
   components: {
-
+    'el-less' : less
   }
 }
 </script>

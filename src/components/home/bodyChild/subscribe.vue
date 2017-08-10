@@ -1,6 +1,8 @@
 <template>
   <div class="subscribe">
          <el-dynamic></el-dynamic>
+         <el-dynamic></el-dynamic>
+         <el-dynamic></el-dynamic>
   </div>
 </template>
 

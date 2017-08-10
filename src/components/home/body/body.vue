@@ -1,9 +1,13 @@
 <template>
   <div class="body">
-      <el-subscribe></el-subscribe>
+      <transition name='slide-subscribe'>
+        <el-subscribe v-show='this.home.nowPage===0'></el-subscribe>
+      </transition>
+      <transition name='slide-follow' >
+        <el-follow v-show='this.home.nowPage===1'></el-follow>
+      </transition>
   </div>
 </template>
-
 <script>
 import elFollow from '../bodyChild/follow'
 import elSubscribe from '../bodyChild/subscribe'
@@ -23,7 +27,7 @@ export default {
      }
   },
   computed : {
-    ...mapState(['discovery'])
+    ...mapState(['home'])
   },
   methods : {
     ...mapMutations([]),
@@ -51,9 +55,29 @@ export default {
   overflow-x:hidden;
   overflow-y:auto;
 }
+.commonActive{
+  transition: all .3s ease;
+}
 
+.slide-subscribe-enter-active {
+  .commonActive;
+}
+.slide-subscribe-leave-active {
+  .commonActive;
+}
+.slide-subscribe-enter, .slide-subscribe-leave-to{
+  transform: translateX(-20rem);
+}
+.slide-follow-enter-active {
+  .commonActive;
+}
+.slide-follow-leave-active {
+  .commonActive;
+}
+.slide-follow-enter, .slide-follow-leave-to{
 
-
+  transform: translateX(20rem);
+}
 p{
   display: inline;
 }
