@@ -1,15 +1,18 @@
 <template>
   <div class="mine main">
+      <el-header></el-header>
       <el-footer></el-footer>
   </div>
 </template>
 
 <script>
+import elHeader from './header/header'
 import elfooter from '../footer/footer'
 export default {
   name : 'home',
   components : {
-    "el-footer" : elfooter
+    "el-footer" : elfooter,
+    "el-header" : elHeader
   },
   data () {
     return {

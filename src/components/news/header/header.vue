@@ -92,6 +92,7 @@ export default {
   float: left;
   overflow: hidden;
   box-sizing: border-box;
+  border-bottom: 1px solid rgb(220, 220, 220);
 }
 
 .list a {

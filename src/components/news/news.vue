@@ -1,18 +1,21 @@
 <template>
-  <div class="news">
+  <div class="news main">
       <el-newsHead></el-newsHead>
+      <el-body></el-body>
       <el-footer></el-footer>
   </div>
 </template>
 
 <script>
 import elNewsHead from './header/header'
+import elBody from './body/body'
 import elfooter from '../footer/footer'
 export default {
   name : 'news',
   components : {
     "el-footer" : elfooter,
-    "el-newsHead" : elNewsHead
+    "el-newsHead" : elNewsHead,
+    "el-body" : elBody
   },
   data () {
     return {
