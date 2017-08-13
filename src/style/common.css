@@ -50,3 +50,29 @@ a{
 .footer{
 	background:white;
 }
+
+/*css组件*/
+.h_arrowR{
+	width: .5rem;
+	height: .5rem;
+	position: relative;
+	border:none;
+	border-bottom: 3px solid red;
+	transform-origin:0 100%;
+	transform:rotate(0deg);
+	
+}
+.h_arrowR:after{
+	content: "";
+	width: .5rem;
+	height: .5rem;
+	position: absolute;
+	left: .5rem;
+	top: .5rem;
+	border:none;
+	border-left: 3px solid red;
+	transform-origin:0 0;
+	transform:rotate(45deg);
+
+}
+/*d4d4d4*/
