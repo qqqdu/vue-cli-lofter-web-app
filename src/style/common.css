@@ -57,10 +57,11 @@ a{
 	height: .5rem;
 	position: relative;
 	border:none;
-	border-bottom: 3px solid red;
-	transform-origin:0 100%;
-	transform:rotate(0deg);
-	
+	border-bottom: 1px solid #d4d4d4;
+	transform-origin:0 0;
+	transform:rotate(45deg);
+	top: -.25rem;
+	display: block;
 }
 .h_arrowR:after{
 	content: "";
@@ -70,9 +71,7 @@ a{
 	left: .5rem;
 	top: .5rem;
 	border:none;
-	border-left: 3px solid red;
+	border-left: 1px solid #d4d4d4;
 	transform-origin:0 0;
-	transform:rotate(45deg);
-
 }
 /*d4d4d4*/

@@ -1,31 +1,30 @@
 <template>
-  <div class="header">
-
-      <img :src="user.backImg">
+  <div class="iframe">
       
   </div>
 </template>
-
 <script>
+
 import {mapState, mapMutations} from 'vuex'
 export default {
-  name: 'el-homeHead',
-  mounted(){
-  
-  },
+  name: 'el-iframe',
   data () {
     return {
-      __root:'../../assets',
-      chooseIndex : 0,
-      headImg: require('../../../assets/user/head.png'),
-      myImg: require('../../../assets/user/myImg.jpg'),
-    }
+      iframe : true,
+    
+     }
+  },
+  components : {
+    
   },
   computed : {
     ...mapState(['user'])
   },
   methods : {
-    ...mapMutations(['GOTOHOME'])
+    ...mapMutations([]),
+    rollMythings : function(callback){
+      this.sonBack = callback;
+    }
   }
 }
 
@@ -33,7 +32,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang='less'>
-@imgSrc:'./assets';
 @centerColor : #a2a6a6;
 @width: 20rem;
 @list5 : 5rem;
@@ -57,26 +55,31 @@ export default {
 @split:1rem;
 @headHeight:@height*3-1;
 @height : 3rem;
-.blodA{
-  font-weight: bold;
-  border-bottom: 1px solid black;
-}
+@head: 8rem;
 .transition{
   transition:1.5s;
 }
-.header{
-  width: 100%;
-  height: @headHeight;
-  max-height: @height*6;
-  overflow: hidden;
+.flexCenter{
   display: flex;
   align-items:center;
   flex-warp:center;
 }
-
-.header img{
+.iframe{
   width: 100%;
+  height: 100%;
+  background:white;
+  overflow-x:hidden;
+  overflow-y:auto;
+  position: fixed;
+  text-align: left;
+  box-sizing: border-box;
+  top: 0;
 }
-
+.commonActive{
+  transition: all .3s ease;
+}
+p{
+  display: inline;
+}
 
 </style>

@@ -1,22 +1,28 @@
 <template>
   <div class="mine main">
       <el-header></el-header>
+      <el-body></el-body>
       <el-footer></el-footer>
+      <el-iframe v-show='iframe'></el-iframe>
   </div>
 </template>
 
 <script>
 import elHeader from './header/header'
+import elBody from './body/body'
 import elfooter from '../footer/footer'
+import elIframe from '../iframe/iframe' 
 export default {
   name : 'home',
   components : {
     "el-footer" : elfooter,
-    "el-header" : elHeader
+    "el-body" : elBody,
+    "el-header" : elHeader,
+    'el-iframe' : elIframe
   },
   data () {
     return {
-      
+      iframe : true
     }
   }
 }
@@ -27,7 +33,9 @@ export default {
 h1, h2 {
   font-weight: normal;
 }
-
+.mine{
+  padding-top: 0;
+}
 ul {
   list-style-type: none;
   padding: 0;

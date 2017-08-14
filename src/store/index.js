@@ -15,6 +15,15 @@ const state = {
 export default new Vuex.Store({
 	state : {
 		nowPage : 1,
+		user : {
+			name : 'BlackHead',
+			ID : 'BlackHead887',
+			follow : 3,
+			like : 2,
+			fans : 0,
+			headImg: require('../assets/user/head.png'),
+			backImg: require('../assets/user/myImg.jpg')
+		},
 		page : {
 			bodyHeight: null
 		},
