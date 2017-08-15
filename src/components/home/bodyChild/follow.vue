@@ -20,7 +20,6 @@
               <img :src="item.img">
             </div>
             <div class="listRight">
-              
               <p>{{item.name}}<span class="recoNum">{{item.recoNum}}人订阅</span></p>
               <span class="followBtn" v-show='!item.had' v-on:click='item.had = !item.had'>订阅</span>
             </div>

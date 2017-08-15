@@ -14,8 +14,8 @@
           </div>
           <div class="h_arrowR"></div>
       </div>
-      <div>
-          <li v-for='item in list'>
+      <div class="list">
+          <li v-for='item in list' v-on:touchend='gotoPage'>
               <div class="imgHead">
                 <img :src="item.img">
               </div>
@@ -37,16 +37,20 @@ export default {
       iframe : true,
       list : [{
         word : '个人应用',
-        img : require('../../../assets/home.png')
+        img : require('../../../assets/appli.png'),
+        href : '/mine/application'
       },{
         word : '摄影课堂',
-        img : require('../../../assets/home.png')
+        img : require('../../../assets/photo.png'),
+        href : './mine/photography'
       },{
         word : '分享LOFFTER APP',
-        img : require('../../../assets/home.png')
+        img : require('../../../assets/share.png'),
+        href : '#'
       },{
         word : '设置',
-        img : require('../../../assets/home.png')
+        img : require('../../../assets/set.png'),
+        href : './mine/setPage'
       }]
      }
   },
@@ -60,6 +64,15 @@ export default {
     ...mapMutations([]),
     rollMythings : function(callback){
       this.sonBack = callback;
+    },
+    gotoPage : function(ev){
+         let elist = document.querySelectorAll(".mine .body .list li");
+         let index = Array.prototype.indexOf.call(elist,ev.currentTarget);
+         console.log(index)
+         if(index===2){
+          return true;
+         }
+         this.$router.push(this.list[index].href);
     }
   }
 }
@@ -98,7 +111,8 @@ export default {
 .flexCenter{
   display: flex;
   align-items:center;
-  flex-warp:center;
+  justify-content:center;
+
 }
 .body{
   width: 100%;
@@ -109,6 +123,7 @@ export default {
   text-align: left;
   box-sizing: border-box;
   padding-top: @head;
+  z-index: 999;
 }
 .commonActive{
   transition: all .3s ease;
@@ -127,7 +142,8 @@ p{
   top: 0;
   box-sizing: border-box;
   padding:@paddingTb;
-  .flexCenter
+  .flexCenter;
+  justify-content:flex-start;
 }
  .imgHead{
   width: @list5;
@@ -139,6 +155,10 @@ p{
   width: 90%;
   height: 90%;
   border-radius: 50%;
+}
+li .imgHead img{
+  width: 50%;
+  height: 50%;
 }
 .myInf p{
   font-weight: bold;

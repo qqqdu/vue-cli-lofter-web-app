@@ -46,13 +46,14 @@ a{
 	background: white;
 	border-bottom: 1px solid rgb(220, 220, 220);
 	box-sizing: border-box;
+	z-index: 99;
 }
 .footer{
 	background:white;
 }
 
-/*css组件*/
-.h_arrowR{
+/*css组件 向右的箭头 icon*/
+.h_arrowR{  
 	width: .5rem;
 	height: .5rem;
 	position: relative;
@@ -74,4 +75,54 @@ a{
 	border-left: 1px solid #d4d4d4;
 	transform-origin:0 0;
 }
-/*d4d4d4*/
+/*向左的返回箭头*/
+.return{
+	width: 3rem;
+	height: 3rem;
+	position: absolute;
+}
+.returnPage{
+	width: 1rem;
+    height: 1rem;
+    position: absolute;
+    border: none;
+    border-bottom: 2px solid black;
+    transform-origin: 0 0;
+    transform: rotate(225deg);
+    display: block;
+    top: 3rem;
+    left: 1rem;
+}
+.returnPage:after{
+	content: "";
+	width: 1rem;
+	height: 1rem;
+	position: absolute;
+	left: 1rem;
+	top: 1rem;
+	border:none;
+	border-left: 2px solid black;
+}
+/*中间文字，两边分割线*/
+.centerLine{
+	width: auto;
+	display: inline-block;
+	line-height: 3rem;
+	position: relative;
+}
+.centerLine:before{
+	content: "";
+	position: absolute;
+	border-bottom: 1px solid #cacaca;
+	width: 8rem;
+	top: 50%;
+	left: 110%;
+}
+.centerLine:after{
+	content: "";
+	position: absolute;
+	border-bottom: 1px solid #cacaca;
+	width: 8rem;
+	top: 50%;
+	right: 110%;
+}

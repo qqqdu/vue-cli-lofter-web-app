@@ -3,7 +3,6 @@
       <el-header></el-header>
       <el-body></el-body>
       <el-footer></el-footer>
-      <el-iframe v-show='iframe'></el-iframe>
   </div>
 </template>
 
@@ -11,14 +10,12 @@
 import elHeader from './header/header'
 import elBody from './body/body'
 import elfooter from '../footer/footer'
-import elIframe from '../iframe/iframe' 
 export default {
   name : 'home',
   components : {
     "el-footer" : elfooter,
     "el-body" : elBody,
-    "el-header" : elHeader,
-    'el-iframe' : elIframe
+    "el-header" : elHeader
   },
   data () {
     return {

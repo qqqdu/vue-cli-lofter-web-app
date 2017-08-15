@@ -12,7 +12,6 @@ import pptList from '@/components/pptList'
 import writing from '@/components/writing'
 import article from '@/components/article'
 import text from '@/components/text'
-
 import footer from '@/components/footer/footer'
 
 
@@ -23,7 +22,12 @@ import publish from '@/components/publish/publish'
 import news from '@/components/news/news'  
 import mine from '@/components/mine/mine'  
 
-
+//副级分页
+import myApplication from '@/components/mine/childPage/myApplication/application'
+import photography from '@/components/mine/childPage/photography/photography'
+import setPage from '@/components/mine/childPage/setPage/setPage'
+import dynamicCon from '@/components/common/dynamicCon/dynamicCon'
+ 
 import AlloyFinger from 'alloyfinger/alloy_finger' // 手势库
 
 import AlloyFingerVue from 'alloyfinger/vue/alloy_finger.vue'
@@ -38,7 +42,7 @@ const router = new VueRouter({
     base: __dirname,
     routes: [
         { path: '/', name: '/', component: discovery },
-        { path: '/home', name: '/home', component: home },
+        { path: '/home', name: '/home', component: home ,meta: { keepAlive: true}},
         { path: '/discovery', name: '/discovery', component: discovery },
         { path: '/publish', name: '/publish', component: publish },
         { path: '/news', name: '/news', component: news },
@@ -48,7 +52,11 @@ const router = new VueRouter({
         { path: '/writing', name: 'writing', component: writing },
         { path: '/article', name: 'article', component: article },
         { path: '/text', name: 'text', component: text },
-        { path: '/footer', name: 'footer', component: footer }
+        { path: '/footer', name: 'footer', component: footer },
+        { path: '/mine/application', name: 'application', component: myApplication },
+        { path: '/mine/photography', name: 'photography', component: photography },
+        { path: '/mine/setPage', name: 'setPage', component: setPage },
+        { path: '/common/dynamicCon', name: 'dynamicCon', component: dynamicCon }
     ]
 })
 

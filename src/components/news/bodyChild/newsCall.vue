@@ -1,34 +1,21 @@
 <template>
   <div class="follow">
       <div class="myFollow">
-          <div class="followHead">我的订阅</div>
           <div v-for='item of myFollow' class="list">
             <div class="headImg">
               <img :src="item.img">
             </div>
             <div class="listRight">
               <p>{{item.name}}</p>
-              <span class="num">{{item.num}}</span>
+              <span class="h_arrowR"></span>
             </div>
           </div>
       </div>
-
-      <div class="recommendFollow">
-          <div class="followHead">推荐订阅</div>
-          <div v-for='item of recommend' class="list">
-            <div class="headImg">
-              <img :src="item.img">
-            </div>
-            <div class="listRight">
-              
-              <p>{{item.name}}<span class="recoNum">{{item.recoNum}}人订阅</span></p>
-              <span class="followBtn" v-show='!item.had' v-on:click='item.had = !item.had'>订阅</span>
-            </div>
-          </div>
+      <div>
+          <p class="centerLine">专题</p>
       </div>
-      <div class="myFollow">
-          <a href="javascript:;" class="allTag">分类查看所有标签</a>
-      </div>
+      
+     
   </div>
 </template>
 
@@ -42,26 +29,20 @@ export default {
   data () {
     return {
       myFollow : [{
-        img : require('../../../assets/user/logo.png'),
-        name : '旅行',
+        img : require('../../../assets/newFans.png'),
+        name : '新的粉丝',
         num : 2323
       },{
-        img : require('../../../assets/user/logo.png'),
-        name : '旅行',
+        img : require('../../../assets/like.png'),
+        name : '喜欢',
         num : 2323
       },{
-        img : require('../../../assets/user/logo.png'),
-        name : '旅行',
+        img : require('../../../assets/commend.png'),
+        name : '评论',
         num : 2323
-      }],
-      recommend : [{
-        img : require('../../../assets/user/logo.png'),
-        name : "风景",
-        had : false,
-        recoNum : 444
       },{
-        img : require('../../../assets/user/logo.png'),
-        name : "风景",
+        img : require('../../../assets/notifi.png'),
+        name : "通知",
         had : false,
         recoNum : 444
       }]
@@ -102,7 +83,7 @@ export default {
   text-align: right;
 }
 .padding5{
-  padding:0 @paddingTb 0;
+  padding:0 @paddingTb 0 0;
 }
 .blodA{
   font-weight: bold;
@@ -115,7 +96,6 @@ export default {
 }
 .myFollow{
     background:white;
-    margin-top: @split;
 }
 .recommendFollow{
   background:white;
@@ -137,22 +117,23 @@ export default {
   border:0;
 }
 .headImg{
-  width: @list0;
+  width: @list1;
   height: @list0;
   float: left;
   display: flex;
   flex-wrap:wrap;
+  justify-content: center;
   align-items:center;
 }
 .headImg img{
-  width: @list1;
-  height: @list1;
+  width: @list1/1.5;
+  height: @list1/1.5;
 }
 .listRight{
   width: 100%;
   height: @list0;
   box-sizing: border-box;
-  padding-left: @list0;
+  padding-left: @list1;
   position: relative;
 }
 .listRight p{
@@ -173,36 +154,12 @@ export default {
   left: 0;
 }
 
-.commonBtn{
-  display: inline-block;
-  width: auto;
-  height: 1rem;
-  line-height: 1rem;
-  position: absolute;
-  top: 50%;
-  right: 0;
-  margin-top: -.5rem;
-  padding:@wordPadding;
-}
-.listRight span.followBtn{
-  .commonBtn;
 
-  color: @green;
-  border:1px solid @green;
-  border-radius: 6rem;
-  text-align: center;
-  font-size: @smallFont;
-  width: 2.5rem;
-  height: 1.5rem;
-  line-height: 1.5rem;
-}
-.listRight span.num{
-  .commonBtn;
-  color: white;
-  border-radius: 6rem;
-  text-align: center;
-  font-size: @smallFont;
-  background:#ccc;
+.listRight .h_arrowR{
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -0.5rem; 
 }
 .allTag{
   display: block;

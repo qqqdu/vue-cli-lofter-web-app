@@ -1,10 +1,10 @@
 <template>
   <div class="iframe">
-      
+        <el-header></el-header>
   </div>
 </template>
 <script>
-
+import elHeader from './header'
 import {mapState, mapMutations} from 'vuex'
 export default {
   name: 'el-iframe',
@@ -15,7 +15,7 @@ export default {
      }
   },
   components : {
-    
+    'el-header' : elHeader
   },
   computed : {
     ...mapState(['user'])
@@ -67,7 +67,7 @@ export default {
 .iframe{
   width: 100%;
   height: 100%;
-  background:white;
+  background:rgb(244, 245, 245);
   overflow-x:hidden;
   overflow-y:auto;
   position: fixed;

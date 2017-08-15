@@ -1,9 +1,11 @@
 <template>
+<transition name="slide-left" mode="out-in">
   <div class="home main">
       <el-header></el-header>
       <el-bodyer></el-bodyer>
       <el-footer></el-footer>
   </div>
+</transition>
 </template>
 
 <script>
@@ -66,5 +68,12 @@ a {
 
 time{
   float: right;
+}
+
+.slide-left-enter-active, .slide-left-leave-active {
+        transition: .3s;
+}
+.slide-left-enter, .slide-left-leave-active {
+        
 }
 </style>

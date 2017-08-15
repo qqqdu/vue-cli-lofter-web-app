@@ -1,8 +1,6 @@
 <template>
   <div class="subscribe">
-         <el-dynamic></el-dynamic>
-         <el-dynamic></el-dynamic>
-         <el-dynamic></el-dynamic>
+         <el-dynamic v-bind:click="click"></el-dynamic>
   </div>
 </template>
 
@@ -14,9 +12,9 @@ export default {
   components : {
     'el-dynamic' : elDynamic
   },
-  props : ["message"], //父组件传递回来的消息,滚动条高度
   data () {
     return {
+      click : true
     }
   }
 }
@@ -31,6 +29,7 @@ export default {
 @width: 16rem;
 @lnHeight : 48px;
 @fontColor : rgb(153, 153, 153);
+@split:1rem;
 .transition{
   transition:1.5s;
 }
@@ -90,7 +89,9 @@ img{
   text-align: left;
   color: @fontColor;
 }
-
+el-dynamic{
+  margin-top: @split;
+}
 p{
   display: inline;
 }

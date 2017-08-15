@@ -1,12 +1,9 @@
 <template>
   <div class="header">
-    <div class="list" >
-        <a href="javascript:;" v-on:touchend="gotoPage">关注</a>
-        <a href="javascript:;" v-on:touchend="gotoPage">订阅</a>
+    <div class="return" v-on:touchend='returnPage'>
+      <span class="returnPage" ></span>
     </div>
-    <div class="addFri">
-        <img :src="imgArr['addFri']" class="icon">
-    </div>
+      个人应用
   </div>
 </template>
 
@@ -15,10 +12,7 @@ import {mapState, mapMutations} from 'vuex'
 export default {
   name: 'el-homeHead',
   mounted(){
-  //  console.log(this.hasClass)
-    let aLi = document.querySelectorAll('.home .header .list  a');
-    addClass(aLi[this.home.nowPage],'blodA')
-    this.GOTOHOME(this.home.nowPage);
+
   },
   data () {
     return {
@@ -36,11 +30,7 @@ export default {
           '电影',
           '娱乐',
           '穿搭'     
-      ],
-      imgArr : {
-        search : require('../../../assets/search.png'),
-        addFri : require('../../../assets/addFri.png')
-      }
+      ]
     }
   },
   computed : {
@@ -48,15 +38,8 @@ export default {
   },
   methods : {
     ...mapMutations(['GOTOHOME']),
-     gotoPage (ev){
-        let aLi = document.querySelectorAll('.home .header .list  a');
-        let index = [].indexOf.call(aLi,ev.currentTarget);
-        if(this.home.nowPage===index) //如果下标未改变
-          return;
-        removeClass(aLi[this.home.nowPage],'blodA')
-        addClass(aLi[index],'blodA')
-        this.GOTOHOME(index);
-        return;
+     returnPage (ev){
+        this.$router.go(-1);
       },
   }
 }
@@ -84,30 +67,10 @@ export default {
    left: 50%;
 }
 
-.list{
-  width: @width;
-  height: @height;
+.header{
   line-height: @height;
-  padding:0;
-  display: block;
   text-align: center;
-  word-wrap: normal;
-  float: left;
-  overflow: hidden;
-  box-sizing: border-box;
-  padding:0 4rem 0;
 }
-
-.list a {
-  display: inline-block;
-  position: relative;
-  width: 50%;
-  height: 100%;
-  font-size: 1rem;
-  box-sizing: border-box;
-  float: left;
-}
-
 .addFri{
   width: 4rem;
   float: left;

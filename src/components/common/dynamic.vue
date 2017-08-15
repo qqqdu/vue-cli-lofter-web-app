@@ -1,5 +1,5 @@
 <template>
-  <div class="dynamic">
+  <div class="dynamic" >
       <div class="head">
           <div class="imgHead">
             <img :src="dynamic.headImg" class="img">
@@ -11,7 +11,7 @@
       <div class="bigImg">
           <img :src="dynamic.img">
       </div>
-      <div class="word">
+      <div class="word" v-on:touchend='gotoPage'>
           <p>{{dynamic.word}}</p>
       </div>
       <div class="location">
@@ -52,6 +52,7 @@ export default {
   mounted(){
     
   },
+  props : ["click"], //父组件传递回来的消息,滚动条高度
   data () {
     return {
       __root:'../../assets',
@@ -92,6 +93,11 @@ export default {
   methods : {
     ...mapMutations(['GOTONEWS']),
      gotoPage (ev){
+        console.log(this.click)
+        if(!this.click)
+          return;
+        this.$router.push('common/dynamicCon');
+        return;
         let aLi = document.querySelectorAll('.news .header .list  a');
         let index = [].indexOf.call(aLi,ev.currentTarget);
         console.log(this.news.nowPage,index);
@@ -141,7 +147,6 @@ export default {
 @wordPadding:0 .5rem 0;
 @paddingTb:.5rem;
 @height3:3rem;
-@split:1rem;
 .flex{
     display: flex;
   flex-wrap: wrap;
@@ -174,7 +179,6 @@ export default {
   font-size: @mainFont;
   color: @mainColor;
   padding:@wordPadding;
-  margin-top: @split;
 }
 
 

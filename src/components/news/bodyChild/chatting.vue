@@ -76,7 +76,7 @@ ul{
 }
 li{
   width: 100%;
-  height: @list1;
+  height: @list0;
   display: block;
   text-align: center;
   vertical-align: middle;
@@ -88,23 +88,23 @@ li{
 
 }
  .imgHead{
-  width: @list1;
-  height: @list1;
+  width: @list0;
+  height: @list0;
   float: left;
   display: flex;
   align-items:center;
   flex-warp:center;
 }
 .imgHead img{
-  width: 80%;
-  height: 80%;
+  width: 70%;
+  height: 70%;
   border-radius: 50%;
 }
 
 .rightContain{
   line-height: @list1/3;
   box-sizing: border-box;
-  padding-top: @list1/4;
+  padding-top: @list1/3;
   height: 100%;
   padding-left: @list1;
 }
