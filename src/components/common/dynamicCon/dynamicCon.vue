@@ -26,7 +26,7 @@ export default {
     'el-footer' : elFooter
   },
   computed : {
-    ...mapState(['user'])
+    ...mapState(['home'])
   },
   methods : {
     ...mapMutations([]),
@@ -87,16 +87,15 @@ export default {
   position: absolute;
   z-index: 999;
 }
-.commonActive{
-  transition: all .3s ease;
-}
+
 p{
   display: inline;
 }
 .slide-left-enter-active, .slide-left-leave-active {
-        transition: .3s;
+        transition: .5s;
 }
-.slide-left-enter, .slide-left-leave-active {
-        transform: translate3d(12rem,0,0);
+.slide-left-enter,.slide-left-leave-active{
+        transform: translate3d(20rem,0,0);
 }
+
 </style>

@@ -39,7 +39,7 @@ export default {
   methods : {
     ...mapMutations(['GOTOHOME']),
      returnPage (ev){
-        this.$router.go(-1);
+        this.home.openPage = false;
       },
   }
 }

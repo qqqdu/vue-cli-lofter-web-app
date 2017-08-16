@@ -88,25 +88,16 @@ export default {
     }
   },
   computed : {
-    ...mapState(['news'])
+    ...mapState(['home'])
   },
   methods : {
     ...mapMutations(['GOTONEWS']),
      gotoPage (ev){
-        console.log(this.click)
         if(!this.click)
           return;
-        this.$router.push('common/dynamicCon');
-        return;
-        let aLi = document.querySelectorAll('.news .header .list  a');
-        let index = [].indexOf.call(aLi,ev.currentTarget);
-        console.log(this.news.nowPage,index);
-        if(this.news.nowPage===index) //如果下标未改变
-          return;
-        removeClass(aLi[this.news.nowPage],'blodA')
-        addClass(aLi[index],'blodA')
-        this.GOTONEWS(index);
-        return;
+        this.home.openPage = true;
+       // this.$router.push('common/dynamicCon');
+       
       },
       changeTime(){
         let date = this.dynamic.time;

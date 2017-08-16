@@ -31,7 +31,8 @@ export default new Vuex.Store({
 			nowPage : 0
 		},
 		home : {
-			nowPage : 0
+			nowPage : 0,
+			openPage : false
 		},
 		news : {
 			nowPage : 0
