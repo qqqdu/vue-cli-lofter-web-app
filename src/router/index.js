@@ -36,17 +36,39 @@ Vue.use(AlloyFingerVue, {
 })
 Vue.use(VueRouter)
 /* eslint-disable no-new */
-console.log(footer)
+const scrollBehavior = (to, from, savedPosition) => {
+  console.log(to,from);
+  if (savedPosition) {
+    // savedPosition is only available for popstate navigations.
+    return savedPosition;
+  }
+  const position = {};
+  // new navigation.
+  // scroll to anchor by returning the selector
+  if (to.hash) {
+    position.selector = to.hash;
+  }
+  // check if any matched route config has meta that requires scrolling to top
+  if (to.matched.some(m => m.meta.scrollToTop)) {
+    // cords will be used if no selector is provided,
+    // or if the selector didn't match any element.
+    position.x = 0;
+    position.y = 0;
+  }
+  // if the returned position is falsy or an empty object,
+  // will retain current scroll position.
+  return position;
+};
 const router = new VueRouter({
     mode: 'history',
     base: __dirname,
     routes: [
         { path: '/', name: '/', component: discovery },
-        { path: '/home', name: '/home', component: home ,meta: { keepAlive: true}},
-        { path: '/discovery', name: '/discovery', component: discovery },
+        { path: '/home', name: '/home', component: home ,meta: { keepAlive: true,scrollToTop:true}},
+        { path: '/discovery', name: '/discovery', component: discovery ,meta: { keepAlive: true,scrollToTop:true}},
         { path: '/publish', name: '/publish', component: publish },
-        { path: '/news', name: '/news', component: news },
-        { path: '/mine', name: '/mine', component: mine },
+        { path: '/news', name: '/news', component: news ,meta: { keepAlive: true,scrollToTop:true}},
+        { path: '/mine', name: '/mine', component: mine ,meta: { keepAlive: true,scrollToTop:true}},
         { path: '/album', name: 'album', component: album },
         { path: '/pptList', name: 'pptList', component: pptList },
         { path: '/writing', name: 'writing', component: writing },
@@ -57,7 +79,8 @@ const router = new VueRouter({
         { path: '/mine/photography', name: 'photography', component: photography },
         { path: '/mine/setPage', name: 'setPage', component: setPage },
         { path: '/common/dynamicCon', name: 'dynamicCon', component: dynamicCon }
-    ]
+    ],
+  scrollBehavior : scrollBehavior
 })
 
 export default router

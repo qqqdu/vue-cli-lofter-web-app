@@ -12,6 +12,15 @@ import elBody from './body/body'
 import elfooter from '../footer/footer'
 export default {
   name : 'home',
+  mounted (){
+    console.log('mounted')
+  },
+  updated (){
+    console.log('updata')
+  },
+  activated (){
+    console.log('activated')
+  },
   components : {
     "el-footer" : elfooter,
     "el-body" : elBody,
