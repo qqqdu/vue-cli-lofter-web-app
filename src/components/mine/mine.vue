@@ -40,7 +40,7 @@ h1, h2 {
   font-weight: normal;
 }
 .mine{
-  padding-top: 0;
+  
 }
 ul {
   list-style-type: none;

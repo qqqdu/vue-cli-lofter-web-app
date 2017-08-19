@@ -35,30 +35,7 @@ Vue.use(AlloyFingerVue, {
   AlloyFinger
 })
 Vue.use(VueRouter)
-/* eslint-disable no-new */
-const scrollBehavior = (to, from, savedPosition) => {
-  console.log(savedPosition);
-  if (savedPosition) {
-    // savedPosition is only available for popstate navigations.
-    return savedPosition;
-  }
-  const position = {};
-  // new navigation.
-  // scroll to anchor by returning the selector
-  if (to.hash) {
-    position.selector = to.hash;
-  }
-  // check if any matched route config has meta that requires scrolling to top
-  if (to.matched.some(m => m.meta.scrollToTop)) {
-    // cords will be used if no selector is provided,
-    // or if the selector didn't match any element.
-    position.x = 0;
-    position.y = 0;
-  }
-  // if the returned position is falsy or an empty object,
-  // will retain current scroll position.
-  return position;
-};
+
 const router = new VueRouter({
     mode: 'history',
     base: __dirname,
@@ -83,13 +60,23 @@ const router = new VueRouter({
 })
 let indexScrollTop = 0;
 router.beforeEach((to, from, next) => {
-  if (from.path === '/home') {
+console.log(from.meta.scrollToTop)
+  if (from.meta.scrollToTop) {
     // 离开之前先保存滚动的位置
-    indexScrollTop = document.body.scrollTop;
+    
+    from.meta.scrollToTop = document.body.scrollTop;
+    indexScrollTop = from.meta.scrollToTop;
+
   }
-  if (to.path === '/home') {
+  if (to.meta.scrollToTop) {
     // 再次进入时，强制滚动到离开时的位置
-    window.scrollTo(0, indexScrollTop);
+    if(to.meta.scrollToTop===true){
+        document.querySelector('body').scrollTo(0, 0);
+    }else{
+        document.querySelector('body').scrollTo(0, to.meta.scrollToTop);
+    }
+
+    
   }
   next();
 });

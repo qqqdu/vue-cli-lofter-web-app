@@ -114,13 +114,12 @@ export default {
       this.$emit("rollMything",this.rollMove)
     },
     rollMove: function(ev) {
-      let nowLast = document.documentElement.scrollTop;
+      let nowLast = document.body.scrollTop;
       let listTop = this.list.h - this.moveTitle.h // 列表的上半部分高度
       let allBody = nowLast + this.body.h; //屏幕的宽度+滚动宽度
       let alreadyNum = Math.floor(allBody/this.list.h)
       let firstElIndex = alreadyNum-this.maxElNm;
       let add = nowLast-this.scrollLast
-      console.log(alreadyNum)
       if(add>0){
           if(allBody-alreadyNum*this.list.h>=(this.list.h-this.moveTitle.h))  //下滑时，开始移动 
           {

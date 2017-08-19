@@ -120,9 +120,9 @@ export default {
   overflow-x:hidden;
   overflow-y:auto;
   position: relative;
+  top: -@height;
   text-align: left;
   box-sizing: border-box;
-  padding-top: @head;
   z-index: 999;
 }
 .commonActive{
@@ -137,9 +137,7 @@ p{
   height: @headHeight;
   height: @head;
   background:rgba(255, 255, 255, 0.7);
-  position: absolute;
-  left: 0;
-  top: 0;
+
   box-sizing: border-box;
   padding:@paddingTb;
   .flexCenter;
