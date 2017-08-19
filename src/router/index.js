@@ -37,7 +37,7 @@ Vue.use(AlloyFingerVue, {
 Vue.use(VueRouter)
 /* eslint-disable no-new */
 const scrollBehavior = (to, from, savedPosition) => {
-  console.log(to,from);
+  console.log(savedPosition);
   if (savedPosition) {
     // savedPosition is only available for popstate navigations.
     return savedPosition;
@@ -79,10 +79,20 @@ const router = new VueRouter({
         { path: '/mine/photography', name: 'photography', component: photography },
         { path: '/mine/setPage', name: 'setPage', component: setPage },
         { path: '/common/dynamicCon', name: 'dynamicCon', component: dynamicCon }
-    ],
-  scrollBehavior : scrollBehavior
+    ]
 })
-
+let indexScrollTop = 0;
+router.beforeEach((to, from, next) => {
+  if (from.path === '/home') {
+    // 离开之前先保存滚动的位置
+    indexScrollTop = document.body.scrollTop;
+  }
+  if (to.path === '/home') {
+    // 再次进入时，强制滚动到离开时的位置
+    window.scrollTo(0, indexScrollTop);
+  }
+  next();
+});
 export default router
 
 

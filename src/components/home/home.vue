@@ -4,7 +4,6 @@
       <el-header></el-header>
       <el-bodyer></el-bodyer>
       <el-footer></el-footer>
-      <el-dynamicCon v-show='home.openPage'></el-dynamicCon>
   </div>
   
 
@@ -14,7 +13,6 @@
 import elHeader from './header/header'
 import elBody from './body/body'
 import elfooter from '../footer/footer'
-import elDynamic from '../common/dynamicCon/dynamicCon'
 import {mapState,mapMutations} from 'vuex';
 export default {
   name : 'home',
@@ -22,7 +20,6 @@ export default {
     "el-footer" : elfooter,
     "el-header" : elHeader,
     'el-bodyer' : elBody,
-    'el-dynamicCon' : elDynamic
   },
   data () {
     return {

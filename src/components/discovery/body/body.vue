@@ -1,6 +1,6 @@
 <template>
   <div class="body"
-       v-on:scroll='scroll'
+       v-on:touchmove='scroll'
        >
       <el-recommend v-bind:message="message" v-on:rollMything='rollMythings'></el-recommend>
   </div>
@@ -45,8 +45,6 @@ export default {
                     console.log(11);
                     that.throttleTime = null;
           },120)
-     
-
     },
     rollMythings : function(callback){
       this.sonBack = callback;
@@ -69,8 +67,7 @@ export default {
 .body{
   width: 100%;
   height: 100%;
-  overflow-x:hidden;
-  overflow-y:auto;
+
 }
 
 

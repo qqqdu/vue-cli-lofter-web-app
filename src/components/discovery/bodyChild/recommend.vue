@@ -103,7 +103,7 @@ export default {
       this.list.h = this.list.el.offsetHeight
       this.moveTitle.el = document.querySelectorAll('.recommend .moveTitle')[0]
       this.moveTitle.h = this.moveTitle.el.offsetHeight
-      this.body.el = document.querySelectorAll('.body')[0]
+      this.body.el = document.querySelector('body')
       this.body.h = this.body.el.offsetHeight
       this.maxElNm = Math.floor(this.body.h/this.list.h)
       /*初始化加载现有节点动画*/
@@ -114,12 +114,13 @@ export default {
       this.$emit("rollMything",this.rollMove)
     },
     rollMove: function(ev) {
-      let nowLast = document.querySelectorAll('.body')[0].scrollTop
+      let nowLast = document.documentElement.scrollTop;
       let listTop = this.list.h - this.moveTitle.h // 列表的上半部分高度
       let allBody = nowLast + this.body.h; //屏幕的宽度+滚动宽度
       let alreadyNum = Math.floor(allBody/this.list.h)
       let firstElIndex = alreadyNum-this.maxElNm;
       let add = nowLast-this.scrollLast
+      console.log(alreadyNum)
       if(add>0){
           if(allBody-alreadyNum*this.list.h>=(this.list.h-this.moveTitle.h))  //下滑时，开始移动 
           {
@@ -216,7 +217,7 @@ img{
   text-align: center;
   line-height: 4rem;
   font-size: .8rem;
-  z-index: 999;
+  z-index: 9;
 }
 .line{
   width: 91%;

@@ -11,7 +11,7 @@
       <div class="bigImg">
           <img :src="dynamic.img">
       </div>
-      <div class="word" v-on:touchend='gotoPage'>
+      <div class="word" v-on:click='gotoPage'>
           <p>{{dynamic.word}}</p>
       </div>
       <div class="location">
@@ -42,6 +42,14 @@
               <p v-for="item of dynamic.comment.users"><a :href="item.url">{{item.name}}</a>:{{item.word}}</p>
           </div>
       </div>
+      <p>鼎折覆餗</p>
+      <p>鼎折覆餗</p>
+      <p>鼎折覆餗</p>
+      <p>鼎折覆餗</p>
+      <p>鼎折覆餗</p>
+      <p>鼎折覆餗</p>
+      <p>鼎折覆餗</p>
+      <p>鼎折覆餗</p>
   </div>
 </template>
 
@@ -95,8 +103,8 @@ export default {
      gotoPage (ev){
         if(!this.click)
           return;
-        this.home.openPage = true;
-       // this.$router.push('common/dynamicCon');
+        //this.home.openPage = true;
+        this.$router.push('common/dynamicCon');
        
       },
       changeTime(){

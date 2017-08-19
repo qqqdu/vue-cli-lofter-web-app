@@ -18,12 +18,7 @@ export default {
 </script>
 
 <style>
-body,html{
-  padding:0;
-  border:0;
-  margin:0;
-  overflow-x:hidden;
-}
+
 #app {
   font-family: '宋体', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -31,8 +26,7 @@ body,html{
   text-align: center;
   color: #2c3e50;
   width: 100%;
-  height: 100%;
-  overflow: hidden;
+  height: auto;
 }
 a{
   color: #2c3e50;

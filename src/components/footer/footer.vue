@@ -60,17 +60,7 @@ export default {
    left: 50%;
 }
 
-ul{
-  width: 100%;
-  height: 3rem;
-  padding:0;
-  display: block;
-  text-align: center;
-  background:#fefefe;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-}
+
 ul li {
   width: 4rem;
   height: 3rem;

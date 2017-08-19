@@ -1,7 +1,7 @@
 <template>
   <div class="body">
       <transition name='slide-subscribe'>
-        <el-subscribe v-show='this.home.nowPage===0'></el-subscribe>
+        <el-subscribe  v-show='this.home.nowPage===0'></el-subscribe>
       </transition>
       <transition name='slide-follow' >
         <keep-alive>
@@ -25,7 +25,8 @@ export default {
       message : null,
       sonBack : null,
       scrollLast : 0,
-      throttleTime : null
+      throttleTime : null,
+      arr : [1,2,3]
      }
   },
   computed : {
@@ -55,7 +56,7 @@ export default {
   width: 100%;
   height: 100%;
   overflow-x:hidden;
-  overflow-y:auto;
+  overflow-y:hidden;
 }
 .commonActive{
   transition: all .3s ease;
