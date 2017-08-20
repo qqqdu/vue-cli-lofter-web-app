@@ -9,7 +9,7 @@
           <span class="follow" v-show='!dynamic.follow'>关注</span>
       </div>
       <div class="bigImg">
-          <img :src="dynamic.img">
+          <img :src="dynamic.img" v-on:click='lookImg'>
       </div>
       <div class="word" v-on:click='gotoPage'>
           <p>{{dynamic.word}}</p>
@@ -42,23 +42,20 @@
               <p v-for="item of dynamic.comment.users"><a :href="item.url">{{item.name}}</a>:{{item.word}}</p>
           </div>
       </div>
-      <p>鼎折覆餗</p>
-      <p>鼎折覆餗</p>
-      <p>鼎折覆餗</p>
-      <p>鼎折覆餗</p>
-      <p>鼎折覆餗</p>
-      <p>鼎折覆餗</p>
-      <p>鼎折覆餗</p>
-      <p>鼎折覆餗</p>
+      <el-lookImg></el-lookImg>
   </div>
 </template>
 
 <script>
 import {mapState, mapMutations} from 'vuex'
+import lookImg from './lookImg/lookImg'
 export default {
   name: 'el-dynamic',
   mounted(){
     
+  },
+  components : {
+    "el-lookImg" : lookImg
   },
   props : ["click"], //父组件传递回来的消息,滚动条高度
   data () {
@@ -121,6 +118,9 @@ export default {
         }
 
         return date.getFullYear()+'-'+(date.getMonth()+1) + date.getDate();   
+      },
+      lookImg (){
+
       }
   }
 }
@@ -147,7 +147,7 @@ export default {
 @paddingTb:.5rem;
 @height3:3rem;
 .flex{
-    display: flex;
+  display: flex;
   flex-wrap: wrap;
 }
 .blodA{

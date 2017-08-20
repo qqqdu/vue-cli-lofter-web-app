@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from '../App'
 //css
-import common from '../style/common.css'
+import common from '../style/common.less'
 
 
 //组件
@@ -41,11 +41,11 @@ const router = new VueRouter({
     base: __dirname,
     routes: [
         { path: '/', name: '/', component: discovery },
-        { path: '/home', name: '/home', component: home ,meta: { keepAlive: true,scrollToTop:true}},
-        { path: '/discovery', name: '/discovery', component: discovery ,meta: { keepAlive: true,scrollToTop:true}},
+        { path: '/home', name: '/home', component: home ,meta: { keepAlive: true,scrollToTop:0}},
+        { path: '/discovery', name: '/discovery', component: discovery ,meta: { keepAlive: true,scrollToTop:0}},
         { path: '/publish', name: '/publish', component: publish },
-        { path: '/news', name: '/news', component: news ,meta: { keepAlive: true,scrollToTop:true}},
-        { path: '/mine', name: '/mine', component: mine ,meta: { keepAlive: true,scrollToTop:true}},
+        { path: '/news', name: '/news', component: news ,meta: { keepAlive: true,scrollToTop:0}},
+        { path: '/mine', name: '/mine', component: mine ,meta: { keepAlive: true,scrollToTop:0}},
         { path: '/album', name: 'album', component: album },
         { path: '/pptList', name: 'pptList', component: pptList },
         { path: '/writing', name: 'writing', component: writing },
@@ -56,30 +56,34 @@ const router = new VueRouter({
         { path: '/mine/photography', name: 'photography', component: photography },
         { path: '/mine/setPage', name: 'setPage', component: setPage },
         { path: '/common/dynamicCon', name: 'dynamicCon', component: dynamicCon }
-    ]
+    ],
+      scrollBehavior(to, from, savedPosition) {
+       console.log(savedPosition)
+        if (savedPosition) {
+
+          return savedPosition
+        } else {
+          return {
+            x: 0,
+            y: 0
+          }
+        }
+      }
 })
-let indexScrollTop = 0;
-router.beforeEach((to, from, next) => {
-console.log(from.meta.scrollToTop)
-  if (from.meta.scrollToTop) {
-    // 离开之前先保存滚动的位置
-    
-    from.meta.scrollToTop = document.body.scrollTop;
-    indexScrollTop = from.meta.scrollToTop;
-
-  }
-  if (to.meta.scrollToTop) {
-    // 再次进入时，强制滚动到离开时的位置
-    if(to.meta.scrollToTop===true){
-        document.querySelector('body').scrollTo(0, 0);
-    }else{
-        document.querySelector('body').scrollTo(0, to.meta.scrollToTop);
-    }
-
-    
-  }
-  next();
-});
+// let indexScrollTop = 0;
+// router.beforeEach((to, from, next) => {
+//   if (from.meta.keepAlive) {
+//     // 离开之前先保存滚动的位置
+//     from.meta.scrollToTop = document.body.scrollTop;
+//   }
+//   if (to.meta.keepAlive) {
+//     // 再次进入时，强制滚动到离开时的位置
+//     setTimeout(function(){
+//         window.scrollTo(0, to.meta.scrollToTop);
+//     },300)
+//   }
+//   next();
+// });
 export default router
 
 
