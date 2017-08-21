@@ -1,22 +1,49 @@
 <template>
   <div class="lookImg">
 
+      <button id="base64test">click</button>
   </div>
 </template>
 
 <script>
 import {mapState, mapMutations} from 'vuex'
-import Exif from 'exif-js'  
+import EXIF from 'exif-js'  
 export default {
   name: 'el-lookImg',
   mounted(){
+    var img = this.headImg;
+    function getBase64Image(img) {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+        var ext = img.src.substring(img.src.lastIndexOf(".")+1).toLowerCase();
+                var dataURL = canvas.toDataURL("image/"+ext);
+        return dataURL;
+    }
+    var image = new Image();
+    image.src = img;
+    var that = this;
     
+
+
+        var image = new Image();
+        image.onload = function() {
+            EXIF.getData(image, function() {
+                alert(EXIF.pretty(this));
+            });
+        };
+        image.src = img
+  
   },
   props : ["click"], //父组件传递回来的消息,滚动条高度
   data () {
     return {
       __root:'../../assets',
-      chooseIndex : 0
+      chooseIndex : 0,
+       headImg : require('../../../assets/user/picture.jpg'),
+       realImg : ''
     }
   },
   computed : {
