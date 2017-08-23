@@ -1,7 +1,8 @@
 <template>
   <div class="lookImg">
 
-      <button id="base64test">click</button>
+      <img :src="headImg" id="img1">
+      <button v-on:click='getImgInf'>click</button>
   </div>
 </template>
 
@@ -11,30 +12,39 @@ import EXIF from 'exif-js'
 export default {
   name: 'el-lookImg',
   mounted(){
-    var img = this.headImg;
-    function getBase64Image(img) {
-        var canvas = document.createElement("canvas");
-        canvas.width = img.width;
-        canvas.height = img.height;
-        var ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0, img.width, img.height);
-        var ext = img.src.substring(img.src.lastIndexOf(".")+1).toLowerCase();
-                var dataURL = canvas.toDataURL("image/"+ext);
-        return dataURL;
-    }
-    var image = new Image();
-    image.src = img;
-    var that = this;
+    // var img = this.headImg;
+    // function getBase64Image(img) {
+    //     var canvas = document.createElement("canvas");
+    //     canvas.width = img.width;
+    //     canvas.height = img.height;
+    //     var ctx = canvas.getContext("2d");
+    //     ctx.drawImage(img, 0, 0, img.width, img.height);
+    //     var ext = img.src.substring(img.src.lastIndexOf(".")+1).toLowerCase();
+    //             var dataURL = canvas.toDataURL("image/"+ext);
+    //     return dataURL;
+    // }
+    // var image = new Image();
+    // image.src = img;
+    // var that = this;
     
+document.getElementById("img1").onclick = function() {
+    EXIF.getData(this, function() {
+        var make = EXIF.getTag(this, "Make"),  
+            model = EXIF.getTag(this, "Model");
+        alert("I was taken by a " + make + " " + model);
+    });
 
+}
 
-        var image = new Image();
-        image.onload = function() {
-            EXIF.getData(image, function() {
-                alert(EXIF.pretty(this));
-            });
-        };
-        image.src = img
+        // var image = new Image();
+        // image.onload = function() {
+        //     EXIF.getData(image, function() {
+                
+        //         let it = EXIF.getTag(this, 'Orientation');
+        //         console.log(it)
+        //     });
+        // };
+        // image.src = this.headImg;
   
   },
   props : ["click"], //父组件传递回来的消息,滚动条高度
@@ -43,14 +53,38 @@ export default {
       __root:'../../assets',
       chooseIndex : 0,
        headImg : require('../../../assets/user/picture.jpg'),
-       realImg : ''
+       realImg : '',
+       photoInf : {
+          textArr : {
+            Make : '品牌',
+            Model : '型号',
+            FocalLength : '焦距',
+            FNumber : '光圈',
+            ShutterSpeedValue : '快门速度',
+            ISO : 'ISOSpeedRatings',
+            ExposureBiasValue : '曝光补偿',
+            ApertureValue : '镜头'
+          }
+
+       }
     }
   },
   computed : {
     ...mapState(['home'])
   },
   methods : {
-    ...mapMutations(['GOTONEWS'])
+    ...mapMutations(['GOTONEWS']),
+    getImgInf (ev){
+      let img = ev.target.parentNode.firstChild;
+      console.log('ok')
+      EXIF.getData(img, function() {
+          var make = EXIF.getTag(this, "Make"),  
+              model = EXIF.getTag(this, "Model");
+          console.log(make)
+          ev.target.value = "I was taken by a " + make + " " + model
+
+      });
+    }
   }
 }
 
@@ -110,5 +144,8 @@ export default {
   box-sizing: border-box;
   .flex;
 }
-
+#img1{
+  width: 400px;
+  height: 400px;
+}
 </style>
