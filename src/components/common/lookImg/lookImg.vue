@@ -2,6 +2,11 @@
   <div class="lookImg">
 
       <img :src="headImg" id="img1">
+      <div class="photoInf" >
+          <p v-for='(item,index) in photoInf.imgMapInf'>
+              <span>{{photoInf.textArr[index]}}</span>   <span>{{item}}</span>
+          </p>
+      </div>
       <button v-on:click='getImgInf'>click</button>
   </div>
 </template>
@@ -27,14 +32,14 @@ export default {
     // image.src = img;
     // var that = this;
     
-document.getElementById("img1").onclick = function() {
-    EXIF.getData(this, function() {
-        var make = EXIF.getTag(this, "Make"),  
-            model = EXIF.getTag(this, "Model");
-        alert("I was taken by a " + make + " " + model);
-    });
+// document.getElementById("img1").onclick = function() {
+//     EXIF.getData(this, function() {
+//         var make = EXIF.getTag(this, "Make"),  
+//             model = EXIF.getTag(this, "Model");
+//         alert("I was taken by a " + make + " " + model);
+//     });
 
-}
+// }
 
         // var image = new Image();
         // image.onload = function() {
@@ -61,11 +66,11 @@ document.getElementById("img1").onclick = function() {
             FocalLength : '焦距',
             FNumber : '光圈',
             ShutterSpeedValue : '快门速度',
-            ISO : 'ISOSpeedRatings',
+            ISOSpeedRatings : 'ISO',
             ExposureBiasValue : '曝光补偿',
             ApertureValue : '镜头'
-          }
-
+          },
+          imgMapInf : {},
        }
     }
   },
@@ -76,14 +81,18 @@ document.getElementById("img1").onclick = function() {
     ...mapMutations(['GOTONEWS']),
     getImgInf (ev){
       let img = ev.target.parentNode.firstChild;
-      console.log('ok')
-      EXIF.getData(img, function() {
-          var make = EXIF.getTag(this, "Make"),  
-              model = EXIF.getTag(this, "Model");
-          console.log(make)
-          ev.target.value = "I was taken by a " + make + " " + model
+      let that = this;
 
+      EXIF.getData(img, function() {
+          let allTags = EXIF.getAllTags(this);
+          let obj = {};
+          Object.keys(that.photoInf.textArr).map(function(val){
+                obj[val]  = allTags[val];
+          })
+          allTags = null;   
+          that.photoInf.imgMapInf = obj;
       });
+      return true;
     }
   }
 }
@@ -109,6 +118,10 @@ document.getElementById("img1").onclick = function() {
 @wordPadding:0 .5rem 0;
 @paddingTb:.5rem;
 @height3:3rem;
+
+@photoInfH: 8rem;
+@photoLine:1.2rem;
+@spanLW : 4rem;
 .flex{
     display: flex;
     flex-wrap: wrap;
@@ -143,6 +156,29 @@ document.getElementById("img1").onclick = function() {
   overflow: hidden;
   box-sizing: border-box;
   .flex;
+}
+.photoInf{
+  width: @width;
+  height: auto;
+  line-height: @photoLine;
+  font-family: 微软雅黑;
+  font-size: @smallFont;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: @paddingTb;
+  box-sizing: border-box;
+}
+.photoInf p span:nth-child(1){
+  color: @centerColor;
+  display: inline-block;
+  width: @spanLW;
+  text-align: right;
+}
+.photoInf p span:nth-child(2){
+  color: white;
+  width: @spanLW*2;
+  padding: @paddingTb;
 }
 #img1{
   width: 400px;
