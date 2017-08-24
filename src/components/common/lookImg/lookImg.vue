@@ -1,13 +1,15 @@
 <template>
-  <div class="lookImg">
-
-      <img :src="headImg" id="img1">
-      <div class="photoInf" >
-          <p v-for='(item,index) in photoInf.imgMapInf'>
-              <span>{{photoInf.textArr[index]}}</span>   <span>{{item}}</span>
-          </p>
-      </div>
-      <button v-on:click='getImgInf'>click</button>
+  <div class="lookImg" >
+    
+      <img :src="headImg" id="img1" v-on:touchstart='clickAll=true'>
+      <transition name="slide-fade">
+          <div class="photoInf" v-show='!clickAll'>
+              <p v-for='(item,index) in photoInf.imgMapInf'>
+                  <span>{{photoInf.textArr[index]}}</span>   <span>{{item}}</span>
+              </p>
+          </div>
+      </transition>
+      <button v-on:click='getImgInf'>i</button>
   </div>
 </template>
 
@@ -56,8 +58,9 @@ export default {
   data () {
     return {
       __root:'../../assets',
+      clickAll : true,
       chooseIndex : 0,
-       headImg : require('../../../assets/user/picture.jpg'),
+       headImg : require('../../../assets/user/myImg.jpg'),
        realImg : '',
        photoInf : {
           textArr : {
@@ -82,7 +85,7 @@ export default {
     getImgInf (ev){
       let img = ev.target.parentNode.firstChild;
       let that = this;
-
+      that.clickAll = false;
       EXIF.getData(img, function() {
           let allTags = EXIF.getAllTags(this);
           let obj = {};
@@ -119,14 +122,14 @@ export default {
 @paddingTb:.5rem;
 @height3:3rem;
 
-@photoInfH: 8rem;
-@photoLine:1.2rem;
+@photoInfH: auto;
+@photoLine:1.5rem;
 @spanLW : 4rem;
 .flex{
     display: flex;
-    flex-wrap: wrap;
+    
     justify-content:center;
-    align-item:center;
+    align-items:center;
 }
 .blodA{
   font-weight: bold;
@@ -148,6 +151,7 @@ export default {
   position: fixed;
   z-index: 999;
   top: 0;
+  left: 0;
   padding:0;
   background:black;
   display: block;
@@ -157,17 +161,24 @@ export default {
   box-sizing: border-box;
   .flex;
 }
+
+.lookImg img{
+  width: 100%;
+}
 .photoInf{
   width: @width;
-  height: auto;
+  height: @photoInfH;
   line-height: @photoLine;
   font-family: 微软雅黑;
+  background:rgba(0, 0, 0, 0.5);
   font-size: @smallFont;
   position: absolute;
   bottom: 0;
   left: 0;
   padding: @paddingTb;
+  padding-bottom:@paddingTb+1.5;
   box-sizing: border-box;
+
 }
 .photoInf p span:nth-child(1){
   color: @centerColor;
@@ -180,8 +191,32 @@ export default {
   width: @spanLW*2;
   padding: @paddingTb;
 }
-#img1{
-  width: 400px;
-  height: 400px;
+
+button{
+  position: absolute;
+  display: block;
+  width: @1Font;
+  height: @1Font;
+  bottom: @1Font;
+  left: @1Font;
+  line-height: @1Font;
+  text-align: center;
+  font-family: Verdana;
+  outline: none;
+  border:none;
+  border-radius: 50%;
+  padding:0;
+}
+
+.slide-fade-enter-active {
+  transition: all .3s;
+}
+.slide-fade-leave-active {
+  transition: all .3s;
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active for below version 2.1.8 */ {
+  width: 0;
+  height: 0;
 }
 </style>
