@@ -1,16 +1,23 @@
 <template>
-  <div class="lookImg" >
-    
-      <img :src="headImg" id="img1" v-on:touchstart='clickAll=true'>
-      <transition name="slide-fade">
-          <div class="photoInf" v-show='!clickAll'>
-              <p v-for='(item,index) in photoInf.imgMapInf'>
-                  <span>{{photoInf.textArr[index]}}</span>   <span>{{item}}</span>
-              </p>
-          </div>
-      </transition>
-      <button v-on:click='getImgInf'>i</button>
-  </div>
+  <transition name='slide-img' >
+      <div class="lookImg" v-show="showImg">
+          <img 
+              :src="headImg" 
+              id="img1" 
+              v-on:click='returnContent'
+              >
+          <transition name="slide-fade">
+              <div class="photoInf" v-show='mask'>
+                  <p v-for='(item,index) in photoInf.imgMapInf'>
+                      <span>{{photoInf.textArr[index]}}</span>   
+                      <span>{{item}}</span>
+                  </p>
+              </div>
+          </transition>
+          <div class="mask" v-show='mask' v-on:click='mask=false'></div>
+          <button v-on:click='getImgInf'>i</button>
+      </div>
+  </transition>
 </template>
 
 <script>
@@ -19,48 +26,15 @@ import EXIF from 'exif-js'
 export default {
   name: 'el-lookImg',
   mounted(){
-    // var img = this.headImg;
-    // function getBase64Image(img) {
-    //     var canvas = document.createElement("canvas");
-    //     canvas.width = img.width;
-    //     canvas.height = img.height;
-    //     var ctx = canvas.getContext("2d");
-    //     ctx.drawImage(img, 0, 0, img.width, img.height);
-    //     var ext = img.src.substring(img.src.lastIndexOf(".")+1).toLowerCase();
-    //             var dataURL = canvas.toDataURL("image/"+ext);
-    //     return dataURL;
-    // }
-    // var image = new Image();
-    // image.src = img;
-    // var that = this;
-    
-// document.getElementById("img1").onclick = function() {
-//     EXIF.getData(this, function() {
-//         var make = EXIF.getTag(this, "Make"),  
-//             model = EXIF.getTag(this, "Model");
-//         alert("I was taken by a " + make + " " + model);
-//     });
-
-// }
-
-        // var image = new Image();
-        // image.onload = function() {
-        //     EXIF.getData(image, function() {
-                
-        //         let it = EXIF.getTag(this, 'Orientation');
-        //         console.log(it)
-        //     });
-        // };
-        // image.src = this.headImg;
-  
   },
   props : ["click"], //父组件传递回来的消息,滚动条高度
   data () {
     return {
       __root:'../../assets',
-      clickAll : true,
+      mask : false,
+      showImg : true,
       chooseIndex : 0,
-       headImg : require('../../../assets/user/myImg.jpg'),
+       headImg : require('../../../assets/user/head.png'),
        realImg : '',
        photoInf : {
           textArr : {
@@ -94,8 +68,12 @@ export default {
           })
           allTags = null;   
           that.photoInf.imgMapInf = obj;
+          that.mask = true;
       });
       return true;
+    },
+    returnContent(ev){
+      this.showImg = false;
     }
   }
 }
@@ -144,7 +122,13 @@ export default {
    top: 50%;
    left: 50%;
 }
-
+.mask{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
 .lookImg{
   width: @width;
   height: 100%;
@@ -208,15 +192,17 @@ button{
   padding:0;
 }
 
-.slide-fade-enter-active {
-  transition: all .3s;
+.slide-fade-enter-active, .slide-fade-leave-active {
+   transition: all .1s
 }
-.slide-fade-leave-active {
-  transition: all .3s;
+
+.slide-fade-enter, .slide-fade-leave-to {
+   transform: translate3d(-@width/4,100px,0);
 }
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active for below version 2.1.8 */ {
-  width: 0;
-  height: 0;
+.slide-img-enter-active, .slide-img-leave-active{
+  transition:3s;
+}
+.slide-img-enter, .slide-img-leave-to {
+   background:rgba(0,0,0,0);
 }
 </style>
