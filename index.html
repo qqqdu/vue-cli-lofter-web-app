@@ -4,6 +4,16 @@
     <meta charset="utf-8">
     <title>duhao</title>
     <script type="text/javascript">
+      let debug = true;
+      let print = {};
+      print.log = new Proxy(console.log,{  //拦截console.log
+        apply (target, object, args){
+           if(!debug)
+              return;
+           return Reflect.apply(...arguments);
+        }
+      })
+
       function addClass(ele, cls) {
         if (!hasClass(ele, cls)) {
           ele.className = ele.className == '' ? cls : ele.className + ' ' + cls;
@@ -32,7 +42,5 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
-  <script type="text/javascript">
-  	
-  </script>
+
 </html>

@@ -34,6 +34,9 @@ export default {
    top: 50%;
    left: 50%;
 }
+.footer{
+  height: 2rem;
+}
 ul{
   width: 100%;
   height: 2rem;

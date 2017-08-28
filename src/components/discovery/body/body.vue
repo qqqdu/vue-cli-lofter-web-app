@@ -1,7 +1,5 @@
 <template>
-  <div class="body"
-       v-on:touchmove='scroll'
-       >
+  <div class="body">
       <el-recommend v-bind:message="message" v-on:rollMything='rollMythings'></el-recommend>
   </div>
 </template>
@@ -13,6 +11,17 @@ export default {
   name: 'el-body',
   components : {
     "el-recommend" : elRecommend
+  },
+  mounted (){
+    let that = this;
+    setTimeout(function(){
+      console.log(document.getElementsByTagName('body')[0])
+        document.getElementsByTagName('body')[0].onscroll = function(ev){
+      console.log(12)
+      that.scroll(ev);
+    }
+    },100)
+    
   },
   data () {
     return {

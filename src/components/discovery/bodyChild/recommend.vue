@@ -1,5 +1,8 @@
 <template>
-  <div class="recommend" v-on:touchstart="touchStart">
+  <div class="recommend" 
+    v-on:touchstart="touchStart"
+    v-on:scroll = "rollMove"
+    >
     <ul>
       <li v-for='(item,key,index) in userImg'>
           <div class="imgMax">
@@ -103,7 +106,7 @@ export default {
       this.list.h = this.list.el.offsetHeight
       this.moveTitle.el = document.querySelectorAll('.recommend .moveTitle')[0]
       this.moveTitle.h = this.moveTitle.el.offsetHeight
-      this.body.el = document.querySelector('body')
+      this.body.el = document.querySelector('.recommend')
       this.body.h = this.body.el.offsetHeight
       this.maxElNm = Math.floor(this.body.h/this.list.h)
       /*初始化加载现有节点动画*/
@@ -114,7 +117,7 @@ export default {
       this.$emit("rollMything",this.rollMove)
     },
     rollMove: function(ev) {
-      let nowLast = document.body.scrollTop;
+      let nowLast = this.body.el.scrollTop;
       let listTop = this.list.h - this.moveTitle.h // 列表的上半部分高度
       let allBody = nowLast + this.body.h; //屏幕的宽度+滚动宽度
       let alreadyNum = Math.floor(allBody/this.list.h)
@@ -172,6 +175,17 @@ export default {
 @fontColor : rgb(153, 153, 153);
 .transition{
   transition:1.5s;
+}
+.recommend{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  box-sizing: border-box;
+  overflow: auto;
 }
 ul{
   width: auto;
