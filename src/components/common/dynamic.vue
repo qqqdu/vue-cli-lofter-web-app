@@ -42,7 +42,7 @@
               <p v-for="item of dynamic.comment.users"><a :href="item.url">{{item.name}}</a>:{{item.word}}</p>
           </div>
       </div>
-      <el-lookImg></el-lookImg>
+     
   </div>
 </template>
 
@@ -62,6 +62,7 @@ export default {
     return {
       __root:'../../assets',
       chooseIndex : 0,
+      nowImgPositionY : 0,
       dynamic : {
         name : '用户名',
         headImg : require('../../assets/user/head.png'),
@@ -119,8 +120,14 @@ export default {
 
         return date.getFullYear()+'-'+(date.getMonth()+1) + date.getDate();   
       },
-      lookImg (){
-
+      lookImg (ev){
+        let img = ev.target;
+        let offset = img.parentNode.offsetTop +  document.body.scrollTop; 
+        let heightHalf = document.documentElement.clientHeight-
+                         img.height;
+        heightHalf=heightHalf/2;
+        img.style.transform = `translate3d(0,${document.body.scrollTop}px,0)`;
+        print.log(heightHalf)
       }
   }
 }
@@ -177,9 +184,10 @@ export default {
   background:white;
   font-size: @mainFont;
   color: @mainColor;
+}
+.dynamic>div{
   padding:@wordPadding;
 }
-
 
 .icon(){
   width: 32px;
@@ -237,9 +245,15 @@ export default {
   text-align: center;
 }
 .bigImg{
+  width: @width;
   max-height: 30rem;
   overflow: hidden;
   text-align: center;
+  padding:0 !important;
+}
+.bigImg img{
+  width: 100%;
+  transition:1s;
 }
 .word{
 

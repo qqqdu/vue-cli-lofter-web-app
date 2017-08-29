@@ -58,7 +58,6 @@ const router = new VueRouter({
         { path: '/common/dynamicCon', name: 'dynamicCon', component: dynamicCon }
     ],
       scrollBehavior(to, from, savedPosition) {
-       console.log(savedPosition)
         if (savedPosition) {
 
           return savedPosition
