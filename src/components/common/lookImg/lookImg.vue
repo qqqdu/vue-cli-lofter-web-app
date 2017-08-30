@@ -1,6 +1,6 @@
 <template>
   <transition name='slide-img' >
-      <div class="lookImg" v-show="showImg">
+      <div class="lookImg" v-show="imgInf.showImg">
           <img 
               :src="headImg" 
               id="img1" 
@@ -26,13 +26,13 @@ import EXIF from 'exif-js'
 export default {
   name: 'el-lookImg',
   mounted(){
+    
   },
-  props : ["click"], //父组件传递回来的消息,滚动条高度
+  props : ["click","imgInf"], //父组件传递回来的消息,滚动条高度
   data () {
     return {
       __root:'../../assets',
       mask : false,
-      showImg : true,
       chooseIndex : 0,
        headImg : require('../../../assets/user/head.png'),
        realImg : '',
@@ -73,7 +73,8 @@ export default {
       return true;
     },
     returnContent(ev){
-      this.showImg = false;
+      this.imgInf.showImg = false;
+      this.$emit('closeImg');
     }
   }
 }
@@ -136,7 +137,7 @@ export default {
   z-index: 999;
   top: 0;
   left: 0;
-  padding:0;
+  padding:0 !important;
   background:black;
   display: block;
   text-align: left;
@@ -148,6 +149,7 @@ export default {
 
 .lookImg img{
   width: 100%;
+  opacity: 1;
 }
 .photoInf{
   width: @width;
@@ -199,10 +201,14 @@ button{
 .slide-fade-enter, .slide-fade-leave-to {
    transform: translate3d(-@width/4,100px,0);
 }
-.slide-img-enter-active, .slide-img-leave-active{
-  transition:3s;
+.slide-img-enter-active{
+  transition:.3s;
+}
+.slide-img-leave-active{
+  transition:.3s;
 }
 .slide-img-enter, .slide-img-leave-to {
-   background:rgba(0,0,0,0);
+   background:rgba(0, 0, 0, 0);
+   opacity: 0;
 }
 </style>

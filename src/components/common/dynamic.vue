@@ -42,7 +42,9 @@
               <p v-for="item of dynamic.comment.users"><a :href="item.url">{{item.name}}</a>:{{item.word}}</p>
           </div>
       </div>
-     
+      
+      <el-lookImg :imgInf='imgInf' @closeImg='closeImg'></el-lookImg>
+      
   </div>
 </template>
 
@@ -62,7 +64,11 @@ export default {
     return {
       __root:'../../assets',
       chooseIndex : 0,
-      nowImgPositionY : 0,
+      imgInf : {
+        showImg : false,
+        nowImgPositionY : 0,
+        el : null
+      },
       dynamic : {
         name : '用户名',
         headImg : require('../../assets/user/head.png'),
@@ -122,12 +128,21 @@ export default {
       },
       lookImg (ev){
         let img = ev.target;
-        let offset = img.parentNode.offsetTop +  document.body.scrollTop; 
+        let offset =   document.body.scrollTop; 
         let heightHalf = document.documentElement.clientHeight-
                          img.height;
         heightHalf=heightHalf/2;
-        img.style.transform = `translate3d(0,${document.body.scrollTop}px,0)`;
-        print.log(heightHalf)
+        this.imgInf.nowImgPositionY = heightHalf-img.offsetTop + offset;
+        img.style.transform = `translate3d(0,${this.imgInf.nowImgPositionY}px,0)`;
+        setTimeout(()=>{
+          this.imgInf.showImg = true;
+        },200)
+        
+        this.imgInf.el = img;
+      },
+      closeImg (){
+        console.log(this.imgInf.el)
+        this.imgInf.el.style.transform = `translate3d(0,0,0)`;
       }
   }
 }
@@ -247,13 +262,12 @@ export default {
 .bigImg{
   width: @width;
   max-height: 30rem;
-  overflow: hidden;
   text-align: center;
   padding:0 !important;
 }
 .bigImg img{
   width: 100%;
-  transition:1s;
+  transition:.3s;
 }
 .word{
 
