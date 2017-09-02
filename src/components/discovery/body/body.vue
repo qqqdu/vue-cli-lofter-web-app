@@ -15,11 +15,9 @@ export default {
   mounted (){
     let that = this;
     setTimeout(function(){
-      console.log(document.getElementsByTagName('body')[0])
         document.getElementsByTagName('body')[0].onscroll = function(ev){
-      console.log(12)
-      that.scroll(ev);
-    }
+            that.scroll(ev);
+        }
     },100)
     
   },

@@ -1,4 +1,5 @@
 import Exif from 'exif-js'
+import Vue from 'vue'
 export default {
 	ADDCOUNT :(state,payload)=>{
 				state.count[0].name = 'hei';
@@ -21,5 +22,9 @@ export default {
 		console.log(document.querySelector('.header'))
 		state.page.bodyHeight = document.body.offsetHeight - footer -header; 
 		console.log(state.page.bodyHeight)
+	},
+	gotoPageDynamicCon : (state,that)=>{  //goto page
+		
+		that.$router.push('common/dynamicCon');
 	}
 }

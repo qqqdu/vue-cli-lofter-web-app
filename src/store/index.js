@@ -28,7 +28,8 @@ export default new Vuex.Store({
 			bodyHeight: null
 		},
 		discovery : {
-			nowPage : 0
+			nowPage : 0,
+			pageArr : ['el-recommend','el-journey','el-photography']
 		},
 		home : {
 			nowPage : 0,

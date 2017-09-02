@@ -5,7 +5,7 @@
     >
     <ul>
       <li v-for='(item,key,index) in userImg'>
-          <div class="imgMax">
+          <div class="imgMax" v-on:click='openPage'>
               <img src="../../../assets/user/IMG_20160710_201616.jpg" class="icon">
           </div>
           <div class="moveTitle">
@@ -82,7 +82,7 @@ export default {
     }
   },
   methods : {
-    ...mapMutations(['GOTODISCOVER','GETBODYHEIGHT']),
+    ...mapMutations(['GOTODISCOVER','GETBODYHEIGHT','gotoPageDynamicCon']),
     gotoPage (ev){
       let aLi = document.querySelectorAll('.header .list .scroll a');
       let index = [].indexOf.call(aLi,ev.currentTarget);
@@ -93,6 +93,9 @@ export default {
         return;
       this.GOTODISCOVER(index);
       return;
+    },
+    openPage (ev){
+      this.gotoPageDynamicCon(this);
     },
     swipe (ev){
 
