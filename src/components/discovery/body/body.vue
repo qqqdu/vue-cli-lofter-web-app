@@ -1,15 +1,17 @@
 <template>
   <div class="body">
-      <el-recommend v-bind:message="message" v-on:rollMything='rollMythings'></el-recommend>
+      <el-components v-bind:contentArr='content'></el-components>
   </div>
 </template>
 
 <script>
 import elRecommend from '../bodyChild/recommend'
+import elComponents from './components'
 import {mapState, mapMutations} from 'vuex'
 export default {
   name: 'el-body',
   components : {
+    "el-components" : elComponents,
     "el-recommend" : elRecommend
   },
   mounted (){
@@ -26,7 +28,9 @@ export default {
       message : null,
       sonBack : null,
       scrollLast : 0,
-      throttleTime : null
+
+      content : ['el-recommend']
+   
      }
   },
   computed : {
@@ -38,20 +42,6 @@ export default {
       let that = this;
       that.message = ev;  //滚动参数传递给子组件
       that.sonBack&&that.sonBack({deltaY:ev});
-      return;
-      that.throttleTime = null;
-                    
-          if(that.throttleTime){
-            clearTimeout(that.throttleTime)
-            return;
-            console.log(that.throttleTime)
-          }
-          that.throttleTime = setTimeout(function(){
-                    that.message = ev;  //滚动参数传递给子组件
-                    //that.sonBack&&that.sonBack({deltaY:ev});
-                    console.log(11);
-                    that.throttleTime = null;
-          },120)
     },
     rollMythings : function(callback){
       this.sonBack = callback;
