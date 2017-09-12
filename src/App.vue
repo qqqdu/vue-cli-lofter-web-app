@@ -18,7 +18,6 @@ export default {
 </script>
 
 <style>
-
 #app {
   font-family: '宋体', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

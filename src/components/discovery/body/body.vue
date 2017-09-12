@@ -29,7 +29,7 @@ export default {
       sonBack : null,
       scrollLast : 0,
 
-      content : ['el-recommend']
+      content : [elRecommend]
    
      }
   },

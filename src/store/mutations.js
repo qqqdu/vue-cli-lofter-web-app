@@ -24,7 +24,6 @@ export default {
 		console.log(state.page.bodyHeight)
 	},
 	gotoPageDynamicCon : (state,that)=>{  //goto page
-		
 		that.$router.push('common/dynamicCon');
 	}
 }
