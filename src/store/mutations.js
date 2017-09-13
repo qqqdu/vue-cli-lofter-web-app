@@ -14,8 +14,15 @@ export default {
 		let discovery = state.discovery;
 		discovery.nowPage = page;
 		//数组不能重复添加
-		discovery.content.push(discovery.pageAll[page]);
-		document.querySelector('.contents').style.left = -(page)*20 + 'rem';
+		if(findEqueal(discovery.content,discovery.pageAll[page])==undefined){
+			discovery.content.push(discovery.pageAll[page]);
+		}
+		//document.querySelector('.contents').style.left = -(page)*20 + 'rem';
+		function findEqueal(arr,trueVal){
+			return arr.find(function(val){
+				return trueVal===val;
+			});
+		}
 	},
 	GOTOHOME : (state,page)=>{
 		state.home.nowPage = page;

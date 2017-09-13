@@ -18,7 +18,7 @@
 <script>
 import {mapState, mapMutations} from 'vuex'
 export default {
-  name: 'el-recommend',
+  name: 'recommend',
   props : ["message"], //父组件传递回来的消息,滚动条高度
   data () {
     return {
@@ -185,7 +185,7 @@ export default {
   width: 20rem;
   height: auto;
   box-sizing: border-box;
-  overflow: auto;
+
 }
 ul{
   width: auto;
@@ -230,7 +230,7 @@ img{
   text-align: center;
   line-height: 4rem;
   font-size: .8rem;
-  z-index: 9;
+  z-index: 1;
 }
 .line{
   width: 91%;

@@ -1,5 +1,5 @@
 <template>
-  <div class="subscribe">
+  <div class="journey">
          <el-dynamic v-bind:click="click"></el-dynamic>
   </div>
 </template>
