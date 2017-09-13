@@ -179,13 +179,11 @@ export default {
   transition:1.5s;
 }
 .recommend{
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+  width: 20rem;
+  height: auto;
   box-sizing: border-box;
   overflow: auto;
 }

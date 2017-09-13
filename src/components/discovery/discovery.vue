@@ -14,7 +14,7 @@ import {mapState,mapMutations} from 'vuex';
 export default {
   name : 'discovery',
   mounted (){
-    this.nowPage = 1;
+   
   },
   components : {
     "el-footer" : elfooter,

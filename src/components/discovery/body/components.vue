@@ -1,21 +1,23 @@
 <script>
-import recommend from '../bodyChild/recommend'
+import {mapState, mapMutations} from 'vuex'
+
 export default {
   props : ['contentArr'],
-  data () {
-    return {
-      coms : []
-     }
-  },
   render: function(h) {
-            //this.coms.push(h(this.contentArr[0], {})); 
-       
-            // for(var i = 0; i < this.contentArr.length; i++) {
-            //     this.coms.push(h(this.contentArr[i], {}))
-            // }
-            this.coms.push(h(recommend,{}))
-            return h('div', {},
-                this.coms)
+            let child = [];
+            this.discovery.content.map(function(val){
+            	child.push(h(val,{
+            	}));
+            })
+            return h('div',{
+            	class : 'contents',
+            	style : {
+            		width : this.discovery.content.length * 20 + 'rem'
+            	}
+            },child)
+  },
+  computed :{
+  	 ...mapState(['discovery'])
   }
 }
 </script>

@@ -244,7 +244,7 @@ export default {
   line-height: 1.5rem;
   position: absolute;
   top: 50%;
-  right: 0;
+  right: .5rem;
   margin-top: -.75rem;
 }
 .time{
@@ -258,6 +258,7 @@ export default {
   border:1px solid @green;
   border-radius: 6rem;
   text-align: center;
+
 }
 .bigImg{
   width: @width;

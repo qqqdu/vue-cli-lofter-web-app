@@ -1,5 +1,8 @@
 import Exif from 'exif-js'
 import Vue from 'vue'
+/*myself components*/
+import recommend from '../components/discovery/bodyChild/recommend'
+
 export default {
 	ADDCOUNT :(state,payload)=>{
 				state.count[0].name = 'hei';
@@ -8,7 +11,11 @@ export default {
 		state.nowPage = page;
 	},
 	GOTODISCOVER : (state,page)=>{
-		state.discovery.nowPage = page;
+		let discovery = state.discovery;
+		discovery.nowPage = page;
+		//数组不能重复添加
+		discovery.content.push(discovery.pageAll[page]);
+		document.querySelector('.contents').style.left = -(page)*20 + 'rem';
 	},
 	GOTOHOME : (state,page)=>{
 		state.home.nowPage = page;

@@ -1,12 +1,15 @@
 <template>
   <div class="body">
-      <el-components v-bind:contentArr='content'></el-components>
+      <el-components ></el-components>
   </div>
 </template>
 
 <script>
 import elRecommend from '../bodyChild/recommend'
+import elJourney from '../bodyChild/journey'
+
 import elComponents from './components'
+
 import {mapState, mapMutations} from 'vuex'
 export default {
   name: 'el-body',
@@ -21,16 +24,14 @@ export default {
             that.scroll(ev);
         }
     },100)
-    
+   // document.querySelector('.contents').style.width = ;
+
   },
   data () {
     return {
       message : null,
       sonBack : null,
-      scrollLast : 0,
-
-      content : [elRecommend]
-   
+      scrollLast : 0
      }
   },
   computed : {
@@ -52,7 +53,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang='less'>
+<style   lang='less'>
 @imgSrc:'./assets';
 @centerColor : #a2a6a6;
 @height : 12rem;
@@ -67,9 +68,17 @@ export default {
 
 }
 
+.contents{
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 40rem;
+  height: 100%;
+  box-sizing: border-box;
 
+}
+.contents>div{
+  float: left;
 
-p{
-  display: inline;
 }
 </style>

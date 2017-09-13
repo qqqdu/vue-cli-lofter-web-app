@@ -5,6 +5,10 @@ import getters from './getters'
 import mutations from './mutations'
 import actions from './actions'
 
+/*myself components*/
+import journey from '../components/discovery/bodyChild/journey'
+import recommend from '../components/discovery/bodyChild/recommend'
+
 Vue.use(Vuex);
 /*
 const state = {
@@ -29,7 +33,9 @@ export default new Vuex.Store({
 		},
 		discovery : {
 			nowPage : 0,
-			pageArr : ['el-recommend','el-journey','el-photography']
+			pageAll : [journey,recommend],
+			cache : 3,  //cache page num 
+			content : [journey]
 		},
 		home : {
 			nowPage : 0,
