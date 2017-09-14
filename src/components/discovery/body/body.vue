@@ -80,7 +80,11 @@ export default {
 }
 .contents>div{
   float: left;
-
+  position: relative;
+  height: 100%;
+  top: 0;
+  left: 0;
+  width: 20rem;
   height: 100%;
   overflow-y: auto;
 }

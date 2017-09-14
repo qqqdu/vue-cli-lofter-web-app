@@ -178,7 +178,6 @@ export default {
   top: 0;
   left: 0;
   width: 20rem;
-
   box-sizing: border-box;
   overflow-y: auto;
 }
