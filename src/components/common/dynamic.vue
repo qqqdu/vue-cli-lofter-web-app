@@ -128,11 +128,12 @@ export default {
       },
       lookImg (ev){
         let img = ev.target;
-        let offset =   document.body.scrollTop; 
+        let offset =  document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop; 
         let heightHalf = document.documentElement.clientHeight-
                          img.height;
         heightHalf=heightHalf/2;
         this.imgInf.nowImgPositionY = heightHalf-img.offsetTop + offset;
+        print.log(offset);
         img.style.transform = `translate3d(0,${this.imgInf.nowImgPositionY}px,0)`;
         setTimeout(()=>{
           this.imgInf.showImg = true;
@@ -193,8 +194,6 @@ export default {
   display: block;
   text-align: left;
   word-wrap: normal;
-  float: left;
-  overflow: hidden;
   box-sizing: border-box;
   background:white;
   font-size: @mainFont;

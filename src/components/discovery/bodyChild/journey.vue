@@ -1,5 +1,7 @@
 <template>
-  <div class="journey">
+  <div class="journey"
+     
+        >
          <el-dynamic v-bind:click="click"></el-dynamic>
   </div>
 </template>
@@ -16,6 +18,9 @@ export default {
     return {
       click : true
     }
+  },
+  computed : {
+    ...mapState(['discovery']),
   }
 }
 
@@ -66,29 +71,8 @@ img{
   top: 50%;
   
 }
-.moveTitle{
-  position: absolute;
-  width: 100%;
-  height: 4rem;
-  background:white;
-  bottom: 0;
-  color: black;
-  text-align: center;
-  line-height: 4rem;
-  font-size: .8rem;
-  z-index: 999;
-}
-.line{
-  width: 91%;
-  padding-bottom: 5px;
-  border-bottom:1px solid #ccc;
-  display: inline-block;
-  line-height: 2rem;
-  position: relative;
-  top: -5px;
-  text-align: left;
-  color: @fontColor;
-}
+
+
 el-dynamic{
   margin-top: @split;
 }

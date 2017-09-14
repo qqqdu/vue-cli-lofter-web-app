@@ -14,7 +14,10 @@ import {mapState,mapMutations} from 'vuex';
 export default {
   name : 'discovery',
   mounted (){
-   
+  
+  },
+  watch: {
+    "$route" : "leaveThis"
   },
   components : {
     "el-footer" : elfooter,
@@ -27,7 +30,18 @@ export default {
     }
   },
   computed : {
-    ...mapState(['nowPage'])
+    ...mapState(['nowPage']),
+  },
+  methods : {
+    leaveThis (){
+     
+          if(this.$route.name!='/discovery'){
+             document.querySelector('body').style.overflowY = 'auto';
+          }else{
+             document.querySelector('body').style.overflow = 'hidden';
+          }
+          
+    }
   }
 }
 </script>
@@ -69,5 +83,9 @@ a {
 
 time{
   float: right;
+}
+.discovery{
+  width: 100%;
+  height: 100%;
 }
 </style>

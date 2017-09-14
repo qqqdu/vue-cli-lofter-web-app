@@ -74,18 +74,17 @@ export default {
   flex-warp:center;
 }
 .dynamicCon{
-  width: 100%;
-  height: 100%;
-  padding-bottom: @list2;
   background:rgb(244, 245, 245);
-  overflow-x:hidden;
-  overflow-y:auto;
-  position: fixed;
   text-align: left;
   box-sizing: border-box;
   top: 0;
-  position: absolute;
-  z-index: 999;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 99;
+  padding-top: 3rem;
+  padding-bottom: 2rem;
 }
 
 p{

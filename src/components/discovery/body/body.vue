@@ -75,10 +75,13 @@ export default {
   width: 40rem;
   height: 100%;
   box-sizing: border-box;
-
+  transition:.3s;
+  overflow:hidden;
 }
 .contents>div{
   float: left;
 
+  height: 100%;
+  overflow-y: auto;
 }
 </style>

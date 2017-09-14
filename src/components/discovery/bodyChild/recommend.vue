@@ -64,13 +64,7 @@ export default {
       userImg: [ 
                  'IMG_20160710_201616.jpg',
                  'IMG_20160713_173309.jpg',
-                 'IMG_20160713_173323.jpg',
-                 'IMG_20160716_115132.jpg',
-                 'IMG_20170429_164226.jpg',
-                 'IMG_20170429_164237.jpg',
-                 'IMG_20170429_185549.jpg',
-                 'IMG_20170429_185621.jpg',
-                 'IMG_20170430_104811.jpg'
+                 'IMG_20160713_173323.jpg'
               ]
     }
   },
@@ -81,7 +75,7 @@ export default {
     }
   },
   methods : {
-    ...mapMutations(['GOTODISCOVER','GETBODYHEIGHT','gotoPageDynamicCon']),
+    ...mapMutations(['GOTODISCOVER','gotoPageDynamicCon']),
     gotoPage (ev){
       let aLi = document.querySelectorAll('.header .list .scroll a');
       let index = [].indexOf.call(aLi,ev.currentTarget);
@@ -180,12 +174,13 @@ export default {
 }
 .recommend{
   position: relative;
+  height: 100%;
   top: 0;
   left: 0;
   width: 20rem;
-  height: auto;
-  box-sizing: border-box;
 
+  box-sizing: border-box;
+  overflow-y: auto;
 }
 ul{
   width: auto;

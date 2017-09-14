@@ -7,22 +7,36 @@ export default {
 	ADDCOUNT :(state,payload)=>{
 				state.count[0].name = 'hei';
 		},
-	GOTOPAGE: (state,page)=>{  //跳转页面
+	GOTOPAGE: (state,page)=>{  
 		state.nowPage = page;
 	},
 	GOTODISCOVER : (state,page)=>{
 		let discovery = state.discovery;
+		discovery.whichShow[discovery.nowPage] = false;
 		discovery.nowPage = page;
+		discovery.whichShow[page] = true;
+		console.log(discovery.whichShow)
 		//数组不能重复添加
 		if(findEqueal(discovery.content,discovery.pageAll[page])==undefined){
 			discovery.content.push(discovery.pageAll[page]);
 		}
-		//document.querySelector('.contents').style.left = -(page)*20 + 'rem';
+		document.querySelector('.contents').style.left = -(page)*20 + 'rem';
 		function findEqueal(arr,trueVal){
 			return arr.find(function(val){
 				return trueVal===val;
 			});
 		}
+	},
+	WHICHSHOW : (state,val) =>{  //discovery page which show
+		let discovery = state.discovery;
+		findIt(val);
+		function findIt(val){
+          var resulte = discovery.pageAll[discovery.nowPage];
+          if(val===resulte)
+            return true;
+          else
+            return false;
+        }
 	},
 	GOTOHOME : (state,page)=>{
 		state.home.nowPage = page;

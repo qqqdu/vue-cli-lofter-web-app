@@ -33,9 +33,10 @@ export default new Vuex.Store({
 		},
 		discovery : {
 			nowPage : 0,
-			pageAll : [journey,recommend],
+			pageAll : [recommend,journey,],
+			whichShow : [true,false],
 			cache : 3,  //cache page num 
-			content : [journey]
+			content : [recommend]
 		},
 		home : {
 			nowPage : 0,
