@@ -3,8 +3,12 @@
       <div class="moveContent">
          <a v-for='img in imgObj' href="javascript:;">
             <img :src="img.imgUrl" />
-
          </a>
+      </div>
+      <div class="imgBtn">
+          <a v-for='(item , index) in imgObj' href="javascript:;"
+             v-bind:class='index==moveImg.nowNum?"choose":""'
+              ></a>          
       </div>
     </div>
 </template>
@@ -15,14 +19,22 @@ export default {
   data () {
     return {
         selfImg : [],
+        moveImg : {
+          width : -20,
+          el : null,
+          timer : null,
+          nowNum : 0,
+          allNum : 0
+        }
      }
   },
   mounted (){
-    // this.imgObj.map(function(){
-    //   this.selfImg.push({
-    //     imgUrl : require('')
-    //   })
-    // })
+    let that =  this;
+    this.init();
+    this.fillHTML();
+    this.moveImg.timer = setInterval(function(){
+      that.moveLeft();
+    },2000);
   },
   props : ['imgObj'],
   components : {
@@ -32,7 +44,30 @@ export default {
     
   },
   methods : {
-    ...mapMutations([])
+    ...mapMutations([]),
+    moveLeft (){
+     
+      this.moveImg.nowNum++;
+     
+      this.moveImg.width-=20;
+      if(this.moveImg.nowNum===this.moveImg.allNum){
+        this.moveImg.nowNum=0;
+        this.moveImg.width = -20;
+      }
+      this.moveImg.el.style.transform = `translate3d(${this.moveImg.width}rem,0,0)`;
+    },
+    init (){
+      this.moveImg.el = document.querySelector(".moveContent");
+      this.moveImg.allNum = this.imgObj.length;
+    },
+    fillHTML (){
+      let first = this.moveImg.el.firstChild.cloneNode(true);;
+      let last = document.importNode(this.moveImg.el.lastChild,true);;
+      let newEl = document.createDocumentFragment();
+      newEl.appendChild(last);
+      this.moveImg.el.insertBefore(newEl,this.moveImg.el.firstChild);
+      this.moveImg.el.appendChild(first);
+    }
   }
 }
 
@@ -69,6 +104,8 @@ export default {
   width: @width;
   overflow: hidden;
   height: @list0*3;
+  position: relative;
+  text-align: center;
 }
 .moveContent{
   width: auto;
@@ -76,8 +113,32 @@ export default {
   display: flex;
   flex-direction:row;
   position: relative;
+  transition:1s;
+  transform:translate3d(-20rem,0,0);
 }
 .moveContent a{
   height: 100%;
+}
+.moveContent a img{
+  width: @width;
+}
+.imgBtn{
+  width: 100%;
+  height:@1Font;
+
+  position: absolute;
+  bottom: @paddingTb;
+  left: 0;
+}
+.imgBtn a{
+  width: @mainFont;
+  height: @mainFont;
+  border-radius: 50%;
+  background:rgb(112, 132, 139);
+  display: inline-block;
+  margin:.4rem;
+}
+.imgBtn .choose{
+  background: rgb(57, 97, 99)
 }
 </style>
