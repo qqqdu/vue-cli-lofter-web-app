@@ -1,7 +1,7 @@
 <template>
     <div class="slideImg">
       <div class="moveContent"
-           v-on:transitionend="addTransition">
+           v-on:transitionend="checkAll">
          <a v-for='img in imgObj' href="javascript:;">
             <img :src="img.imgUrl" />
          </a>
@@ -26,7 +26,7 @@ export default {
           timer : null,
           nowNum : 0,
           allNum : 0,
-          duration : 1000
+          duration : 3000
         }
      }
   },
@@ -49,6 +49,12 @@ export default {
       this.moveImg.nowNum++;
       this.moveNow();
     },
+    moveRight (){
+      this.moveImg.width+=20;
+      this.moveImg.nowNum--;
+      console.log(this.moveImg.width)
+      this.moveNow();
+    },
     moveNow (){
       this.moveImg.el.style.transition = '.3s';
       this.moveImg.el.style.transform = `translate3d(${this.moveImg.width}rem,0,0)`;
@@ -64,6 +70,7 @@ export default {
     beginTimer (){
       if(this.moveImg.timer===null)
         this.moveImg.timer = setInterval(this.moveLeft,this.moveImg.duration);
+      this.moveNow();
     },
     stopTimer (){
       clearInterval(this.moveImg.timer);
@@ -77,31 +84,60 @@ export default {
               moveX,
               startT,
               endT;
+      let eventObj = {
+        moveEvent :ev=>{
+
+               this.stopTimer();
+               this.checkAll();
+               moveX = ev.touches[0].clientX - elX;
+               nowX = moveX + document.documentElement.clientWidth*this.moveImg.width/20;
+               this.moveImg.el.style.transform = `translate3d(${nowX}px,0,0)`;
+               endT = new Date();
+        },
+        endEvent :ev=>{
+            this.beginTimer();
+            this.moveImg.el.removeEventListener('touchmove',eventObj.moveEvent,false);
+            this.moveImg.el.removeEventListener('touchend',eventObj.endEvent,false);
+            if(endT-startT<300){
+                eventObj.checkX.call(this);
+                return;
+            }
+            if(Math.abs(moveX)>=document.documentElement.clientWidth/2){
+                eventObj.checkX.call(this);
+                return;
+            }
+            
+        },
+        checkX : ()=>{
+            if(moveX>0){
+              this.moveRight();
+            }
+            if(moveX<0){
+              this.moveLeft();
+            } 
+        }
+      };
       el.addEventListener('touchstart',(ev)=>{
         elX = ev.touches[0].clientX;
         startT = new Date();
-        el.addEventListener('touchmove',(ev)=>{
-           this.stopTimer();
-           moveX = ev.touches[0].clientX - elX;
-           nowX = moveX + document.documentElement.clientWidth*this.moveImg.width/20;
-           this.moveImg.el.style.transform = `translate3d(${nowX}px,0,0)`;
-           endT = new Date();
-        })
-        el.addEventListener('touchend',(ev)=>{
-            this.beginTimer();
-            console.log(endT-startT)
-            if(Math.abs(moveX)>=document.documentElement.clientWidth/2)
-              console.log(document.documentElement.clientWidth/2);
-            this.moveNow();
-        })  
+        el.addEventListener('touchmove',eventObj.moveEvent)
+        el.addEventListener('touchend',eventObj.endEvent)  
       })
-
-      
     },
-    addTransition (){
+    checkLeft (){
         if(this.moveImg.nowNum>=this.moveImg.allNum){
           this.moveImg.nowNum=0;
           this.moveImg.width = -20;
+          this.moveImg.el.style.transition = '-1s';
+          this.moveImg.el.style.transform = `translate3d(${this.moveImg.width}rem,0,0)`;
+        }
+        
+    },
+    checkAll (){
+         this.checkLeft();
+         if(this.moveImg.nowNum<0){
+          this.moveImg.nowNum = this.moveImg.allNum-1;
+          this.moveImg.width = -20*(this.moveImg.allNum);
           this.moveImg.el.style.transition = '-1s';
           this.moveImg.el.style.transform = `translate3d(${this.moveImg.width}rem,0,0)`;
         }
