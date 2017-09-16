@@ -27,11 +27,11 @@ export default {
         choose : true
       },{
         url : 'http://www.baidu.com',
-        imgUrl : 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1505411424620&di=d786a93c7193907a6b87729017abe2f5&imgtype=0&src=http%3A%2F%2Fi7.17173.itc.cn%2F2010%2Fnews%2F2010%2F06%2F23%2Fs0623gcd04s.jpg',
+        imgUrl : 'http://img0.imgtn.bdimg.com/it/u=3138365389,851751545&fm=27&gp=0.jpg',
         choose : false
       },{
         url : 'http://www.baidu.com',
-        imgUrl : 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1505411424620&di=d786a93c7193907a6b87729017abe2f5&imgtype=0&src=http%3A%2F%2Fi7.17173.itc.cn%2F2010%2Fnews%2F2010%2F06%2F23%2Fs0623gcd04s.jpg',
+        imgUrl : 'http://img3.redocn.com/tupian/20150421/xiaohuakafeikafeibeibiankuangsucai_4013296.jpg',
         choose : false
       }]
     }

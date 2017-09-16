@@ -17,7 +17,6 @@ export default {
   data () {
     return {
       iframe : true,
-    
      }
   },
   components : {

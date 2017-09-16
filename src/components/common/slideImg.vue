@@ -1,6 +1,7 @@
 <template>
     <div class="slideImg">
-      <div class="moveContent">
+      <div class="moveContent"
+           v-on:transitionend="addTransition">
          <a v-for='img in imgObj' href="javascript:;">
             <img :src="img.imgUrl" />
          </a>
@@ -24,17 +25,15 @@ export default {
           el : null,
           timer : null,
           nowNum : 0,
-          allNum : 0
+          allNum : 0,
+          duration : 1000
         }
      }
   },
   mounted (){
-    let that =  this;
+
     this.init();
-    this.fillHTML();
-    this.moveImg.timer = setInterval(function(){
-      that.moveLeft();
-    },2000);
+    
   },
   props : ['imgObj'],
   components : {
@@ -46,19 +45,66 @@ export default {
   methods : {
     ...mapMutations([]),
     moveLeft (){
-     
-      this.moveImg.nowNum++;
-     
       this.moveImg.width-=20;
-      if(this.moveImg.nowNum===this.moveImg.allNum){
-        this.moveImg.nowNum=0;
-        this.moveImg.width = -20;
-      }
+      this.moveImg.nowNum++;
+      this.moveNow();
+    },
+    moveNow (){
+      this.moveImg.el.style.transition = '.3s';
       this.moveImg.el.style.transform = `translate3d(${this.moveImg.width}rem,0,0)`;
     },
     init (){
       this.moveImg.el = document.querySelector(".moveContent");
       this.moveImg.allNum = this.imgObj.length;
+      this.moveImg.el.style.width = (this.imgObj.length+2)*20 + 'rem';
+      this.fillHTML();
+      this.beginTimer();
+      this.bindEvent();
+    },
+    beginTimer (){
+      if(this.moveImg.timer===null)
+        this.moveImg.timer = setInterval(this.moveLeft,this.moveImg.duration);
+    },
+    stopTimer (){
+      clearInterval(this.moveImg.timer);
+      this.moveImg.timer = null;
+      this.moveImg.el.style.transition = '-1s';
+    },
+    bindEvent (){
+      let el = this.moveImg.el,
+              elX,
+              nowX,
+              moveX,
+              startT,
+              endT;
+      el.addEventListener('touchstart',(ev)=>{
+        elX = ev.touches[0].clientX;
+        startT = new Date();
+        el.addEventListener('touchmove',(ev)=>{
+           this.stopTimer();
+           moveX = ev.touches[0].clientX - elX;
+           nowX = moveX + document.documentElement.clientWidth*this.moveImg.width/20;
+           this.moveImg.el.style.transform = `translate3d(${nowX}px,0,0)`;
+           endT = new Date();
+        })
+        el.addEventListener('touchend',(ev)=>{
+            this.beginTimer();
+            console.log(endT-startT)
+            if(Math.abs(moveX)>=document.documentElement.clientWidth/2)
+              console.log(document.documentElement.clientWidth/2);
+            this.moveNow();
+        })  
+      })
+
+      
+    },
+    addTransition (){
+        if(this.moveImg.nowNum>=this.moveImg.allNum){
+          this.moveImg.nowNum=0;
+          this.moveImg.width = -20;
+          this.moveImg.el.style.transition = '-1s';
+          this.moveImg.el.style.transform = `translate3d(${this.moveImg.width}rem,0,0)`;
+        }
     },
     fillHTML (){
       let first = this.moveImg.el.firstChild.cloneNode(true);;
@@ -103,7 +149,7 @@ export default {
 .slideImg{
   width: @width;
   overflow: hidden;
-  height: @list0*3;
+  height: @list0*2;
   position: relative;
   text-align: center;
 }
@@ -113,7 +159,7 @@ export default {
   display: flex;
   flex-direction:row;
   position: relative;
-  transition:1s;
+  transition:.3s;
   transform:translate3d(-20rem,0,0);
 }
 .moveContent a{
