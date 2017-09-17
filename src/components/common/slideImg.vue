@@ -1,7 +1,8 @@
 <template>
     <div class="slideImg">
       <div class="moveContent"
-           v-on:transitionend="checkAll">
+           v-on:transitionend="checkAll"
+           v-on:touchstart="bindEvent().touchStart">
          <a v-for='img in imgObj' href="javascript:;">
             <img :src="img.imgUrl" />
          </a>
@@ -52,7 +53,6 @@ export default {
     moveRight (){
       this.moveImg.width+=20;
       this.moveImg.nowNum--;
-      console.log(this.moveImg.width)
       this.moveNow();
     },
     moveNow (){
@@ -86,7 +86,7 @@ export default {
               endT;
       let eventObj = {
         moveEvent :ev=>{
-
+              console.log(11)
                this.stopTimer();
                this.checkAll();
                moveX = ev.touches[0].clientX - elX;
@@ -117,12 +117,18 @@ export default {
             } 
         }
       };
-      el.addEventListener('touchstart',(ev)=>{
-        elX = ev.touches[0].clientX;
-        startT = new Date();
-        el.addEventListener('touchmove',eventObj.moveEvent)
-        el.addEventListener('touchend',eventObj.endEvent)  
-      })
+      return {
+        touchStart (){
+          elX = ev.touches[0].clientX;
+          console.log(1)
+          startT = new Date();
+          el.addEventListener('touchmove',eventObj.moveEvent)
+          el.addEventListener('touchend',eventObj.endEvent)
+        }
+      }
+      // el.addEventListener('touchstart',(ev)=>{
+          
+      // })
     },
     checkLeft (){
         if(this.moveImg.nowNum>=this.moveImg.allNum){

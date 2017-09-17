@@ -10,7 +10,7 @@
            v-finger:touch-end="touchEnd"
            >
         <a href="javascript:;" 
-           v-for='(item, key, index) in barType' 
+           v-for='(item, key, index) in discovery.barType' 
            v-finger:touch-end='gotoPage'
            >
            {{item}}
@@ -56,19 +56,6 @@ export default {
       lockEnd : true,
       directly : 0,
       time : null,
-      barType : [
-          '推荐',
-          '旅行',
-          '摄影',
-          '摄影课',
-          '音乐',
-          '设计',
-          '女神',
-          '运动',
-          '电影',
-          '娱乐',
-          '穿搭'     
-      ],
       imgArr : {
         search : require('../../../assets/search.png'),
         dropDown : require('../../../assets/dropDown.png')

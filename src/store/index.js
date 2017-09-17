@@ -32,6 +32,19 @@ export default new Vuex.Store({
 			bodyHeight: null
 		},
 		discovery : {
+		   barType : [
+		          '推荐',
+		          '旅行',
+		          '摄影',
+		          '摄影课',
+		          '音乐',
+		          '设计',
+		          '女神',
+		          '运动',
+		          '电影',
+		          '娱乐',
+		          '穿搭'     
+		      ],
 			nowPage : 0,
 			pageAll : [recommend,journey,],
 			whichShow : [true,false],
