@@ -12,15 +12,22 @@ export default {
 	},
 	GOTODISCOVER : (state,page)=>{
 		let discovery = state.discovery;
+		let aLi = document.querySelectorAll('.discovery .header .list .scroll a');
+		removeClass(aLi[discovery.nowPage],'blodA')
+		console.log(page);
+      	addClass(aLi[page],'blodA')
 		discovery.whichShow[discovery.nowPage] = false;
 		discovery.nowPage = page;
 		discovery.whichShow[page] = true;
-		console.log(discovery.whichShow)
+		this.a.REQUIRECOM(state,page)
+		document.querySelector('.contents').style.transform = `translate3d(${-page*20}rem,0,0)`;
+	},
+	REQUIRECOM : (state,page)=>{
+		let discovery = state.discovery;
 		//数组不能重复添加
 		if(findEqueal(discovery.content,discovery.pageAll[page])==undefined){
 			discovery.content.push(discovery.pageAll[page]);
 		}
-		document.querySelector('.contents').style.left = -(page)*20 + 'rem';
 		function findEqueal(arr,trueVal){
 			return arr.find(function(val){
 				return trueVal===val;

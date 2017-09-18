@@ -30,14 +30,17 @@ export default {
     this.init();
   },
   computed :{
-  	 ...mapState(['discovery']),
+  	 ...mapState(['discovery'])
      
   },
   methods : {
+  	
+  	...mapMutations(['REQUIRECOM','GOTODISCOVER']),
     moveLeft (){
       this.moveImg.width-=20;
       this.moveImg.nowNum++;
       this.moveNow();
+      this.GOTODISCOVER(this.discovery.nowPage+1)
     },
     moveRight (){
        if(this.moveImg.nowNum<=0){
@@ -46,6 +49,7 @@ export default {
        }
       this.moveImg.width+=20;
       this.moveImg.nowNum--;
+      this.GOTODISCOVER(this.discovery.nowPage-1)
       this.moveNow();
     },
     moveNow (){
@@ -74,6 +78,12 @@ export default {
                }
                if(!this.checkAll(nowX))
                  return false;
+               if(nowX>0)
+               		this.REQUIRECOM(this.discovery.nowPage-1)
+               else if(nowX<0)
+               		this.REQUIRECOM(this.discovery.nowPage+1)
+               else
+               		{}
                this.moveImg.el.style.transition = '-1s';
                this.moveImg.el.style.transform = `translate3d(${nowX}px,0,0)`;
                
@@ -120,12 +130,11 @@ export default {
       })
     },
     init (){
-      let content = this.discovery.content;
+      let content = this.discovery.barType;
       this.moveImg.el = document.querySelector(".contents");
       console.log(content.length)
       this.moveImg.allNum = content.length;
       this.moveImg.el.style.width = (content.length)*20 + 'rem';
-
       this.bindEvent();
     },
     checkAll (nowX){

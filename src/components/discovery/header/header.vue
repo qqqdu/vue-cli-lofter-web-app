@@ -74,9 +74,7 @@ export default {
         return;
       if(this.discovery.nowPage===index) //如果下标未改变
         return;
-      removeClass(aLi[this.discovery.nowPage],'blodA')
-      addClass(aLi[index],'blodA')
-      this.GOTODISCOVER(index)
+      this.GOTODISCOVER(index)             
       this.lockEnd = false
       return;
     },
@@ -127,7 +125,7 @@ export default {
         } // if end...
         return;
       }
-      this.scroll.el.style.left = this.scroll_x+'px';
+      this.scroll.el.style.transform = `translate3d(${this.scroll_x}px,0,0)`;
     },
     touchEnd : function(ev){
       var dis,
@@ -147,11 +145,12 @@ export default {
     //  console.log(this.directly)
       
       if(Math.abs(this.directly)>40){
-        if(this.directly>0){
-            this.scroll.el.style.left = '0px';  
+        if(this.directly>0){  
+            this.scroll.el.style.transform = `translate3d(0px,0,0)`;
             this.scroll_x = 0;
          }else{
-            this.scroll.el.style.left = -(this.scroll.width-this.list.width)+'px';
+            this.scroll.el.style.transform = 
+                        `translate3d(${-(this.scroll.width-this.list.width)}px,0,0)`;
             this.scroll_x = -(this.scroll.width-this.list.width);
          }
         return;
@@ -161,7 +160,7 @@ export default {
         this.scroll_x += symbol*(this.scroll.width-this.list.width)*0.3;
         if(this.checkHit())
           return;
-        this.scroll.el.style.left =this.scroll_x+'px';
+        this.scroll.el.style.transform = `translate3d(${this.scroll_x}px,0,0)`;
         return;
       }
       if(Math.abs(this.directly)>10){
@@ -174,9 +173,10 @@ export default {
       } 
       function linerFun(timers,that){
           that.scroll_x += symbol*(that.scroll.width-that.list.width)*timers;
+          console.log(timers,that.scroll_x);
           if(that.checkHit())
             return;
-          that.scroll.el.style.left =that.scroll_x+'px';
+          that.scroll.el.style.transform = `translate3d(${that.scroll_x}px,0,0)`;
           return;
       }
     },
@@ -185,12 +185,13 @@ export default {
     },
     checkHit : function(){
       if(this.scroll_x>0){
-        this.scroll.el.style.left = '0px';  
+        this.scroll.el.style.transform = `translate3d(0px,0,0)`;
         this.scroll_x = 0;
         return true;
       }
       if(Math.abs(this.scroll_x)>(this.scroll.width-this.list.width)+30){
-        this.scroll.el.style.left = -(this.scroll.width-this.list.width+30)+'px';
+        this.scroll.el.style.transform = 
+                  `translate3d(${-(this.scroll.width-this.list.width+30)}px,0,0)`;
         this.scroll_x = -(this.scroll.width-this.list.width+30);
         return true;
       }
