@@ -24,7 +24,10 @@ export default {
 	},
 	REQUIRECOM : (state,page)=>{
 		let discovery = state.discovery;
+		
 		//数组不能重复添加
+		if(!discovery.pageAll[page])
+			return false;
 		if(findEqueal(discovery.content,discovery.pageAll[page])==undefined){
 			discovery.content.push(discovery.pageAll[page]);
 		}

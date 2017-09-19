@@ -5,13 +5,14 @@ export default {
   render: function(h) {
             let child = [],
                  discovery = this.discovery;
+
             discovery.content.map(function(val){
             	child.push(h(val,{}));
             })
             return h('div',{
             	class : 'contents',
             	style : {
-            		width : discovery.content.length * 20 + 'rem'
+            		width : discovery.pageAll.length * 20 + 'rem'
             	}
             },child)
   },
@@ -68,7 +69,7 @@ export default {
               endT;
       let eventObj = {
         moveEvent :ev=>{
-               
+               let nowPage = this.discovery.nowPage;
                moveX = ev.touches[0].clientX - elX;
                nowX = moveX + document.documentElement.clientWidth*this.moveImg.width/20;
                nowY = ev.touches[0].clientY - elY;
@@ -79,9 +80,9 @@ export default {
                if(!this.checkAll(nowX))
                  return false;
                if(nowX>0)
-               		this.REQUIRECOM(this.discovery.nowPage-1)
+               		this.REQUIRECOM(nowPage-1)
                else if(nowX<0)
-               		this.REQUIRECOM(this.discovery.nowPage+1)
+               		this.REQUIRECOM(nowPage+1)
                else
                		{}
                this.moveImg.el.style.transition = '-1s';
@@ -89,7 +90,7 @@ export default {
                
         },
         endEvent :ev=>{
-         
+            console.log('call')
             this.moveImg.el.removeEventListener('touchmove',eventObj.moveEvent,false);
             this.moveImg.el.removeEventListener('touchend',eventObj.endEvent,false);
             endT = new Date();

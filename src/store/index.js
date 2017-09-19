@@ -46,7 +46,7 @@ export default new Vuex.Store({
 		          '穿搭'     
 		      ],
 			nowPage : 0,
-			pageAll : [recommend,journey,],
+			pageAll : [recommend,journey,recommend,journey,recommend,journey,recommend,journey,],
 			whichShow : [true,false],
 			cache : 3,  //cache page num 
 			content : [recommend]
