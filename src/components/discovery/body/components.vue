@@ -40,22 +40,18 @@ export default {
     moveLeft (){
       this.moveImg.width-=20;
       this.moveImg.nowNum++;
-      this.moveNow();
       this.GOTODISCOVER(this.discovery.nowPage+1)
+      this.moveNow();
     },
     moveRight (){
-       if(this.moveImg.nowNum<=0){
-          this.moveNow();
-          return;
-       }
       this.moveImg.width+=20;
       this.moveImg.nowNum--;
       this.GOTODISCOVER(this.discovery.nowPage-1)
       this.moveNow();
     },
     moveNow (){
-      this.moveImg.el.style.transition = '.3s';
-      this.moveImg.el.style.transform = `translate3d(${this.moveImg.width}rem,0,0)`;
+      this.moveImg.el.style.transition = '.3s'; 
+      this.moveImg.el.style.transform = `translate3d(${-this.discovery.nowPage*20}rem,0,0)`;
     },
     bindEvent (){
       let el = this.moveImg.el,
@@ -71,7 +67,7 @@ export default {
         moveEvent :ev=>{
                let nowPage = this.discovery.nowPage;
                moveX = ev.touches[0].clientX - elX;
-               nowX = moveX + document.documentElement.clientWidth*this.moveImg.width/20;
+               nowX = moveX + document.documentElement.clientWidth*(-this.discovery.nowPage*20)/20;
                nowY = ev.touches[0].clientY - elY;
                if(!moveOff){
                   if(!eventObj.checkY())
@@ -90,7 +86,7 @@ export default {
                
         },
         endEvent :ev=>{
-            console.log('call')
+            
             this.moveImg.el.removeEventListener('touchmove',eventObj.moveEvent,false);
             this.moveImg.el.removeEventListener('touchend',eventObj.endEvent,false);
             endT = new Date();
@@ -133,17 +129,16 @@ export default {
     init (){
       let content = this.discovery.barType;
       this.moveImg.el = document.querySelector(".contents");
-      console.log(content.length)
       this.moveImg.allNum = content.length;
       this.moveImg.el.style.width = (content.length)*20 + 'rem';
       this.bindEvent();
     },
     checkAll (nowX){
-         if(this.moveImg.nowNum>=this.moveImg.allNum){
+         if(this.discovery.nowPage>=this.moveImg.allNum){
             if(nowX<=0)
               return false;
           }
-         if(this.moveImg.nowNum<=0){
+         if(this.discovery.nowPage<=0){
             if(nowX>=0)
               return false;
         }

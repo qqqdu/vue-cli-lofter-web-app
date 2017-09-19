@@ -13,6 +13,7 @@ export default {
 	GOTODISCOVER : (state,page)=>{
 		let discovery = state.discovery;
 		let aLi = document.querySelectorAll('.discovery .header .list .scroll a');
+		
 		removeClass(aLi[discovery.nowPage],'blodA')
 		console.log(page);
       	addClass(aLi[page],'blodA')
@@ -21,6 +22,16 @@ export default {
 		discovery.whichShow[page] = true;
 		this.a.REQUIRECOM(state,page)
 		document.querySelector('.contents').style.transform = `translate3d(${-page*20}rem,0,0)`;
+		//scroll.style.transform = `translate3d(${-page*20}rem,0,0)`;
+		alterHeader();
+
+		function alterHeader(){
+			let scroll = document.querySelector('.discovery .scroll');
+			let list = document.querySelector('.discovery .list');
+			let addNum = Math.floor(aLi[page].offsetWidth*page/list.offsetWidth); 
+			let nowSit = aLi[page].offsetWidth*page%list.offsetWidth;
+			scroll.style.transform = `translate3d(${-list.offsetWidth*addNum}px,0,0)`;
+		}
 	},
 	REQUIRECOM : (state,page)=>{
 		let discovery = state.discovery;
@@ -29,9 +40,10 @@ export default {
 		if(!discovery.pageAll[page])
 			return false;
 		if(findEqueal(discovery.content,discovery.pageAll[page])==undefined){
-			discovery.content.push(discovery.pageAll[page]);
+			Vue.set(discovery.content,page,discovery.pageAll[page])  //set change arr item
 		}
 		function findEqueal(arr,trueVal){
+			return undefined;
 			return arr.find(function(val){
 				return trueVal===val;
 			});
