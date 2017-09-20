@@ -30,7 +30,17 @@ export default {
 			let list = document.querySelector('.discovery .list');
 			let addNum = Math.floor(aLi[page].offsetWidth*page/list.offsetWidth); 
 			let nowSit = aLi[page].offsetWidth*page%list.offsetWidth;
-			scroll.style.transform = `translate3d(${-list.offsetWidth*addNum}px,0,0)`;
+			let halfSit = nowSit-(list.offsetWidth/2-aLi[page].offsetWidth/2);
+			let translate = -list.offsetWidth*addNum-halfSit;
+			if(translate>0){
+				translate = 0;
+			}
+			if(Math.abs(translate)>(scroll.offsetWidth-list.offsetWidth)+30){
+        		 translate = -(scroll.offsetWidth-list.offsetWidth)
+             }
+			scroll.style.transform = `translate3d(${translate}px,0,0)`;
+
+			console.log(scroll.offsetWidth);
 		}
 	},
 	REQUIRECOM : (state,page)=>{

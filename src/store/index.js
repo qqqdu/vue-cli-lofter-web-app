@@ -35,9 +35,9 @@ export default new Vuex.Store({
 		   barType : [
 		          '推荐',
 		          '旅行',
+		          '音乐',
 		          '摄影',
 		          '摄影课',
-		          '音乐',
 		          '设计',
 		          '女神',
 		          '运动',
