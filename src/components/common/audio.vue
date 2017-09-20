@@ -1,10 +1,14 @@
 <template>
     <div class="audio">
-      <audio :src='audioLink' controls="controls">
+      <audio 
+         
+        class="audio">
           Your browser does not support the audio element.
       </audio>
       <div class="playCon">
-          <a href="javascript:;" class="playSong"></a>
+          <a href="javascript:;" 
+             class="playSong"
+             v-on:click='playSong'></a>
           <div class="song"></div>
           <div class="author"></div>
       </div>
@@ -14,10 +18,12 @@
 import {mapState, mapMutations} from 'vuex'
 export default {
   name: 'elAudio',
-  props : ['audioLink'],
+  props : ['audio'],
   data () {
     return {
-        
+        state : 1,// 0 1 2 3 onload play pause ending
+        audioLink:this.audio.audioLink,
+        el : null
      }
   },
   mounted (){
@@ -30,7 +36,61 @@ export default {
     
   },
   methods : {
-    ...mapMutations([])
+    ...mapMutations([]),
+    playSong (ev){
+      let audio = ev.target.parentNode.parentNode.getElementsByTagName('audio')[0];
+      this.initListen(audio);
+      this.el = ev.target;
+      audio.src = this.audioLink;
+      console.log(this.state)
+      switch(this.state){
+          case 0:
+            break;
+          case 1:
+            audio.play();
+            
+            break;
+          case 2:
+            audio.pause();
+            
+            break;
+          case 3:
+            
+            break;
+          default:
+            return;
+      }
+    },
+    initListen (obj){
+      obj.onplay = this.onplay;
+      obj.onpause = this.onpause;
+      obj.onended = this.onended;
+      obj.oncanplay = this.oncanplay;
+      obj.onloadeddata = this.onloadeddata;
+    },
+    onloadeddata (){
+     // this.state = 1;
+     
+      
+    },
+    onplay (){
+      this.el.setAttribute('class','pauseSong');
+      this.state = 2;
+      console.log('播放')
+    },
+    onended (){
+      this.el.setAttribute('class','playSong');
+      console.log(onended)
+      this.state = 1;
+    },
+    onpause (){
+      this.el.setAttribute('class','playSong');
+      this.state = 1;
+      console.log('暂停')
+    },
+    oncanplay (){
+      console.log('canplay')
+    }
   }
 }
 
@@ -62,6 +122,8 @@ export default {
 @headHeight:@height*3-1;
 @height : 3rem;
 @head: 8rem;
+@playSong:.6rem;
+@pause:.4rem;
 .dynamic .audio{
   width: @width;
   height: @list5;
@@ -71,23 +133,39 @@ export default {
 }
 .playCon{
   width: 100%;
-  height: @list2*2;
+  height: @list2;
   position: absolute;
   bottom: 0;
-  background:black;
+  background:rgba(35, 37, 40, 0.7);
   display: flex;
-
-   align-items: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding:0 @smallFont 0;
 }
 .playSong{
-
   display: block;
   width: 0;
   height: 0px;
-  border-bottom: @mainFont solid transparent;
-  border-right: @mainFont solid transparent;
-  border-top: @mainFont solid transparent;
-  border-left: @1Font+.2 solid white;
+  border-bottom: @playSong solid transparent;
+  border-right: @playSong solid transparent;
+  border-top: @playSong solid transparent;
+  border-left: @1Font solid white;
   cursor: pointer;
 }
+.pauseSong{
+    display: block;
+    width: @pause/2;
+    height: @pause*3;
+    background:white;
+    position: relative;
+  }
+.pauseSong:after{
+    width: @pause/2;
+    height: @pause*3;
+    background:white;
+    position: absolute;
+    left: @pause;
+    top: 0;
+    content: "";
+  }
 </style>
