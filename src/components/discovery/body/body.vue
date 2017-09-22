@@ -77,7 +77,7 @@ export default {
   box-sizing: border-box;
   transition:.3s;
   overflow:hidden;
-  background:black;
+
 }
 .contents>div{
   float: left;

@@ -1,16 +1,21 @@
 <template>
     <div class="audio">
+      <img :src="audio.audioImg">
       <audio 
-         
-        class="audio">
+        class="audio"
+        v-show='false'>
           Your browser does not support the audio element.
       </audio>
       <div class="playCon">
+          
           <a href="javascript:;" 
-             class="playSong"
-             v-on:click='playSong'></a>
-          <div class="song"></div>
-          <div class="author"></div>
+             v-on:click='playSong'>
+                <span class="playSong"></span>
+          </a>
+          <div>
+            <p class="song">马叫声</p>
+            <p class="author">马</p>
+          </div>
       </div>
     </div>
 </template>
@@ -21,9 +26,10 @@ export default {
   props : ['audio'],
   data () {
     return {
-        state : 1,// 0 1 2 3 onload play pause ending
+        state : 0,// 0 1 2 3 onload play pause ending
         audioLink:this.audio.audioLink,
-        el : null
+        el : null,
+        iconEl : null
      }
   },
   mounted (){
@@ -38,17 +44,19 @@ export default {
   methods : {
     ...mapMutations([]),
     playSong (ev){
-      let audio = ev.target.parentNode.parentNode.getElementsByTagName('audio')[0];
-      this.initListen(audio);
-      this.el = ev.target;
-      audio.src = this.audioLink;
-      console.log(this.state)
-      switch(this.state){
+      let audio = ev.target.parentNode.parentNode.parentNode.getElementsByTagName('audio')[0];
+      let state;
+      console.log(audio)
+      state = this.state;
+      switch(state){
           case 0:
+            this.initListen(audio);
+            this.el = ev.target.parentNode;
+            this.iconEl = ev.target;
+            audio.src = this.audioLink;
             break;
           case 1:
             audio.play();
-            
             break;
           case 2:
             audio.pause();
@@ -69,27 +77,29 @@ export default {
       obj.onloadeddata = this.onloadeddata;
     },
     onloadeddata (){
-     // this.state = 1;
-     
+     this.state = 1;
+     this.el.click();
       
     },
     onplay (){
-      this.el.setAttribute('class','pauseSong');
+      this.iconEl.setAttribute('class','pauseSong');
+
       this.state = 2;
       console.log('播放')
     },
     onended (){
-      this.el.setAttribute('class','playSong');
+      this.iconEl.setAttribute('class','playSong');
       console.log(onended)
       this.state = 1;
     },
     onpause (){
-      this.el.setAttribute('class','playSong');
+      this.iconEl.setAttribute('class','playSong');
       this.state = 1;
       console.log('暂停')
     },
     oncanplay (){
-      console.log('canplay')
+       
+      // 
     }
   }
 }
@@ -126,21 +136,42 @@ export default {
 @pause:.4rem;
 .dynamic .audio{
   width: @width;
-  height: @list5;
+  height: @list5*3;
   background: red;
   position: relative;
   padding:0;
+  margin:@split 0 @split;
+
+}
+.audio img{
+  width: 100%;
+  height: 100%;
 }
 .playCon{
   width: 100%;
-  height: @list2;
+  height: @list1;
   position: absolute;
   bottom: 0;
-  background:rgba(35, 37, 40, 0.7);
+  background:rgba(35, 37, 40, 0.9);
   display: flex;
   align-items: center;
   box-sizing: border-box;
   padding:0 @smallFont 0;
+  color: white;
+  line-height: @list1/3;
+}
+.playCon a{
+  display: flex;
+  width: @list1/2;
+  height: @list1;
+  align-items: center;
+}
+.playCon div{
+  margin-left: @1Font/2;
+  font-size: @smallFont;
+}
+.playCon div p:nth-child(1){
+  font-weight: bold;
 }
 .playSong{
   display: block;
