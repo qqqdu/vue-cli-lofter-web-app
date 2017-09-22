@@ -31,6 +31,12 @@ export default new Vuex.Store({
 		page : {
 			bodyHeight: null
 		},
+		publish : {
+			show : false,
+			items : [{
+				imgSrc : require('../assets/user/myImg.jpg')
+			}]
+		},	
 		discovery : {
 		   barType : [
 		          '推荐',

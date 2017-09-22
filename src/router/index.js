@@ -18,7 +18,6 @@ import footer from '@/components/footer/footer'
 //主页分页  home discovery publish news mine
 import home from '@/components/home/home'
 import discovery from '@/components/discovery/discovery'
-import publish from '@/components/publish/publish' 
 import news from '@/components/news/news'  
 import mine from '@/components/mine/mine'  
 
@@ -43,7 +42,6 @@ const router = new VueRouter({
         { path: '/', name: '/', component: discovery },
         { path: '/home', name: '/home', component: home ,meta: { keepAlive: true,scrollToTop:0}},
         { path: '/discovery', name: '/discovery', component: discovery ,meta: { keepAlive: true,scrollToTop:0}},
-        { path: '/publish', name: '/publish', component: publish },
         { path: '/news', name: '/news', component: news ,meta: { keepAlive: true,scrollToTop:0}},
         { path: '/mine', name: '/mine', component: mine ,meta: { keepAlive: true,scrollToTop:0}},
         { path: '/album', name: 'album', component: album },

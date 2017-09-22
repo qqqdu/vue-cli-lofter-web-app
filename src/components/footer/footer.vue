@@ -31,13 +31,18 @@ export default {
     ...mapState(['nowPage','arr'])
   },
   methods : {
-    ...mapMutations(['GOTOPAGE']),
+    ...mapMutations(['GOTOPAGE','PUBLISHPAGE']),
     gotoPage (ev){
       let aLi = document.querySelectorAll('.footer li');
       let index = [].indexOf.call(aLi,ev.currentTarget);
-      this.$router.push(this.arr[index].src);
       if(this.nowPage===index) //如果下标未改变
         return;
+     
+      if(index===2){
+        this.PUBLISHPAGE(true);
+        return false;
+      }
+      this.$router.push(this.arr[index].src);
       this.arr[index].imgSrc = this.arr[index].chooseSrc;  //改变按钮状态
       this.arr[this.nowPage].imgSrc = this.arr[this.nowPage].unChoose;
       this.GOTOPAGE(index);

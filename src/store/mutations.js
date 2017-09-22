@@ -70,6 +70,13 @@ export default {
             return false;
         }
 	},
+	PUBLISHPAGE : (state,onoff)=>{
+		let publish = state.publish;
+		if(onoff)
+			publish.show = true;
+		else
+			publish.show = false;
+	},
 	GOTOHOME : (state,page)=>{
 		state.home.nowPage = page;
 	},

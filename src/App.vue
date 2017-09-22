@@ -4,15 +4,18 @@
       <router-view v-if="$route.meta.keepAlive"></router-view>
   </keep-alive>
   <router-view v-if="!$route.meta.keepAlive"></router-view>
+  <el-publish></el-publish>
   </div>
 </template>
 
 <script>
+import publish from './components/publish/publish' 
 import less from './components/less'
 export default {
   name: 'app',
   components: {
-    'el-less' : less
+    'el-less' : less,
+    'el-publish' : publish
   }
 }
 </script>
