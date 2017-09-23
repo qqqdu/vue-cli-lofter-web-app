@@ -8,6 +8,7 @@ if (!process.env.NODE_ENV) {
 var opn = require('opn')
 var path = require('path')
 var express = require('express')
+var bodyParser = require('body-parser');
 var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = process.env.NODE_ENV === 'testing'
@@ -34,7 +35,8 @@ var hotMiddleware = require('webpack-hot-middleware')(compiler, {
   log: () => {},
   heartbeat: 2000
 })
-var router = require('./node/index'); //my self router
+app.use(bodyParser.urlencoded({ extended: false,limit:"10000kb" }));
+var router = require('./node/index'); //myself router
 router(app);
 // force page reload when html-webpack-plugin template changes
 compiler.plugin('compilation', function (compilation) {

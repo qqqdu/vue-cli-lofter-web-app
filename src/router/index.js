@@ -25,6 +25,10 @@ import mine from '@/components/mine/mine'
 import myApplication from '@/components/mine/childPage/myApplication/application'
 import photography from '@/components/mine/childPage/photography/photography'
 import setPage from '@/components/mine/childPage/setPage/setPage'
+/*------------------------------------------------------------------*/
+
+import search from '@/components/publish/childPage/search'
+
 import dynamicCon from '@/components/common/dynamicCon/dynamicCon'
  
 import AlloyFinger from 'alloyfinger/alloy_finger' // 手势库
@@ -53,6 +57,7 @@ const router = new VueRouter({
         { path: '/mine/application', name: 'application', component: myApplication },
         { path: '/mine/photography', name: 'photography', component: photography },
         { path: '/mine/setPage', name: 'setPage', component: setPage },
+        { path: '/publish/search', name: 'search', component: search},
         { path: '/common/dynamicCon', name: 'dynamicCon', component: dynamicCon }
     ],
       scrollBehavior(to, from, savedPosition) {

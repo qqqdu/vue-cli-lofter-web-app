@@ -9,14 +9,22 @@ let router = app=>{
 			inf : '返回成功'
 		})
 	})
-	app.get('/loginOut',function(req, res){
+	app.post('/searchMusic',function(req, res){
 		let callback = function(data){
 			res.send({
 				statu : true,
 				inf : data
 			})
 		}
-		searchMusic(callback);
+		let name="";
+		req.on('data', function (chunk) {
+		    name += chunk;
+		  });
+		req.on('end', function () {
+		    console.log('POST data received');
+		    searchMusic(name,callback)
+		  });
+		;
 	})
 	app.get('/playMusic',function(req,res){
 		let callback = function(data){

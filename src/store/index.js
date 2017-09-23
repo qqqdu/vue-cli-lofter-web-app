@@ -34,7 +34,21 @@ export default new Vuex.Store({
 		publish : {
 			show : false,
 			items : [{
-				imgSrc : require('../assets/user/myImg.jpg')
+				imgSrc : require('../assets/publish/image.png'),
+				name : '图片',
+				path : '/publish/search'
+			},{
+				imgSrc : require('../assets/publish/video.png'),
+				name : '视频',
+				path :  '/publish/search'
+			},{
+				imgSrc : require('../assets/publish/text.png'),
+				name : '文字',
+				path : '/publish/search'
+			},{
+				imgSrc : require('../assets/publish/audio.png'),
+				name : '音乐',
+				path : '/publish/search'
 			}]
 		},	
 		discovery : {
