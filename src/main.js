@@ -8,7 +8,23 @@ import router from './router'
 
 
 
-new Vue({
+Vue.directive('returnPage',{ // return directive
+	bind : (ev,el)=>{
+		ev.onclick = function(){
+			router.go(-1);
+		}
+	}
+})
+Vue.directive('lazyImg',{ // lazy load img
+	bind : (ev,el)=>{
+		ev.onclick = function(){
+			router.go(-1);
+		}
+	}
+})
+
+
+let myVue = new Vue({
     el: '#app',
     router,
     store,
@@ -17,5 +33,3 @@ new Vue({
     },
     render: h => h(App)
 }).$mount('#app')
-
-

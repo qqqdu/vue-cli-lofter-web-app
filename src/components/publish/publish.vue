@@ -50,6 +50,7 @@ export default {
       
     },
     gotoPage (router){
+      this.close();
       this.$router.push(router);
     }
   },

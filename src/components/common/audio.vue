@@ -46,7 +46,6 @@ export default {
     playSong (ev){
       let audio = ev.target.parentNode.parentNode.parentNode.getElementsByTagName('audio')[0];
       let state;
-      console.log(audio)
       state = this.state;
       switch(state){
           case 0:

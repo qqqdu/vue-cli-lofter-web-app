@@ -21,8 +21,8 @@ let router = app=>{
 		    name += chunk;
 		  });
 		req.on('end', function () {
-		    console.log('POST data received');
-		    searchMusic(name,callback)
+		    console.log(JSON.parse(name));
+		    searchMusic(JSON.parse(name),callback)
 		  });
 		;
 	})

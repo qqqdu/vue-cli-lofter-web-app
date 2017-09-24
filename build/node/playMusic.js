@@ -27,8 +27,8 @@ let options = {
 
 
   let postDate  = {
-    ids: [6452],
-    id : 6452,
+    ids: [459093],
+    br : 128000,
     csrf_token: ''
   }
   const cryptoreq = Encrypt(postDate)

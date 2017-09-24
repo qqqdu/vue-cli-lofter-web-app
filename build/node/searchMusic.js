@@ -3,6 +3,7 @@
 const URL = 'music.163.com'; //search url
 const port = 80;
 const path = '/api/search/get/web?csrf_token=';
+
 /*
 hlpretag=&amp;
 hlposttag=&amp;
@@ -24,8 +25,8 @@ let options = {
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'  
     }  
 };  
-let callMusic = (name,callback)=>{
-	let postDate = `hlpretag=&hlposttag=&s=${name}&type=1&offset=0&total=true&limit=10`
+let callMusic = (parems,callback)=>{
+	let postDate = `hlpretag=&hlposttag=&s=${parems.name}&type=1&offset=${parems.offset}&total=true&limit=${parems.limit}`
 	let content = qs.stringify(postDate);
 	var req = http.request(options, function (serverFeedback) {  
 	        if (serverFeedback.statusCode == 200) {  

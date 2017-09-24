@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <div class="return" v-on:touchend='returnPage'>
+    <div class="return" v-returnPage>
       <span class="returnPage" ></span>
     </div>
       昵称
@@ -37,10 +37,7 @@ export default {
     ...mapState(['home'])
   },
   methods : {
-    ...mapMutations(['GOTOHOME']),
-     returnPage (ev){
-        this.$router.go(-1);
-      },
+    ...mapMutations(['GOTOHOME'])
   }
 }
 
