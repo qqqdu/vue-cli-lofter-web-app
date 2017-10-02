@@ -24,7 +24,7 @@ let router = app=>{
 		    console.log(JSON.parse(name));
 		    searchMusic(JSON.parse(name),callback)
 		  });
-		;
+		
 	})
 	app.get('/playMusic',function(req,res){
 		let callback = function(data){

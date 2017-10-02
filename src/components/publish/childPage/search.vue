@@ -13,7 +13,8 @@
       </div>
       <div class="section">
           <ul>
-              <li v-for='(item,index) in songs'>
+              <li v-for='(item,index) in songs'
+                  v-on:click='openPage'>
                   <div class="songIcon">
                       <img :src="item&&item.artists[0].img1v1Url" />
                   </div>
@@ -38,12 +39,14 @@ export default {
         scrollEl : null,  //move parent element
         songInf : '',
         iconSear  : require('../../../assets/search.png'),
-        onoff : true,
+        onoff : true,  // lock ajax
         searchEnd : {},
         songs : [],
         songCount : 0,   //all of lists
         nowLoadImgCount : 10, //begin load ten imgs
         nowCountList : 10, //begin load ten lists
+        limit : 10,
+        offset : 0 //页数
      }
   },
   mounted (){
@@ -54,12 +57,13 @@ export default {
   },
   watch : {
     songInf (){
+      this.offset = 0;
       this.search();
       this.songs.length = 0;
     }
-  },
+  }, 
   methods : {
-    ...mapMutations([]),
+    ...mapMutations(['gotoPageDynamicCon']),
     clear (ev){
       let el = document.querySelector('.searchSong');
       if(ev.target!=el){
@@ -68,8 +72,12 @@ export default {
         el.focus();
       }
     },
+    openPage (){
+      this.$router.push('../common/dynamicCon');
+    },
     focusInput (){
       this.songs.length = 0;
+      this.offset = 0;
       this.search();
     },
     search (){
@@ -79,8 +87,8 @@ export default {
       axios.post('/searchMusic', 
         {
             name:this.songInf,
-            limit : 10,
-            offset : 0
+            limit : this.limit,
+            offset : this.offset
         },{
          headers: {'Content-Type': 'application/json'},
         })
@@ -94,12 +102,19 @@ export default {
        
       })
       .catch(function (response) {
-        console.log(response);
+        this.onoff = true;
       })
     },
     lazyEvent (){
        let Element = document.querySelector('img');
-       console.log(this.scrollEl.getBoundingClientRect())
+       let relHeight = this.scrollEl.offsetHeight; // section rel height
+       let offsetY = this.scrollEl.getBoundingClientRect().y;
+       let liHeight = document.querySelector('.section li').offsetHeight;
+       if(relHeight-document.documentElement.clientHeight+offsetY<=liHeight){
+          console.log('addEl')
+          this.offset++;
+          this.search();
+       }
        //console.log(Element.getBoundingClientRect())
     }
   }
