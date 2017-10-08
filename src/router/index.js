@@ -28,6 +28,7 @@ import setPage from '@/components/mine/childPage/setPage/setPage'
 /*------------------------------------------------------------------*/
 
 import search from '@/components/publish/childPage/search'
+import pubMusic from '@/components/publish/childPage/pubMusic'
 
 import dynamicCon from '@/components/common/dynamicCon/dynamicCon'
  
@@ -58,6 +59,7 @@ const router = new VueRouter({
         { path: '/mine/photography', name: 'photography', component: photography },
         { path: '/mine/setPage', name: 'setPage', component: setPage },
         { path: '/publish/search', name: 'search', component: search},
+        { path: '/publish/pubMusic', name: 'pubMusic', component: pubMusic},
         { path: '/common/dynamicCon', name: 'dynamicCon', component: dynamicCon }
     ],
       scrollBehavior(to, from, savedPosition) {

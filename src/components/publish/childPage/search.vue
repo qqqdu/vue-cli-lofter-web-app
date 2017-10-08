@@ -73,7 +73,7 @@ export default {
       }
     },
     openPage (){
-      this.$router.push('../common/dynamicCon');
+      this.$router.push('/publish/pubMusic');
     },
     focusInput (){
       this.songs.length = 0;

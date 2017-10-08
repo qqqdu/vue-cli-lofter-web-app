@@ -49,7 +49,10 @@ export default new Vuex.Store({
 				imgSrc : require('../assets/publish/audio.png'),
 				name : '音乐',
 				path : '/publish/search'
-			}]
+			}],
+			icon : {  //图标集
+				setBlod : require('../assets/publish/setBlod.png')
+			}
 		},	
 		discovery : {
 		   barType : [
