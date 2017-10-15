@@ -78,7 +78,7 @@ export default {
         time : new Date(),
         img : null,
         audio : {
-          audioLink : 'http://m10.music.126.net/20170922100229/75cec4dfe0f5751c84020f92123b16db/ymusic/6e01/a4d4/bbef/2dda07904eb54d44abb278165e1c6ead.mp3',
+          audioLink : 'http://m10.music.126.net/20171015231349/a541392e9192d1784634963b854bb3d7/ymusic/22bb/1ed1/dfad/78789bf31f445b494a21a60d03862b6f.mp3',
           audioImg : require('../../assets/user/head.png')
         },
         follow :false,

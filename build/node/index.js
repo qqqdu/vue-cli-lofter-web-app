@@ -26,13 +26,20 @@ let router = app=>{
 		  });
 		
 	})
-	app.get('/playMusic',function(req,res){
+	app.post('/playMusic',function(req,res){
 		let callback = function(data){
 			res.send({
 				statu : true,
 				inf : data
 			})	
 		}
+		let name = "";
+		req.on('data',function(chunk){
+			name+= chunk;
+		})
+		req.on('end', function () {
+		    playMusic(JSON.parse(name),callback)
+		  });
 		playMusic(callback);
 	});
 }

@@ -14,7 +14,7 @@
       <div class="section">
           <ul>
               <li v-for='(item,index) in songs'
-                  v-on:click='openPage'>
+                  v-on:click='openPage(item)'>
                   <div class="songIcon">
                       <img :src="item&&item.artists[0].img1v1Url" />
                   </div>
@@ -52,8 +52,8 @@ export default {
   mounted (){
     this.scrollEl = document.querySelector('.section');
   },
-  components : {
-
+  computed : {
+    ...mapState(['publish'])
   },
   watch : {
     songInf (){
@@ -72,7 +72,9 @@ export default {
         el.focus();
       }
     },
-    openPage (){
+    openPage (item){
+      this.publish.pubMusic.chooseMusic = item;
+      console.log(item)
       this.$router.push('/publish/pubMusic');
     },
     focusInput (){

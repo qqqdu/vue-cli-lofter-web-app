@@ -1,3 +1,4 @@
+import axios from 'axios'
 export default {
 	addCount : (store)=>{
 		axios.post('loginOut',{
@@ -10,5 +11,13 @@ export default {
 		}).catch(function(res){
 			console.log(res)
 		})
+	},
+	playMusic : (store,id)=>{
+		return axios.post('/playMusic', 
+        {
+            id : id
+        },{
+         	headers: {'Content-Type': 'application/json'},
+        })
 	}
 }

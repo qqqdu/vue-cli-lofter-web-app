@@ -74,7 +74,7 @@ export default {
         return;
       if(this.discovery.nowPage===index) //如果下标未改变
         return;
-      this.GOTODISCOVER(index)             
+      this.GOTODISCOVER(index);          
       this.lockEnd = false
       return;
     },

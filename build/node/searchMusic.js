@@ -3,7 +3,7 @@
 const URL = 'music.163.com'; //search url
 const port = 80;
 const path = '/api/search/get/web?csrf_token=';
-
+//const path = 'weapi/search/suggest/web?csrf_token='
 /*
 hlpretag=&amp;
 hlposttag=&amp;
@@ -37,7 +37,7 @@ let callMusic = (parems,callback)=>{
 	                           });  
 	        }  
 	        else {  
-	            res.send(500, "error");  
+	            callback&&callback('err'); 
 	        }  
 	    });  
  	req.write(postDate);

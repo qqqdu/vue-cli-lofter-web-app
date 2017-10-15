@@ -86,7 +86,8 @@ export default {
               endT;
       let eventObj = {
         moveEvent :ev=>{
-              console.log(11)
+               ev.stopPropagation();
+              console.log(111);
                this.stopTimer();
                this.checkAll();
                moveX = ev.touches[0].clientX - elX;

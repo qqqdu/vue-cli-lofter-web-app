@@ -59,10 +59,8 @@ export default {
             break;
           case 2:
             audio.pause();
-            
             break;
           case 3:
-            
             break;
           default:
             return;

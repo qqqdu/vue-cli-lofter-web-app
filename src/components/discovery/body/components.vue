@@ -5,7 +5,6 @@ export default {
   render: function(h) {
             let child = [],
                  discovery = this.discovery;
-
             discovery.content.map(function(val){
             	child.push(h(val,{}));
             })

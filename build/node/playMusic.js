@@ -26,18 +26,8 @@ let options = {
 };  
 
 
-  let postDate  = {
-    ids: [418603077],
-    br : 128000,
-    csrf_token: ''
-  }
-  const cryptoreq = Encrypt(postDate)
-  let dataCon = qs.stringify({
-      params: cryptoreq.params,
-      encSecKey: cryptoreq.encSecKey
-    });
-    console.log(dataCon)
-let playMusic = (callback)=>{
+  
+let playMusic = (parems,callback)=>{
 	var req = http.request(options, function (serverFeedback) {  
 	        if (serverFeedback.statusCode == 200) {  
 	            var body = "";  
@@ -47,13 +37,22 @@ let playMusic = (callback)=>{
 	                           });  
 	        }  
 	        else {  
-	            res.send(500, "error");  
+	            callback&&callback('error'); 
 	        }  
 	    });  
-
- 	req.write(
-    dataCon
-  )
-	req.end();  
+    let postDate  = {
+      ids: [parems.id],
+      br : 128000,
+      csrf_token: ''
+    }
+    let cryptoreq = Encrypt(postDate)
+    let dataCon = qs.stringify({
+        params: cryptoreq.params,
+        encSecKey: cryptoreq.encSecKey
+    });
+   	req.write(
+      dataCon
+    )
+  	req.end();  
 }
 module.exports = playMusic;

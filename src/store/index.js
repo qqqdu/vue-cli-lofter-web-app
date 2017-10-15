@@ -8,6 +8,7 @@ import actions from './actions'
 /*myself components*/
 import journey from '../components/discovery/bodyChild/journey'
 import recommend from '../components/discovery/bodyChild/recommend'
+import music from '../components/discovery/bodyChild/music'
 
 Vue.use(Vuex);
 /*
@@ -52,6 +53,9 @@ export default new Vuex.Store({
 			}],
 			icon : {  //图标集
 				setBlod : require('../assets/publish/setBlod.png')
+			},
+			pubMusic : {
+				chooseMusic : null
 			}
 		},	
 		discovery : {
@@ -69,7 +73,7 @@ export default new Vuex.Store({
 		          '穿搭'     
 		      ],
 			nowPage : 0,
-			pageAll : [recommend,journey,recommend,journey,recommend,journey,recommend,journey,],
+			pageAll : [recommend,journey,music,music],
 			whichShow : [true,false],
 			cache : 3,  //cache page num 
 			content : [recommend]
