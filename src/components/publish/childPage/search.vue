@@ -1,6 +1,6 @@
 <template>
     <div class="search"
-         v-on:touchmove='lazyEvent'>
+         v-on:scroll='lazyEvent'>
       <div class="header">
           <div v-on:click='clear' id="clear">
               <input type="text"
@@ -107,17 +107,15 @@ export default {
         this.onoff = true;
       })
     },
-    lazyEvent (){
-       let Element = document.querySelector('img');
+    lazyEvent (ev){
        let relHeight = this.scrollEl.offsetHeight; // section rel height
-       let offsetY = this.scrollEl.getBoundingClientRect().y;
-       let liHeight = document.querySelector('.section li').offsetHeight;
-       if(relHeight-document.documentElement.clientHeight+offsetY<=liHeight){
-          console.log('addEl')
+       let sectionH = document.documentElement.clientHeight - document.querySelector('.header').offsetHeight;
+       if(!this.onoff||this.songCount<=this.offset*this.limit)
+          return;
+       if(relHeight <= this.$el.scrollTop + sectionH){
           this.offset++;
           this.search();
        }
-       //console.log(Element.getBoundingClientRect())
     }
   }
 }

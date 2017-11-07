@@ -12,7 +12,7 @@
           <li>
               <div class="songInf">
                       <h3>{{item&&item.name}}</h3>
-                      <p>{{item&&item.artists[0].name}}</p>
+                      <p>{{item&&item.artists&&item.artists[0].name}}</p>
                       <p>{{item&&item.album.name}}</p>
               </div>
               <div class="songIcon" >
@@ -56,9 +56,13 @@ export default {
       iconEl : null
      }
   },
-  mounted (){
-
+  created (){
     this.item = this.publish.pubMusic.chooseMusic;
+  },
+  mounted (){
+    console.log(this.item)
+    
+    console.log(this.item)
     this.playMusic(this.item.id).then((parse)=>{
       this.audioLink = JSON.parse(parse.data.inf).data[0].url;
     })

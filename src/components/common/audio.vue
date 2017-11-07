@@ -7,9 +7,8 @@
           Your browser does not support the audio element.
       </audio>
       <div class="playCon">
-          
           <a href="javascript:;" 
-             v-on:click='playSong'>
+             v-on:click.stop='playSong'>
                 <span class="playSong"></span>
           </a>
           <div>

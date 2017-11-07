@@ -1,8 +1,8 @@
 <template>
     <div class="slideImg">
       <div class="moveContent"
-           v-on:transitionend="checkAll"
-           v-on:touchstart="bindEvent().touchStart">
+           v-on:transitionend="checkAll" 
+           v-on:touchstart.stop="bindEvent">
          <a v-for='img in imgObj' href="javascript:;">
             <img :src="img.imgUrl" />
          </a>
@@ -65,7 +65,7 @@ export default {
       this.moveImg.el.style.width = (this.imgObj.length+2)*20 + 'rem';
       this.fillHTML();
       this.beginTimer();
-      this.bindEvent();
+      //this.bindEvent();
     },
     beginTimer (){
       if(this.moveImg.timer===null)
@@ -77,7 +77,8 @@ export default {
       this.moveImg.timer = null;
       this.moveImg.el.style.transition = '-1s';
     },
-    bindEvent (){
+    bindEvent (ev){
+
       let el = this.moveImg.el,
               elX,
               nowX,
@@ -87,7 +88,7 @@ export default {
       let eventObj = {
         moveEvent :ev=>{
                ev.stopPropagation();
-              console.log(111);
+             
                this.stopTimer();
                this.checkAll();
                moveX = ev.touches[0].clientX - elX;
@@ -96,6 +97,7 @@ export default {
                endT = new Date();
         },
         endEvent :ev=>{
+            ev.stopPropagation();
             this.beginTimer();
             this.moveImg.el.removeEventListener('touchmove',eventObj.moveEvent,false);
             this.moveImg.el.removeEventListener('touchend',eventObj.endEvent,false);
@@ -118,15 +120,13 @@ export default {
             } 
         }
       };
-      return {
-        touchStart (){
-          elX = ev.touches[0].clientX;
-          console.log(1)
-          startT = new Date();
-          el.addEventListener('touchmove',eventObj.moveEvent)
-          el.addEventListener('touchend',eventObj.endEvent)
-        }
-      }
+      console.log(ev)
+      elX = ev.touches[0].clientX;
+     
+      startT = new Date();
+      el.addEventListener('touchmove',eventObj.moveEvent)
+      el.addEventListener('touchend',eventObj.endEvent)
+        
       // el.addEventListener('touchstart',(ev)=>{
           
       // })

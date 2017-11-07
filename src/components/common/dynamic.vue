@@ -10,7 +10,7 @@
       </div>
       <el-audio v-show='dynamic.audio' v-bind:audio="dynamic.audio"></el-audio>
       <div class="bigImg" v-show="dynamic.img">
-          <img :src="dynamic.img" v-on:click='lookImg'>
+          <img :src="dynamic.img" v-on:click.stop='lookImg'>
       </div>
       <div class="word" v-on:click='gotoPage'>
           <p>{{dynamic.word}}</p>

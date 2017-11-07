@@ -14,8 +14,7 @@ import {mapState, mapMutations} from 'vuex'
 export default {
   name: 'el-body',
   components : {
-    "el-components" : elComponents,
-    "el-recommend" : elRecommend
+    "el-components" : elComponents
   },
   mounted (){
     let that = this;
