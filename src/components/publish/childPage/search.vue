@@ -112,7 +112,7 @@ export default {
        let sectionH = document.documentElement.clientHeight - document.querySelector('.header').offsetHeight;
        if(!this.onoff||this.songCount<=this.offset*this.limit)
           return;
-       if(relHeight <= this.$el.scrollTop + sectionH){
+       if(relHeight <= this.$el.scrollTop + sectionH+50){
           this.offset++;
           this.search();
        }

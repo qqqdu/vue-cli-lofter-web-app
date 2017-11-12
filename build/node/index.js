@@ -1,8 +1,11 @@
 let searchMusic = require('./searchMusic');
 let playMusic = require('./playMusic');
+let readRouter = require('./readRouter');
 let router = app=>{
 	//let myMongoose = require('./router/myMongoose') //引入数据库
-	
+	//测试假数据
+	readRouter(app);
+
 	app.get('/gotherr',function(req,res){
 		res.send({
 			state : true,

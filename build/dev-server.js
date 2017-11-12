@@ -38,6 +38,7 @@ var hotMiddleware = require('webpack-hot-middleware')(compiler, {
 app.use(bodyParser.urlencoded({ extended: false,limit:"10000kb" }));
 var router = require('./node/index'); //myself router
 router(app);
+
 // force page reload when html-webpack-plugin template changes
 compiler.plugin('compilation', function (compilation) {
   compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
@@ -71,7 +72,6 @@ var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsS
 app.use(staticPath, express.static('./static'))
 
 var uri = 'http://localhost:' + port
-
 var _resolve
 var readyPromise = new Promise(resolve => {
   _resolve = resolve
@@ -89,9 +89,10 @@ devMiddleware.waitUntilValid(() => {
 
 var server = app.listen(port)
 
+
 module.exports = {
-  ready: readyPromise,
-  close: () => {
-    server.close()
+    ready: readyPromise,
+    close: () => {
+      server.close()
+    }
   }
-}
