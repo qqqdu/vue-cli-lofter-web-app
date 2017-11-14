@@ -1,4 +1,7 @@
 import axios from 'axios'
+axios.get('http://localhost:12570/getUserInf').then(function(res){
+	console.log(res);
+})
 export default {
 	addCount : (store)=>{
 		axios.post('loginOut',{
